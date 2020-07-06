@@ -1,4 +1,4 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Categorie;
+import com.intiformation.GestionAppCommerce.Modele.Categorie;
 
 public class CategorieDAOImp implements ICategorieDAO{
 	
@@ -29,7 +29,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 			return verifAddCategorie==1;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de l'ajout d'une catégorie");
+			System.out.println("Erreur lors de l'ajout d'une catï¿½gorie");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -58,7 +58,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 			return verifAddCategorie==1;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de l'update d'une catégorie");
+			System.out.println("Erreur lors de l'update d'une catï¿½gorie");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -84,7 +84,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 			return verifDeleteCategorie==1;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de l'update d'une catégorie");
+			System.out.println("Erreur lors de l'update d'une catï¿½gorie");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -115,7 +115,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 			return listeC;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation de la liste des catégories");
+			System.out.println("Erreur lors de la rï¿½cuperation de la liste des catï¿½gories");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -146,7 +146,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 			return categorie;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation de la catégorie GetById");
+			System.out.println("Erreur lors de la rï¿½cuperation de la catï¿½gorie GetById");
 			e.printStackTrace();
 		}finally {
 				try {

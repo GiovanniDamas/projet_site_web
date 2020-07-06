@@ -1,9 +1,9 @@
-package com.intiformation.GestionAppCommerce.service;
+package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Role;
-import com.intiformation.GestionAppCommerce.modele.User;
+import com.intiformation.GestionAppCommerce.Modele.Role;
+import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**
  * interface de la couche service pour l'user permettant d'afficher les fonctionnalités de l'user

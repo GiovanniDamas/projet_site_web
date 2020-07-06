@@ -1,8 +1,8 @@
-package com.intiformation.GestionAppCommerce.modele;
+package com.intiformation.GestionAppCommerce.Modele;
 
 public class Produit {
 	
-	//Propriétés
+	//Propriï¿½tï¿½s
 	private int idProduit, quantite, idCategorie;
 	private String nomProduit, description, photo;
 	private double prix;

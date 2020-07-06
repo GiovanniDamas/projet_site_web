@@ -1,7 +1,7 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
-import com.intiformation.GestionAppCommerce.modele.Role;
-import com.intiformation.GestionAppCommerce.modele.User;
+import com.intiformation.GestionAppCommerce.Modele.Role;
+import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**
  * Interface DAO de l'user qui hérite de l'interface IGENERICDAO

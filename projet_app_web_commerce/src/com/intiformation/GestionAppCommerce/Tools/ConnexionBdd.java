@@ -1,4 +1,4 @@
-package com.intiformation.GestionAppCommerce.tools;
+package com.intiformation.GestionAppCommerce.Tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Commande;
+import com.intiformation.GestionAppCommerce.Modele.Commande;
 
 public class CommandeDAOImp implements ICommandeDAO{
 	
@@ -113,7 +113,7 @@ public class CommandeDAOImp implements ICommandeDAO{
 			return listeC;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation de la liste des commandes");
+			System.out.println("Erreur lors de la rï¿½cuperation de la liste des commandes");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -142,7 +142,7 @@ public class CommandeDAOImp implements ICommandeDAO{
 			return commande;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation de la commande");
+			System.out.println("Erreur lors de la rï¿½cuperation de la commande");
 			e.printStackTrace();
 		}finally {
 				try {

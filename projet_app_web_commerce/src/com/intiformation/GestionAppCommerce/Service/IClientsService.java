@@ -1,8 +1,8 @@
-package com.intiformation.GestionAppCommerce.service;
+package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Clients;
+import com.intiformation.GestionAppCommerce.Modele.Clients;
 
 /**
  * interface de la couche service pour le client <br/>

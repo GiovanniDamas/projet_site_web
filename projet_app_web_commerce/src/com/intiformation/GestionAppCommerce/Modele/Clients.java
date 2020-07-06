@@ -1,4 +1,4 @@
-package com.intiformation.GestionAppCommerce.modele;
+package com.intiformation.GestionAppCommerce.Modele;
 
 public class Clients {
 	

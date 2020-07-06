@@ -2,9 +2,9 @@ package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.dao.IProduitDAO;
-import com.intiformation.GestionAppCommerce.dao.ProduitDAOImp;
-import com.intiformation.GestionAppCommerce.modele.Produit;
+import com.intiformation.GestionAppCommerce.Dao.IProduitDAO;
+import com.intiformation.GestionAppCommerce.Dao.ProduitDAOImp;
+import com.intiformation.GestionAppCommerce.Modele.Produit;
 
 public class ProduitServiceImp implements IProduitService{
 	

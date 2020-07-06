@@ -1,9 +1,9 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.Connection;
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.tools.ConnexionBdd;
+import com.intiformation.GestionAppCommerce.Tools.ConnexionBdd;
 
 public interface IGenericDAO <T> {
 

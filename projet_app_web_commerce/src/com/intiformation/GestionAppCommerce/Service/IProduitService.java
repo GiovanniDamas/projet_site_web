@@ -2,7 +2,7 @@ package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Produit;
+import com.intiformation.GestionAppCommerce.Modele.Produit;
 
 public interface IProduitService {
 	

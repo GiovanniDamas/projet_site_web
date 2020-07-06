@@ -1,4 +1,4 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Role;
-import com.intiformation.GestionAppCommerce.modele.User;
+import com.intiformation.GestionAppCommerce.Modele.Role;
+import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**
  * Classe qui implémente la couche DAO de l'User

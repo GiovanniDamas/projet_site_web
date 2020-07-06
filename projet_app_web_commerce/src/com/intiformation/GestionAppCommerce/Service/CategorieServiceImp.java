@@ -2,9 +2,9 @@ package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.dao.CategorieDAOImp;
-import com.intiformation.GestionAppCommerce.dao.ICategorieDAO;
-import com.intiformation.GestionAppCommerce.modele.Categorie;
+import com.intiformation.GestionAppCommerce.Dao.CategorieDAOImp;
+import com.intiformation.GestionAppCommerce.Dao.ICategorieDAO;
+import com.intiformation.GestionAppCommerce.Modele.Categorie;
 
 public class CategorieServiceImp implements ICategorieService{
 	

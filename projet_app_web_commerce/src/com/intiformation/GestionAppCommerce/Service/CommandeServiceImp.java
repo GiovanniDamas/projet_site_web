@@ -2,9 +2,9 @@ package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.dao.CommandeDAOImp;
-import com.intiformation.GestionAppCommerce.dao.ICommandeDAO;
-import com.intiformation.GestionAppCommerce.modele.Commande;
+import com.intiformation.GestionAppCommerce.Dao.CommandeDAOImp;
+import com.intiformation.GestionAppCommerce.Dao.ICommandeDAO;
+import com.intiformation.GestionAppCommerce.Modele.Commande;
 
 public class CommandeServiceImp implements ICommandeService {
 	

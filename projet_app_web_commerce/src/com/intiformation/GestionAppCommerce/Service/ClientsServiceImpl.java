@@ -1,10 +1,10 @@
-package com.intiformation.GestionAppCommerce.service;
+package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.dao.ClientsDAOImpl;
-import com.intiformation.GestionAppCommerce.dao.IClientDAO;
-import com.intiformation.GestionAppCommerce.modele.Clients;
+import com.intiformation.GestionAppCommerce.Dao.ClientsDAOImpl;
+import com.intiformation.GestionAppCommerce.Dao.IClientDAO;
+import com.intiformation.GestionAppCommerce.Modele.Clients;
 
 /**
  * Classe implémentant l'interface IClientService

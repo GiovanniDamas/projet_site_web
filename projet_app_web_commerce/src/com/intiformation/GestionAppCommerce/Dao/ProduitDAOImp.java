@@ -1,4 +1,4 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Produit;
+import com.intiformation.GestionAppCommerce.Modele.Produit;
 
 public class ProduitDAOImp implements IProduitDAO{
 	
@@ -16,7 +16,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public boolean add(Produit produit) {
 		try {
-			String requeteAddProduit = "insert into produit (nomProduit,description,prix,quantité,selectionner,photo,categorieID) values (?,?,?,?,?,?,?);";
+			String requeteAddProduit = "insert into produit (nomProduit,description,prix,quantitï¿½,selectionner,photo,categorieID) values (?,?,?,?,?,?,?);";
 			ps = this.connection.prepareStatement(requeteAddProduit);
 			
 			ps.setString(1, produit.getNomProduit());
@@ -49,7 +49,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public boolean update(Produit produit) {
 		try {
-			String requeteUpdateProduit = "update produit set nomProduit=?,description=?,prix=?,quantité=?,selectionner=?,photo=?,categorieID=? where idProduit=?;";
+			String requeteUpdateProduit = "update produit set nomProduit=?,description=?,prix=?,quantitï¿½=?,selectionner=?,photo=?,categorieID=? where idProduit=?;";
 			ps = this.connection.prepareStatement(requeteUpdateProduit);
 			
 			ps.setString(1, produit.getNomProduit());
@@ -109,7 +109,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getAll() {
 		try {
-			String requeteGetAllProduit = "select idProduit,quantité,categorieID,nomProduit, description,photo,prix,selectionner from produit;";
+			String requeteGetAllProduit = "select idProduit,quantitï¿½,categorieID,nomProduit, description,photo,prix,selectionner from produit;";
 			ps = this.connection.prepareStatement(requeteGetAllProduit);
 			
 			rs = ps.executeQuery();
@@ -124,7 +124,7 @@ public class ProduitDAOImp implements IProduitDAO{
 			return listeP;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation de la liste des produits");
+			System.out.println("Erreur lors de la rï¿½cuperation de la liste des produits");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -141,7 +141,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public Produit getById(Integer idProduit) {
 		try {
-			String requeteGetByIdProduit = "select idProduit,quantité,categorieID,nomProduit, description,photo,prix,selectionner from produit where idProduit=?;";
+			String requeteGetByIdProduit = "select idProduit,quantitï¿½,categorieID,nomProduit, description,photo,prix,selectionner from produit where idProduit=?;";
 			ps = this.connection.prepareStatement(requeteGetByIdProduit);
 			ps.setInt(1, idProduit);
 			
@@ -154,7 +154,7 @@ public class ProduitDAOImp implements IProduitDAO{
 			return produit;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation du produit GetById");
+			System.out.println("Erreur lors de la rï¿½cuperation du produit GetById");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -171,7 +171,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getByCategorie(String nomCategorie) {
 		try {
-			String requeteGetByCategorie = "select p.idProduit,p.quantité,p.categorieID,p.nomProduit, p.description,p.photo,p.prix,p.selectionner from produit p , categorie c where p.categorieID=c.idCategorie and nomCategorie=?";
+			String requeteGetByCategorie = "select p.idProduit,p.quantitï¿½,p.categorieID,p.nomProduit, p.description,p.photo,p.prix,p.selectionner from produit p , categorie c where p.categorieID=c.idCategorie and nomCategorie=?";
 			ps = this.connection.prepareStatement(requeteGetByCategorie);
 			ps.setString(1, nomCategorie);
 			
@@ -186,7 +186,7 @@ public class ProduitDAOImp implements IProduitDAO{
 			return listeP;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation du produit getByCategorie");
+			System.out.println("Erreur lors de la rï¿½cuperation du produit getByCategorie");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -203,7 +203,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getByKeywords(String motsCles) {
 		try {
-			String requeteGetByCategorie = "select idProduit,quantité,categorieID,nomProduit, description,photo,prix,selectionner from produit where description regexp ?;";
+			String requeteGetByCategorie = "select idProduit,quantitï¿½,categorieID,nomProduit, description,photo,prix,selectionner from produit where description regexp ?;";
 			ps = this.connection.prepareStatement(requeteGetByCategorie);
 			ps.setString(1, motsCles);
 			
@@ -218,7 +218,7 @@ public class ProduitDAOImp implements IProduitDAO{
 			return listeP;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation du produit getByKeywords");
+			System.out.println("Erreur lors de la rï¿½cuperation du produit getByKeywords");
 			e.printStackTrace();
 		}finally {
 				try {
@@ -235,7 +235,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getBySelectionne() {
 		try {
-			String requeteGetByCategorie = "select idProduit,quantité,categorieID,nomProduit, description,photo,prix,selectionner from produit where selectionner=1;";
+			String requeteGetByCategorie = "select idProduit,quantitï¿½,categorieID,nomProduit, description,photo,prix,selectionner from produit where selectionner=1;";
 			ps = this.connection.prepareStatement(requeteGetByCategorie);
 			
 			rs = ps.executeQuery();
@@ -249,7 +249,7 @@ public class ProduitDAOImp implements IProduitDAO{
 			return listeP;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de la récuperation du produit getByKeywords");
+			System.out.println("Erreur lors de la rï¿½cuperation du produit getByKeywords");
 			e.printStackTrace();
 		}finally {
 				try {

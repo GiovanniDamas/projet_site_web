@@ -1,11 +1,11 @@
-package com.intiformation.GestionAppCommerce.service;
+package com.intiformation.GestionAppCommerce.Service;
 
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.dao.IUserDAO;
-import com.intiformation.GestionAppCommerce.dao.UserDAOImpl;
-import com.intiformation.GestionAppCommerce.modele.Role;
-import com.intiformation.GestionAppCommerce.modele.User;
+import com.intiformation.GestionAppCommerce.Dao.IUserDAO;
+import com.intiformation.GestionAppCommerce.Dao.UserDAOImpl;
+import com.intiformation.GestionAppCommerce.Modele.Role;
+import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**
  * Classe qui implémente la couche service de l'user

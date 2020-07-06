@@ -1,10 +1,10 @@
-package com.intiformation.GestionAppCommerce.dao;
+package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import com.intiformation.GestionAppCommerce.modele.Clients;
+import com.intiformation.GestionAppCommerce.Modele.Clients;
 
 
 
