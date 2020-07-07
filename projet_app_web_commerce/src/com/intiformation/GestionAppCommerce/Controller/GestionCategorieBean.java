@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -73,7 +74,7 @@ public class GestionCategorieBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		
 		// CAS AJOUT CATEGORIE
-		if (categorie.getIdCategorie() == 0) {
+		if(uploadedFile != null) {
 
 			try {
 				String fileName = FilenameUtils.getName(uploadedFile.getFileName());
@@ -82,9 +83,11 @@ public class GestionCategorieBean implements Serializable {
 				categorie.setPhoto(fileName);
 
 				InputStream input = uploadedFile.getInputstream();
+				String filePath = "/projet_app_web_commerce/WebContent/resources/images/";
+				
+				File targetFile = new File(filePath, fileName);
 
-				File targetFile = new File("images/", fileName);
-
+				
 				// instanciation du flux de sortie vers le fichier image
 				OutputStream output = new FileOutputStream(targetFile);
 
@@ -126,9 +129,22 @@ public class GestionCategorieBean implements Serializable {
 
 			return "ajouterCategories.xhtml";
 		} // END ELSE
-	}
+		
+	}//END ajouter()
+	
+	public void suppCat(ActionEvent event) {
+		
+		UIParameter component = (UIParameter) event.getComponent().findComponent("deleteID");
+		int idCat = (int) component.getValue();
+		
+		categorieDAO.delete(idCat);
+	
+	}//END suppCat
+	
+	
 
-	// getter/setters
+	///////// getter/setters ///////////////////
+	
 	public Categorie getCategorie() {
 		if (categorie == null) {
 			categorie = new Categorie();

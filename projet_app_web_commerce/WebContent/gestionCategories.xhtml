@@ -87,8 +87,9 @@
 				</f:facet>
 
 				<!-- données de la colonne -->
-				<p:commandButton action="#{categorieBean.suppCat}" id="iconOnly"
+				<p:commandButton action="gestionCat" actionListener="#{categorieBean.suppCat}"  id="iconOnly"
 					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
+					<f:param id="deleteID" name="id" value="#{cat.idCategorie}"/>
 			</h:column>
 
 		</h:dataTable>

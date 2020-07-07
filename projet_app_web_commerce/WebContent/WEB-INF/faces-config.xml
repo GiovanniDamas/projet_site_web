@@ -25,6 +25,18 @@
 			<!-- redirection -->
 			<redirect />
 		</navigation-case>
+
+
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+
 	</navigation-rule>
 
 </faces-config>

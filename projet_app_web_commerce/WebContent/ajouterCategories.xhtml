@@ -35,8 +35,8 @@
 		<p:fileUpload value="#{categorieBean.categorie.photo}" mode="simple"
 			skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 		<br />
-		<p:commandButton value="Submit" ajax="false"
-			action="#{categorieBean.saveCat()}" />
+	<!-- <p:commandButton value="Submit" ajax="false"
+			action="#{categorieBean.saveCat()}" disabled="true"/> -->
 
 		<p:commandButton value="Ajouter" id="withIcon"
 			action="#{categorieBean.ajouter()}" style="margin-right:20px;"
