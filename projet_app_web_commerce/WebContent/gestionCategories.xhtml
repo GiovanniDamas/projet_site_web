@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>page d'accueil de la gestion des catégories</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+	
+	
+
+</h:head>
+<body>
+
+	<h:form>
+		<h3>Ajouter une categorie</h3>
+		<p:commandButton value="Ajouter une catégorie" id="withIcon"
+			action="addCat" actionListener="#{categorieBean.initialiserCat}"
+			style="margin-right:20px;" icon="pi pi-save" />
+	</h:form>
+	<br />
+
+
+
+
+	<h:form>
+		<h:dataTable value="#{categorieBean.findAllCat()}" var="cat">
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="ID Categorie" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:outputText value="#{cat.idCategorie}" />
+			</h:column>
+
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Nom Catégorie" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:outputText value="#{cat.nomCategorie}" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Description" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:outputText value="#{cat.description}" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Photo" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:graphicImage library="images" name="#{cat.photo}"
+					width="80" height="120" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Modifier" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<p:commandButton action="modifCat" id="IconOnly" 
+						actionListener="#{categorieBean.modifCat}"
+						style="margin-right:20px;" icon="pi pi-pencil" title="Icon Only"/>
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Supprimer" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<p:commandButton action="#{categorieBean.suppCat}" id="iconOnly"
+					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+
+
+</body>
+</html>

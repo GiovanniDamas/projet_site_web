@@ -79,7 +79,9 @@ public class UserDAOImpl implements IUserDAO {
 			System.out.println("... update() : Erreur lors de la modification d'un user dans UserDAOImpl ");
 		} finally {
 			try {
+				if (ps != null) 
 				ps.close();
+				
 			} catch (Exception e) {
 
 			} // END CATCH
@@ -108,7 +110,8 @@ public class UserDAOImpl implements IUserDAO {
 			System.out.println("... delete() : Erreur lors de la suppression d'un user dans UserDAOImpl ");
 		} finally {
 			try {
-				ps.close();
+				if (ps != null) 
+					ps.close();
 			} catch (Exception e) {
 
 			} // END CATCH
@@ -145,8 +148,10 @@ public class UserDAOImpl implements IUserDAO {
 			System.out.println("... getAll() : Erreur lors de la récupération de liste des users dans UserDAOImpl ");
 		} finally {
 			try {
-				ps.close();
-				rs.close();
+				if (ps != null) 
+					ps.close();
+				if (rs != null) 
+					rs.close();
 			} catch (Exception e) {
 
 			} // END CATCH
@@ -183,8 +188,10 @@ public class UserDAOImpl implements IUserDAO {
 			System.out.println("... getById() : Erreur lors de la récupération de l'user en fonction de son ID dans UserDAOImpl ");
 		} finally {
 			try {
-				ps.close();
-				rs.close();
+				if (ps != null) 
+					ps.close();
+				if (rs != null) 
+					rs.close();
 			} catch (Exception e) {
 
 			} // END CATCH
@@ -220,8 +227,10 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 		}finally {
 			try {
-				ps.close();
-				rs.close();
+				if (ps != null) 
+					ps.close();
+				if (rs != null) 
+					rs.close();
 			} catch (Exception e) {
 				
 			} // END CATCH
@@ -252,7 +261,8 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 		}finally {
 			try {
-				ps.close();
+				if (ps != null) 
+					ps.close();
 	
 			} catch (Exception e) {
 				
@@ -285,7 +295,8 @@ public class UserDAOImpl implements IUserDAO {
 			e.printStackTrace();
 		}finally {
 			try {
-				ps.close();
+				if (ps != null) 
+					ps.close();
 	
 			} catch (Exception e) {
 				
