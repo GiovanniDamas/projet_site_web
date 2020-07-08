@@ -19,6 +19,7 @@
 <body>
 
 	<h:form>
+		<p:growl id="growl" life="2000" />
 		<div>
 			<h3>Ajouter une categorie</h3>
 			<p:commandButton value="Ajouter une catégorie" id="withIcon"
@@ -27,13 +28,13 @@
 		</div>
 		<div>
 			<h3>Gestion des admins</h3>
-			<p:commandButton id="withIcon" action="gestionUser"
-				style="margin-right:20px;" icon="pi pi-save" />
+			<p:commandButton value="Gestion des admins" id="ajax" update="growl"
+				action="gestionUser" style="margin-right:20px;"
+				styleClass="ui-priority-primary" />
+
 		</div>
 	</h:form>
 	<br />
-
-
 
 
 	<h:form>

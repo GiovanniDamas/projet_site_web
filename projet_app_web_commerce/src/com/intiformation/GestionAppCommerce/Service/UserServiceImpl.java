@@ -58,8 +58,8 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public boolean updateRole(Role pRole, Integer pIdUser) {
-		return userDAO.updateRole(pRole, pIdUser);
+	public boolean updateRole(String pRoleName, Integer pIdUser) {
+		return userDAO.updateRole(pRoleName, pIdUser);
 	}
 
 }//END CLASS

@@ -278,14 +278,14 @@ public class UserDAOImpl implements IUserDAO {
 	}//END attribuerRole
 
 	@Override
-	public boolean updateRole(Role pRole, Integer pIdUser) {
+	public boolean updateRole(String pRoleName, Integer pIdUser) {
 		
 		try {
 			//preparation requete 
 			ps = this.connection.prepareStatement("UPDATE role SET roleName =? ,userID=?");
 			
 			//passage de param 
-			ps.setString(1, pRole.getRoleName());
+			ps.setString(1, pRoleName);
 			ps.setInt(2, pIdUser);
 			
 			//envoie et exécution requete

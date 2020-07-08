@@ -105,7 +105,7 @@ public class GestionCategorieBean implements Serializable {
 
 	}// END saveCat
 
-	public String ajouterUser() {
+	public String ajouter() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 

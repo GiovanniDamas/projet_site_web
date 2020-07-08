@@ -27,7 +27,7 @@ public interface IUserService {
 	
 	public boolean attribuerRole(Role pRole, Integer pIdUser);
 	
-	public boolean updateRole (Role pRole, Integer pIdUser);
+	public boolean updateRole (String pRoleName, Integer pIdUser);
 	
 	
 }//END INTERFACE

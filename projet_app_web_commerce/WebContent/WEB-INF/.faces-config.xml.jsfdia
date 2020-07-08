@@ -30,5 +30,14 @@
  <PROCESS-ITEM NAME="rules:#modifierCategories.xhtml"
   PATH="/modifierCategories.xhtml" SHAPE="304,241,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#gestionUser.xhtml" PATH="/gestionUser.xhtml"
-  SHAPE="304,353,0,0" model-entity="JSFProcessGroup"/>
+  SHAPE="304,353,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#gestionUser.xhtml:0" NAME="item"
+   PATH="/gestionUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="modifUser::#modifierUser.xhtml"
+    NAME="output" PATH="/modifierUser.xhtml"
+    TARGET="rules:#modifierUser.xhtml" TITLE="modifUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#modifierUser.xhtml"
+  PATH="/modifierUser.xhtml" SHAPE="512,449,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

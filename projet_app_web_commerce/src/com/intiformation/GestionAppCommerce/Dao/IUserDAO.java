@@ -14,7 +14,7 @@ public interface IUserDAO extends IGenericDAO<User>{
 	
 	public boolean attribuerRole(Role role, Integer idUser);
 	
-	public boolean updateRole (Role role, Integer idUser);
+	public boolean updateRole (String RoleName, Integer idUser);
 
 
 
