@@ -1,5 +1,6 @@
 package com.intiformation.GestionAppCommerce.Modele;
 
+
 public class Role {
 	
 	//Propriete
@@ -26,6 +27,8 @@ public class Role {
 	public Role(String roleName) {
 		this.roleName = roleName;
 	}
+	
+	
 
 	//Getter Setter
 	
@@ -47,5 +50,7 @@ public class Role {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+
 	
-}
+	
+}//END CLASS

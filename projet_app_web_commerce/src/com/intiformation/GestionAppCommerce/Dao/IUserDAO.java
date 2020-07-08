@@ -12,9 +12,9 @@ public interface IUserDAO extends IGenericDAO<User>{
 		
 	public boolean isUserExists(String pIdentifiant, String pMotDePasse);
 	
-	public boolean attribuerRole(Role role, Integer idUser);
+	public boolean attribuerRole(String roleName, Integer idUser);
 	
-	public boolean updateRole (String RoleName, Integer idUser);
+	public boolean updateRole (String roleName, Integer idUser);
 
 
 

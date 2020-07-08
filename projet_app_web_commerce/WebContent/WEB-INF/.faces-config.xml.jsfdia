@@ -33,11 +33,20 @@
   SHAPE="304,353,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#gestionUser.xhtml:0" NAME="item"
    PATH="/gestionUser.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="modifUser::#modifierUser.xhtml"
-    NAME="output" PATH="/modifierUser.xhtml"
-    TARGET="rules:#modifierUser.xhtml" TITLE="modifUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="addUser::#ajouterUser.xhtml" NAME="output"
+    PATH="/ajouterUser.xhtml" TARGET="rules:#ajouterUser.xhtml"
+    TITLE="addUser" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#modifierUser.xhtml"
   PATH="/modifierUser.xhtml" SHAPE="512,449,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#ajouterUser.xhtml" PATH="/ajouterUser.xhtml"
+  SHAPE="512,449,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#ajouterUser.xhtml:0" NAME="item"
+   PATH="/ajouterUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionUser::#gestionUser.xhtml"
+    NAME="output" PATH="/gestionUser.xhtml"
+    TARGET="rules:#gestionUser.xhtml" TITLE="gestionUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

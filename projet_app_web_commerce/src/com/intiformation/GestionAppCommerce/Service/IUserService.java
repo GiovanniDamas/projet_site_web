@@ -25,7 +25,7 @@ public interface IUserService {
 	
 	public boolean isUserExists(String pIdentifiant, String pMotDePasse);
 	
-	public boolean attribuerRole(Role pRole, Integer pIdUser);
+	public boolean attribuerRole(String pRoleName, Integer pIdUser);
 	
 	public boolean updateRole (String pRoleName, Integer pIdUser);
 	

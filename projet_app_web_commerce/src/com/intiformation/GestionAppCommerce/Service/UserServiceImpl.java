@@ -53,8 +53,8 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public boolean attribuerRole(Role pRole, Integer pIdUser) {
-		return userDAO.attribuerRole(pRole, pIdUser);
+	public boolean attribuerRole(String pRoleName, Integer pIdUser) {
+		return userDAO.attribuerRole(pRoleName, pIdUser);
 	}
 
 	@Override

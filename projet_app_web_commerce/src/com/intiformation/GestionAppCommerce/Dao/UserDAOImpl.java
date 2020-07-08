@@ -244,14 +244,14 @@ public class UserDAOImpl implements IUserDAO {
 	}//END isUserExists
 
 	@Override
-	public boolean attribuerRole(Role pRole, Integer pIdUser) {
+	public boolean attribuerRole(String pRoleName, Integer pIdUser) {
 
 		try {
 			//preparation requete 
 			ps = this.connection.prepareStatement("INSERT INTO role (roleName,userID) VALUES (?,?)");
 			
 			//passage de param 
-			ps.setString(1, pRole.getRoleName());
+			ps.setString(1, pRoleName);
 			ps.setInt(2, pIdUser);
 			
 			//envoie et exécution requete
