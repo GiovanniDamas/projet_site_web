@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#gestionCategories.xhtml"
+  PATH="/gestionCategories.xhtml" SHAPE="48,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#gestionCategories.xhtml:0" NAME="item"
+   PATH="/gestionCategories.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionCat::#gestionCategories.xhtml"
+    NAME="output" PATH="/gestionCategories.xhtml"
+    TARGET="rules:#gestionCategories.xhtml" TITLE="gestionCat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="addCat::#ajouterCategories.xhtml"
+    NAME="output1" PATH="/ajouterCategories.xhtml"
+    TARGET="rules:#ajouterCategories.xhtml" TITLE="addCat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="modifCat::#modifierCategories.xhtml"
+    NAME="output2" PATH="/modifierCategories.xhtml"
+    TARGET="rules:#modifierCategories.xhtml" TITLE="modifCat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="gestionUser::#gestionUser.xhtml"
+    NAME="output3" PATH="/gestionUser.xhtml"
+    TARGET="rules:#gestionUser.xhtml" TITLE="gestionUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#ajouterCategories.xhtml"
+  PATH="/ajouterCategories.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#ajouterCategories.xhtml:0" NAME="item"
+   PATH="/ajouterCategories.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionCat::#gestionCategories.xhtml"
+    NAME="output" PATH="/gestionCategories.xhtml"
+    TARGET="rules:#gestionCategories.xhtml" TITLE="gestionCat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#modifierCategories.xhtml"
+  PATH="/modifierCategories.xhtml" SHAPE="304,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#gestionUser.xhtml" PATH="/gestionUser.xhtml"
+  SHAPE="304,353,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

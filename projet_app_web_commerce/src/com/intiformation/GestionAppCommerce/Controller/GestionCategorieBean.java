@@ -18,9 +18,11 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.shaded.commons.io.FilenameUtils;
 
+import org.apache.commons.io.FileUtils;
 
 import com.intiformation.GestionAppCommerce.Dao.CategorieDAOImp;
 import com.intiformation.GestionAppCommerce.Dao.ICategorieDAO;
@@ -40,7 +42,7 @@ public class GestionCategorieBean implements Serializable {
 	private List<Categorie> listeCatBdd;
 	private Categorie categorie;
 
-	private UploadedFile uploadedFile;
+
 
 	// DAO
 	private ICategorieDAO categorieDAO;
@@ -54,6 +56,7 @@ public class GestionCategorieBean implements Serializable {
 	}
 
 	// methodes
+
 	public List<Categorie> findAllCat() {
 		listeCatBdd = categorieDAO.getAll();
 
@@ -69,47 +72,40 @@ public class GestionCategorieBean implements Serializable {
 		setCategorie(categorie);
 	}// END initialiser
 
-	public void saveCat() {
+	public void handleFileUpload(FileUploadEvent event) {
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		
-		// CAS AJOUT CATEGORIE
-		if(uploadedFile != null) {
+		if (categorie.getIdCategorie() == 0) {
+
+			UploadedFile uploadedFile = (UploadedFile) event.getFile();
+
+			String fileName = FilenameUtils.getName(uploadedFile.getFileName());
+
+			// affectation image
+			categorie.setPhoto(fileName);
+
+			categorieDAO.add(categorie);
+
+			InputStream imageContent = null;
 
 			try {
-				String fileName = FilenameUtils.getName(uploadedFile.getFileName());
-
-				// affectation image
-				categorie.setPhoto(fileName);
-
-				InputStream input = uploadedFile.getInputstream();
-				String filePath = "/projet_app_web_commerce/WebContent/resources/images/";
-				
-				File targetFile = new File(filePath, fileName);
-
-				
-				// instanciation du flux de sortie vers le fichier image
-				OutputStream output = new FileOutputStream(targetFile);
-
-				byte[] buf = new byte[1024];
-				int len;
-
-				while ((len = input.read(buf)) > 0) {
-					output.write(buf, 0, len);
-				}
-
-				output.close();
-
-			} catch (Exception e) {
-				Logger.getLogger(GestionCategorieBean.class.getName()).log(Level.SEVERE, null, e);
-
+				imageContent = uploadedFile.getInputstream();
+			} catch (IOException e) {
 			} // END CATCH
 
-		} // END IF
+			String destPath = "/projet_app_web_commerce/WebContent/resources/images/";
+			File destFile = new File(destPath);
+
+			try {
+				FileUtils.copyInputStreamToFile(imageContent, destFile);
+			} catch (IOException ex) {
+				// log error
+			} // END CATCH
+		
+		}//END IF
 
 	}// END saveCat
 
-	public String ajouter() {
+	public String ajouterUser() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
@@ -129,22 +125,67 @@ public class GestionCategorieBean implements Serializable {
 
 			return "ajouterCategories.xhtml";
 		} // END ELSE
-		
-	}//END ajouter()
-	
+
+	}// END ajouter()
+
+	/**
+	 * méthode pour recupérer une categorie par son id
+	 */
+	public void selectCat(ActionEvent event) {
+
+		UIParameter component = (UIParameter) event.getComponent().findComponent("updateID");
+		int idCat = (int) component.getValue();
+
+		Categorie categorie = categorieDAO.getById(idCat);
+
+		setCategorie(categorie);
+
+	}// END selectCat
+
+	/**
+	 * Méthode pour supprimer une catégorie
+	 * 
+	 * @param event
+	 */
 	public void suppCat(ActionEvent event) {
-		
+
 		UIParameter component = (UIParameter) event.getComponent().findComponent("deleteID");
 		int idCat = (int) component.getValue();
-		
+
 		categorieDAO.delete(idCat);
-	
-	}//END suppCat
-	
-	
+
+	}// END suppCat
+
+	/**
+	 * methode pour modifier une catégorie
+	 * 
+	 * @return
+	 */
+	public String modifierCat() {
+
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		if (categorieDAO.update(categorie)) {
+
+			// if modif ok //
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification d'une catégorie",
+					" - La catégorie à bien été modifiée "));
+
+			return "gestionCategories.xhtml";
+
+		} else {
+			// ajout not ok//
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Modification une catégorie",
+					" - La modification de la catégorie à échouée ! "));
+
+			return "modifierCategories.xhtml";
+
+		} // END ELSE
+
+	}// END modifierCat
 
 	///////// getter/setters ///////////////////
-	
+
 	public Categorie getCategorie() {
 		if (categorie == null) {
 			categorie = new Categorie();

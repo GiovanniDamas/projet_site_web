@@ -1,6 +1,6 @@
 package com.intiformation.GestionAppCommerce.Modele;
 
-public class User {
+public class User extends Role{
 	
 	//Propriete
 	
@@ -20,14 +20,23 @@ public class User {
 		this.actived = actived;
 	}
 	
-	public User(String userName, String password, boolean actived) {
+	/**
+	 * Ctor roleName de la classe Role 
+	 * @param userName
+	 * @param password
+	 * @param actived
+	 * @param roleName
+	 */
+	public User(int idUser,String userName, String password, boolean actived, String roleName) {
+		super(roleName);
+		this.idUser = idUser;
 		this.userName = userName;
 		this.password = password;
 		this.actived = actived;
 	}
 	
 	//Getter Setter
-	
+
 	public int getIdUser() {
 		return idUser;
 	}

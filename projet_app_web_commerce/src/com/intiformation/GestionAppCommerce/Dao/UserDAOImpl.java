@@ -125,7 +125,10 @@ public class UserDAOImpl implements IUserDAO {
 		try {
 
 			// preparation de la requête
-			ps = this.connection.prepareStatement("SELECT * FROM users");
+			ps = this.connection.prepareStatement("SELECT idUser, identifiant, password, actived, roleName\n" + 
+					"FROM users AS u\n" + 
+					"RIGHT JOIN role AS r\n" + 
+					"ON u.idUser = r.userID;");
 			
 			//envoie et exécution de la requete
 			rs = ps.executeQuery();
@@ -137,7 +140,8 @@ public class UserDAOImpl implements IUserDAO {
 				User user = new User(rs.getInt(1), 
 									 rs.getString(2), 
 									 rs.getString(3), 
-									 rs.getBoolean(4));
+									 rs.getBoolean(4),
+									 rs.getString(5));
 				
 				listeUser.add(user);
 			}//END WHILE

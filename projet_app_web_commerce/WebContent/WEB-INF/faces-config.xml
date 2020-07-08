@@ -1,20 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<?xml version="1.0"?>
+<faces-config version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
-	version="2.3">
-
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	
 	<!-- ========================================================== -->
 	<!-- ======= CONFIGURATION DE LA NAVIGATION =================== -->
 	<!-- ========================================================== -->
 
 
-	<!-- 1 règle de naviation pour la page 'accueil.xhtml' -->
+	<!-- 1 règle de naviation pour la page 'gestionCat.xhtml' -->
 	<!-- ================================================= -->
 	<navigation-rule>
 
 		<!-- page de départ -->
 		<from-view-id>/gestionCategories.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation : de gestionCategories.xhtml vers gestionCategories.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
 
 		<!-- 1.2 cas de navigation : de gestionCategories.xhtml vers ajouterCategories.xhtml -->
 		<navigation-case>
@@ -26,6 +36,33 @@
 			<redirect />
 		</navigation-case>
 
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>modifCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/modifierCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+	<!-- 1 règle de naviation pour la page 'gestionCat.xhtml' -->
+	<!-- ================================================= -->
+	<navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/ajouterCategories.xhtml</from-view-id>
 
 		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
 		<navigation-case>
@@ -36,7 +73,6 @@
 			<!-- redirection -->
 			<redirect />
 		</navigation-case>
-
 	</navigation-rule>
-
+	
 </faces-config>
