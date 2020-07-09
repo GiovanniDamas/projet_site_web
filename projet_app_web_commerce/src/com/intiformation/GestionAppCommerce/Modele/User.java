@@ -35,6 +35,13 @@ public class User extends Role{
 		this.actived = actived;
 	}
 	
+	
+	public User(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+
 	//Getter Setter
 
 	public int getIdUser() {

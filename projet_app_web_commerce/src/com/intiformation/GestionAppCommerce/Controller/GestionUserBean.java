@@ -11,9 +11,11 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.CellEditEvent;
+
 import com.intiformation.GestionAppCommerce.Dao.IUserDAO;
 import com.intiformation.GestionAppCommerce.Dao.UserDAOImpl;
-import com.intiformation.GestionAppCommerce.Modele.Categorie;
 import com.intiformation.GestionAppCommerce.Modele.Role;
 import com.intiformation.GestionAppCommerce.Modele.User;
 
@@ -31,10 +33,6 @@ public class GestionUserBean implements Serializable {
 	private List<User> listeUserBdd;
 	private User user;
 	private String roleName;
-
-	private String[] actif = { "Oui", "Non" };
-
-	private String[] role = { "AdminCat", "AdminProd" };
 
 	// DAO
 	IUserDAO userDAO;
@@ -57,8 +55,7 @@ public class GestionUserBean implements Serializable {
 
 		return listeUserBdd;
 	}// END METHOD
-	
-	
+
 	/**
 	 * méthode pour recupérer une admin par son id
 	 */
@@ -87,36 +84,45 @@ public class GestionUserBean implements Serializable {
 		UIParameter component = (UIParameter) event.getComponent().findComponent("deleteID");
 		int idUser = (int) component.getValue();
 
-		userDAO.delete(idUser);
+		if (userDAO.deleteRole(idUser)) {
+			userDAO.delete(idUser);
 
-	}// END suppCat
+		}
+
+	}// END suppUser
 
 	/**
 	 * methode pour modifier un admin
 	 * 
 	 * @return
 	 */
-	public String modifierUser() {
+	public void modifierUser(ActionEvent event) {
 
 		FacesContext context = FacesContext.getCurrentInstance();
+		UIParameter componentRole = (UIParameter) event.getComponent().findComponent("roleName");
+		String newRoleName = (String) componentRole.getValue();
+		
+		setRoleName(newRoleName);
 
-		if (userDAO.update(user) && userDAO.updateRole(user.getRoleName(), user.getIdUser())) {
+		boolean verifUpdateRole = userDAO.updateRole(newRoleName, user.getIdUser());
 
-			// if modif ok //
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification d'un admin",
-					" - L'admin a bien été modifiée "));
+		if (verifUpdateRole == true) {
 
-			return "gestionUser.xhtml";
+			boolean verifUpdateUser = userDAO.update(user);
 
-		} else {
-			// ajout not ok//
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Modification d'un admin",
-					" - La modification de l'admin à échouée ! "));
+			if (verifUpdateUser == true) {
 
-			return "modifierUser.xhtml";
+				// if modif ok //
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification d'un admin",
+						" - L'admin a bien été modifiée "));
 
-		} // END ELSE
+			} else {
+				// ajout not ok//
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Modification d'un admin",
+						" - La modification de l'admin à échouée ! "));
 
+			} // END ELSE
+		} // END IF
 	}// END modifierCat
 
 	public void initialiserUser(ActionEvent event) {
@@ -126,41 +132,46 @@ public class GestionUserBean implements Serializable {
 
 		// Affectation nouvel cat au formulaire ajout
 		setUser(user);
-		setRoleName(roleName);
+		setRoleName(user.getRoleName());
 	}// END initialiser
 
 	public void ajouterUser(ActionEvent event) {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
-	  //UIParameter component = (UIParameter) event.getComponent().findComponent("userID");
+		// UIParameter component =
+		// (UIParameter)event.getComponent().findComponent("userID");
 		UIParameter componentRole = (UIParameter) event.getComponent().findComponent("roleName");
 
-	  //int idUser = (int) component.getValue();
+		// int idUser = (int) component.getValue();
 		String roleName = (String) componentRole.getValue();
 
-		// boolean verifAdd = userDAO.add(user);
+		if ((user.getIdUser() != 0)) {
+			boolean verifAddRole = userDAO.attribuerRole(roleName, user.getIdUser());
 
-		// boolean verifAddRole = userDAO.attribuerRole(user.getRoleName(),
+			if (verifAddRole == true) {
+				boolean verifAddUser = userDAO.add(user);
 
-		if (userDAO.add(user)) {
+				if (verifAddUser) {
 
-			// ajout ok //
-			if (user.getIdUser() != 0) {
-				userDAO.attribuerRole(roleName, user.getIdUser());
+					// ajout ok //
+					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout d'un admin  ",
+							" - Le nouvel admin à bien été ajouté "));
 
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout d'un admin  ",
-						" - Le nouvel admin à bien été ajouté "));
+				} else {
+					// ajout not ok //
+					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Ajout d'un admin  ",
+							" - L'ajout du nouvel admin à échoué ! "));
 
-			} else {
-				// ajout not ok //
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Ajout d'un admin  ",
-						" - L'ajout du nouvel admin à échoué ! "));
+				} // END ELSE
+			} // END IF verifAddRole
+		} // END IF verifAddUser
+	}// END ajouterUser()
 
-			}//END IF
-		} // END ELSE
+	public boolean updateRole() {
 
-	}// END ajouter()
+		return userDAO.updateRole(user.getRoleName(), user.getIdUser());
+	}
 
 	// __________ GETTER/SETTERS __________//
 	public User getUser() {
@@ -171,15 +182,6 @@ public class GestionUserBean implements Serializable {
 		this.user = user;
 	}
 
-	public String[] getActif() {
-		return actif;
-	}
-
-	public void setActif(String[] actif) {
-		this.actif = actif;
-	}
-
-
 	public String getRoleName() {
 		return roleName;
 	}
@@ -187,14 +189,5 @@ public class GestionUserBean implements Serializable {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	
-	public List<String> getRole() {
-		return Arrays.asList(role);
-	}
-
-	public void setRole(String[] role) {
-		this.role = role;
-	}
-	
 
 }// END CLASS

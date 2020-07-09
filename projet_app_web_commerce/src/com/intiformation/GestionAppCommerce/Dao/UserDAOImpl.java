@@ -61,7 +61,7 @@ public class UserDAOImpl implements IUserDAO {
 
 			// envoie requete
 			ps = this.connection
-					.prepareStatement("UPDATE users SET idUser = ? ,identifiant = ? ,password = ? ,actived = ?");
+					.prepareStatement("UPDATE users SET identifiant = ? ,password = ? ,actived = ? WHERE idUser = ?");
 
 			// def des param
 			ps.setInt(1, pUser.getIdUser());
@@ -296,6 +296,39 @@ public class UserDAOImpl implements IUserDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(" udpate() : Erreur lors de la modification d'un rôle à un user dans UserDAOImpl");
+			e.printStackTrace();
+		}finally {
+			try {
+				if (ps != null) 
+					ps.close();
+	
+			} catch (Exception e) {
+				
+			} // END CATCH
+			
+		} // END FINALLY
+		
+		return false;
+	}
+	
+	@Override
+	public boolean deleteRole( Integer pIdUser) {
+		
+		try {
+			//preparation requete 
+			ps = this.connection.prepareStatement("DELETE FROM role WHERE userID = ?");
+			
+			//passage de param 
+			ps.setInt(1, pIdUser);
+			
+			//envoie et exécution requete
+			int verifAttribRole = ps.executeUpdate();
+			
+			//verif 
+			return verifAttribRole == 1;
+			
+		} catch (SQLException e) {
+			System.out.println(" deleteRole() : Erreur lors de la suppression d'un rôle à un user dans UserDAOImpl");
 			e.printStackTrace();
 		}finally {
 			try {

@@ -28,6 +28,8 @@ public interface IUserService {
 	public boolean attribuerRole(String pRoleName, Integer pIdUser);
 	
 	public boolean updateRole (String pRoleName, Integer pIdUser);
+
+	boolean deleteRole(Integer pIdUser);
 	
 	
 }//END INTERFACE

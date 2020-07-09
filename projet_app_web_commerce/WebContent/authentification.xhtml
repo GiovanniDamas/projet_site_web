@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>page d'authentification admin</title>
+	<style type="text/css">
+.form-signin {
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 15px;
+}
+</style>
+    <link type="text/css" rel="stylesheet" href="/Examples/javax.faces.resource/css/spacelab/core.css.jsf?ln=bsf"/>
+    <link type="text/css" rel="stylesheet" href="/Examples/javax.faces.resource/css/spacelab/theme.css.jsf?ln=bsf"/>
+    <link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>
+    <link type="text/css" rel="stylesheet" href="/Examples/javax.faces.resource/css/bsf.css.jsf?ln=bsf"/>
+
+
+</h:head>
+<body>
+
+	<!-- Affichage des messages -->
+	<h:messages globalOnly="true" layout="table" showDetail="true"
+		styleClass="error" fatalClass="error" fatalStyle="font-weight: bold"
+		infoClass="message" />
+
+	<!-- Formulaire de connexion -->
+
+	<b:form class="form-signin" horizontal="true">
+		<h2 class="form-signin-header">S'identifier</h2>
+		<div class="form-group">
+		
+				<b:inputText class="form-control" placeholder="Identifiant"
+					required="true"  colMd="10" labelColMd="2"
+					value="#{connexionBean.userIdentifiant}">
+					<f:facet name="prepend">
+						<b:icon name="user" />
+					</f:facet>
+				</b:inputText>
+		
+		</div>
+		<div class="form-group">
+			
+				<b:inputText class="form-control" placeholder="Mot De Passe"
+					required="true"  colMd="10" labelColMd="2"
+					value="#{connexionBean.userPassword}">
+					<f:facet name="prepend">
+						<b:iconAwesome name="key" />
+					</f:facet>
+				</b:inputText>
+			
+		</div>
+		<b:commandButton type="submit"
+			action="#{connexionBean.connexionAdmin()}" name="j_idt11"
+			class="btn btn-lg btn-primary btn-block">
+			<span> <i class="glyphicon glyphicon-log-in"></i>
+			</span> Se Connecter
+		</b:commandButton>
+	</b:form>
+
+</body>
+</html>

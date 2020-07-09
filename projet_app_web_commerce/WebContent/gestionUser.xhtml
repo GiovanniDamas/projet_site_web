@@ -25,47 +25,60 @@
 		</div>
 	</h:form>
 
-	<h:form id="form">
-		<p:dataTable var="user" value="#{userBean.findAllUser()}">
+
+	<h:form>
+		<h:dataTable value="#{userBean.findAllUser()}" var="user">
 			<f:facet name="header">
         Liste des admins
     </f:facet>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="ID User" />
+				</f:facet>
 
-			<p:column headerText="Id">
+				<!-- données de la colonne -->
 				<h:outputText value="#{user.idUser}" />
-			</p:column>
+			</h:column>
 
-			<p:column headerText="Identifiant">
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Identifiant" />
+				</f:facet>
+
+				<!-- données de la colonne -->
 				<h:outputText value="#{user.userName}" />
-			</p:column>
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Mot de passe" />
+				</f:facet>
 
-			<p:column headerText="Mot de passe">
+				<!-- données de la colonne -->
 				<h:outputText value="#{user.password}" />
-			</p:column>
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Actif " />
+				</f:facet>
 
-			<p:column headerText="Actif">
+				<!-- données de la colonne -->
 				<h:outputText value="#{user.actived}" />
-			</p:column>
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Rôle " />
+				</f:facet>
 
-			<p:column headerText="Rôle">
-				<p:cellEditor>
-					<f:facet name="output">
-						<h:outputText value="#{user.roleName}" />
-					</f:facet>
-					<f:facet name="input">
-						<h:selectOneMenu value="#{user.roleName}" style="width:100%">
-							<f:selectItems value="#{userBean.role}" var="role"
-								itemLabel="#{role}" itemValue="#{role}" />
-						</h:selectOneMenu>
-					</f:facet>
-				</p:cellEditor>	
- 			</p:column> 
- 			
- 			<p:column>
-<!-- 			<p:column headerText="Rôle"> -->
-<!-- 				<h:outputText value="#{user.roleName}" /> -->
-<!-- 			</p:column> -->
-<!-- 			<p:column> -->
+				<!-- données de la colonne -->
+				<h:outputText value="#{user.roleName}" />
+			</h:column>
+
+			<h:column>
 				<!-- en-tête de colonne -->
 				<f:facet name="header">
 					<h:outputText value="Modifier" />
@@ -77,8 +90,10 @@
 					icon="pi pi-pencil" title="Icon Only" />
 				<f:param id="updateID" name="id" value="#{user.idUser}" />
 				<f:param id="roleName" name="id" value="#{user.roleName}" />
-			</p:column>
-			<p:column>
+
+			</h:column>
+			<h:column>
+
 				<!-- en-tête de colonne -->
 				<f:facet name="header">
 					<h:outputText value="Supprimer" />
@@ -89,9 +104,10 @@
 					actionListener="#{userBean.suppUser}" id="iconOnly"
 					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
 				<f:param id="deleteID" name="id" value="#{user.idUser}" />
-			</p:column>
 
-		</p:dataTable>
+			</h:column>
+
+		</h:dataTable>
 	</h:form>
 
 

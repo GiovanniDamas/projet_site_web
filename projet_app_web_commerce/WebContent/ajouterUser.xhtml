@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Page de modification d'un admin</title>
+	<title>page d'ajout d'un user</title>
 
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
@@ -16,8 +16,7 @@
 </h:head>
 <body>
 
-	<h3>Modifier un admin</h3>
-
+	<h3>Ajout d'un admin</h3>
 	<h:form enctype="multipart/form-data">
 
 		<h:inputHidden value="#{userBean.user.idUser}" />
@@ -51,13 +50,18 @@
 				<p:inputText id="role" value="#{userBean.user.roleName}" />
 			</div>
 		</div>
-		
-		<p:commandButton value="Modifier" id="withIcon" action="gestionUser"
-			actionListener="#{userBean.modifierUser}" style="margin-right:20px;"
-			icon="pi pi-save" />
-		<f:param id="roleName" name="id" value="#{user.roleName}" />
 
+
+		<p:growl id="messages" showDetail="true" />
+
+
+		<p:commandButton value="Ajouter" id="withIcon" action="gestionUser"
+			actionListener="#{userBean.ajouterUser}" style="margin-right:20px;"
+			icon="pi pi-save" />
+		<f:param id="roleName" name="id" value="#{userBean.user.roleName}" />
+		<f:param id="newID" name="id" value="#{userBean.user.idUser}" />
 
 	</h:form>
+
 </body>
 </html>

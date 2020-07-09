@@ -16,6 +16,8 @@ public interface IUserDAO extends IGenericDAO<User>{
 	
 	public boolean updateRole (String roleName, Integer idUser);
 
+	public boolean deleteRole(Integer pIdUser);
+
 
 
 }//END INTERFACE
