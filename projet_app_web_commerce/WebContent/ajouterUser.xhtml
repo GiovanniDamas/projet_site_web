@@ -44,10 +44,10 @@
 			</div>
 		</div>
 		<div class="p-field p-grid">
-			<p:outputLabel for="role" styleClass="p-col-fixed"
+			<p:outputLabel for="roleName" styleClass="p-col-fixed"
 				style="width:100px" value="Rôle" />
 			<div class="p-col">
-				<p:inputText id="role" value="#{userBean.user.roleName}" />
+				<p:inputText id="roleName" value="#{userBean.user.roleName}" />
 			</div>
 		</div>
 
@@ -58,8 +58,6 @@
 		<p:commandButton value="Ajouter" id="withIcon" action="gestionUser"
 			actionListener="#{userBean.ajouterUser}" style="margin-right:20px;"
 			icon="pi pi-save" />
-		<f:param id="roleName" name="id" value="#{userBean.user.roleName}" />
-		<f:param id="newID" name="id" value="#{userBean.user.idUser}" />
 
 	</h:form>
 

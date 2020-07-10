@@ -32,11 +32,12 @@
 
 		<p:growl id="messages" showDetail="true" />
 
-		<p:fileUpload value="#{categorieBean.categorie.photo}" mode="simple"
+		<p:fileUpload value="#{categorieBean.categorie.photo}" mode="simple" fileUploadListener="#{categorieBean.handleFileUpload()}"
 			skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 		<br />
-		<p:commandButton value="Submit" ajax="false" action="gestionCat"
-			fileUploadListener="#{categorieBean.handleFileUpload}"/>  
+		
+		<p:commandButton value="Submit" ajax="false"  
+ 			action="#{categorieBean.ajouter()}"/>   
 
 
 	</h:form>

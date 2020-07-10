@@ -55,7 +55,8 @@
 		<p:commandButton value="Modifier" id="withIcon" action="gestionUser"
 			actionListener="#{userBean.modifierUser}" style="margin-right:20px;"
 			icon="pi pi-save" />
-		<f:param id="roleName" name="id" value="#{user.roleName}" />
+		<f:param id="roleName" name="id" value="#{userBean.user.roleName}" />
+		<f:param id="idUser" name="id" value="#{userBean.user.idUser}" />
 
 
 	</h:form>

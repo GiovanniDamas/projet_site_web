@@ -17,7 +17,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 	public boolean add(Categorie categorie) {
 
 		try {
-			String requeteAddCategorie = "insert into categorie (nomCategorie,photo,description) values (?,?,?);";
+			String requeteAddCategorie = "insert into categorie (nomCategorie,photo, description) values (?,?,?)";
 			ps = this.connection.prepareStatement(requeteAddCategorie);
 			
 			ps.setString(1, categorie.getNomCategorie());

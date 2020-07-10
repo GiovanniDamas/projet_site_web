@@ -23,6 +23,8 @@ public interface IUserService {
 
 	public User getById(Integer pIdUser);
 	
+	public User getByMdp(String pMotDePasse);
+	
 	public boolean isUserExists(String pIdentifiant, String pMotDePasse);
 	
 	public boolean attribuerRole(String pRoleName, Integer pIdUser);

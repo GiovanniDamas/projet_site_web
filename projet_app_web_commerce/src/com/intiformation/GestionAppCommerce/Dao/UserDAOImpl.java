@@ -26,20 +26,35 @@ public class UserDAOImpl implements IUserDAO {
 		try {
 			// def de la requête
 			String requeteAdd = "INSERT INTO users (identifiant,password,actived) VALUES (?,?,?)";
+		
+			String requeteAddRole = "INSERT INTO role (roleName,userID) VALUES (?, last_insert_id())";
 
 			// envoie requete
 			ps = this.connection.prepareStatement(requeteAdd);
-
+			
 			// def des param
 			ps.setString(1, pUser.getUserName());
 			ps.setString(2, pUser.getPassword());
 			ps.setBoolean(3, pUser.isActived());
-
+			
 			// envoi requete
 			int verifAdd = ps.executeUpdate();
-
-			// verif
-			return verifAdd == 1;
+			
+			if (verifAdd == 1) {
+				//def 2ème requete
+				ps = this.connection.prepareStatement(requeteAddRole);
+				
+				// def des param
+				ps.setString(1, pUser.getRoleName());
+				
+				
+				// envoi requete
+				int verifAddRole = ps.executeUpdate();
+				
+				// verif
+				return verifAdd + verifAddRole == 2;
+			}
+			
 
 		} catch (Exception e) {
 			System.out.println("... add() : Erreur lors de l'ajout d'un user dans UserDAOImpl ");
@@ -60,21 +75,30 @@ public class UserDAOImpl implements IUserDAO {
 		try {
 
 			// envoie requete
-			ps = this.connection
-					.prepareStatement("UPDATE users SET identifiant = ? ,password = ? ,actived = ? WHERE idUser = ?");
-
+			ps = this.connection.prepareStatement("UPDATE users SET identifiant = ? ,password = ? ,actived = ? WHERE idUser = ?");
+			
 			// def des param
-			ps.setInt(1, pUser.getIdUser());
-			ps.setString(2, pUser.getUserName());
-			ps.setString(3, pUser.getPassword());
-			ps.setBoolean(4, pUser.isActived());
-
+			ps.setString(1, pUser.getUserName());
+			ps.setString(2, pUser.getPassword());
+			ps.setBoolean(3, pUser.isActived());
+			ps.setInt(4, pUser.getIdUser());
+						
 			// envoi requete
 			int verifUpdate = ps.executeUpdate();
+			
+			if (verifUpdate == 1) {
+				
+				//2ème requete 
+				ps = this.connection.prepareStatement("UPDATE role SET roleName = ? WHERE userID = ? ");
+				ps.setString(1, pUser.getRoleName());
+				ps.setInt(2, pUser.getIdUser());
+				
+				int verifUpdateRole = ps.executeUpdate();
 
-			// verif
-			return verifUpdate == 1;
-
+				// verif
+				return verifUpdate + verifUpdateRole == 2;
+			}
+			
 		} catch (Exception e) {
 			System.out.println("... update() : Erreur lors de la modification d'un user dans UserDAOImpl ");
 		} finally {
@@ -170,7 +194,10 @@ public class UserDAOImpl implements IUserDAO {
 		try {
 
 			// création requete requete
-			ps = this.connection.prepareStatement("SELECT * FROM users WHERE idUser = ?");
+			ps = this.connection.prepareStatement("SELECT idUser, identifiant, password, actived, roleName\n" + 
+					"FROM users AS u\n" + 
+					"RIGHT JOIN role AS r\n" + 
+					"ON u.idUser = r.userID;");
 			
 			//passage de param
 			ps.setInt(1, pIdUser);
@@ -184,12 +211,58 @@ public class UserDAOImpl implements IUserDAO {
 			User user = new User(rs.getInt(1), 
 							     rs.getString(2), 
 							     rs.getString(3), 
-							     rs.getBoolean(4));
+							     rs.getBoolean(4),
+								 rs.getString(5));
 			
 			return user;
 
 		} catch (Exception e) {
 			System.out.println("... getById() : Erreur lors de la récupération de l'user en fonction de son ID dans UserDAOImpl ");
+		} finally {
+			try {
+				if (ps != null) 
+					ps.close();
+				if (rs != null) 
+					rs.close();
+			} catch (Exception e) {
+
+			} // END CATCH
+		} // END FINALLY
+		return null;
+	}
+	
+	
+	@Override
+	public User getByMdp(String pMotDePasse) {
+		
+		try {
+
+			// création requete requete
+			ps = this.connection.prepareStatement ("SELECT idUser, identifiant, password, actived, roleName\n" + 
+					"FROM users AS u\n" + 
+					"INNER JOIN role AS r\n" + 
+					"ON u.idUser = r.userID\n" + 
+					"WHERE password=?");
+			
+			//passage de param
+			ps.setString(1, pMotDePasse);
+			
+			//envoie et exécution de la requete
+			rs = ps.executeQuery();
+			
+			//recup des données
+			rs.next();
+		
+			User user = new User(rs.getInt(1), 
+							     rs.getString(2), 
+							     rs.getString(3), 
+							     rs.getBoolean(4),
+								 rs.getString(5));
+			
+			return user;
+
+		} catch (Exception e) {
+			System.out.println("... getByMdp() : Erreur lors de la récupération de l'user en fonction de son Mdp dans UserDAOImpl ");
 		} finally {
 			try {
 				if (ps != null) 
@@ -289,10 +362,10 @@ public class UserDAOImpl implements IUserDAO {
 			ps.setInt(2, pIdUser);
 			
 			//envoie et exécution requete
-			int verifAttribRole = ps.executeUpdate();
+			int verifModifRole = ps.executeUpdate();
 			
 			//verif 
-			return verifAttribRole == 1;
+			return verifModifRole == 1;
 			
 		} catch (SQLException e) {
 			System.out.println(" udpate() : Erreur lors de la modification d'un rôle à un user dans UserDAOImpl");
@@ -322,10 +395,10 @@ public class UserDAOImpl implements IUserDAO {
 			ps.setInt(1, pIdUser);
 			
 			//envoie et exécution requete
-			int verifAttribRole = ps.executeUpdate();
+			int verifSuppRole = ps.executeUpdate();
 			
 			//verif 
-			return verifAttribRole == 1;
+			return verifSuppRole == 1;
 			
 		} catch (SQLException e) {
 			System.out.println(" deleteRole() : Erreur lors de la suppression d'un rôle à un user dans UserDAOImpl");

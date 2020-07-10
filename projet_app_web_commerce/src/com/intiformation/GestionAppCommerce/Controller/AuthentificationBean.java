@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.intiformation.GestionAppCommerce.Dao.IUserDAO;
 import com.intiformation.GestionAppCommerce.Dao.UserDAOImpl;
+import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**
  * ManagedBean pour la gestion de l'authentification
@@ -24,6 +25,9 @@ public class AuthentificationBean implements Serializable {
 	// _____________ PROPS ___________ //
 	private String userIdentifiant;
 	private String userPassword;
+	private User user;
+	private String roleName;
+
 
 	// dao
 	private IUserDAO userDAO;
@@ -40,17 +44,29 @@ public class AuthentificationBean implements Serializable {
 	// _____________ METHODE _______________ //
 	public String connexionAdmin() {
 
-		FacesContext context = FacesContext.getCurrentInstance();
+		FacesContext context = FacesContext.getCurrentInstance();	
 
+		
 		if (userDAO.isUserExists(userIdentifiant, userPassword)) {
-
+			
 			// creation session
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-
+			
 			session.setAttribute("user_login", userIdentifiant);
+			
+			User user = userDAO.getByMdp(userPassword);
+			String roleName = user.getRoleName();
 
-			// -> navigation vers la page accueil.xhtml
-			return "gestionCategories.xhtml";
+			
+			switch (roleName) {
+			case "AdminCat":
+				return "accueilAdmin.xhtml";
+				
+
+			case "AdminProd":
+				return "accueilAdmins.xhtml";
+			
+			}
 		
 		} else {
 			// ---------------- l'utilisateur n'existe pas -------------------//
@@ -66,7 +82,25 @@ public class AuthentificationBean implements Serializable {
 			return "authentification.xhtml";
 			
 		} // END ELSE
+		return "authentification.xhtml";
+
 	}//END connexionAdmin
+	
+	/**
+	 * log out user 
+	 * @return
+	 */
+	public String deconnexionAdmin() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+		
+		session.invalidate();
+		
+		return "authentification.xhtml";
+		
+	}//end logOut()
 
 	// _____________ GETTER/SETTER ___________ //
 
@@ -85,5 +119,27 @@ public class AuthentificationBean implements Serializable {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 
 }// END CLASS

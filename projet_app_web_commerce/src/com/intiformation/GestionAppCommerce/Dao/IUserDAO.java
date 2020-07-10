@@ -18,6 +18,8 @@ public interface IUserDAO extends IGenericDAO<User>{
 
 	public boolean deleteRole(Integer pIdUser);
 
+	public User getByMdp(String pMdp);
+
 
 
 }//END INTERFACE

@@ -32,6 +32,7 @@ public class GestionUserBean implements Serializable {
 	// _______________ PROPS _________________//
 	private List<User> listeUserBdd;
 	private User user;
+	private Role role;
 	private String roleName;
 
 	// DAO
@@ -99,15 +100,7 @@ public class GestionUserBean implements Serializable {
 	public void modifierUser(ActionEvent event) {
 
 		FacesContext context = FacesContext.getCurrentInstance();
-		UIParameter componentRole = (UIParameter) event.getComponent().findComponent("roleName");
-		String newRoleName = (String) componentRole.getValue();
 		
-		setRoleName(newRoleName);
-
-		boolean verifUpdateRole = userDAO.updateRole(newRoleName, user.getIdUser());
-
-		if (verifUpdateRole == true) {
-
 			boolean verifUpdateUser = userDAO.update(user);
 
 			if (verifUpdateUser == true) {
@@ -122,37 +115,26 @@ public class GestionUserBean implements Serializable {
 						" - La modification de l'admin à échouée ! "));
 
 			} // END ELSE
-		} // END IF
 	}// END modifierCat
 
 	public void initialiserUser(ActionEvent event) {
 
 		// instantiation nouvel objet
-		this.user = new User();
-
+		User userAdd = new User();
+		Role role =  new Role();
+		
 		// Affectation nouvel cat au formulaire ajout
-		setUser(user);
-		setRoleName(user.getRoleName());
+		setUser(userAdd);
+		setRole(role);
 	}// END initialiser
 
 	public void ajouterUser(ActionEvent event) {
 
 		FacesContext context = FacesContext.getCurrentInstance();
+		
+			boolean verifAddUser = userDAO.add(user);
 
-		// UIParameter component =
-		// (UIParameter)event.getComponent().findComponent("userID");
-		UIParameter componentRole = (UIParameter) event.getComponent().findComponent("roleName");
-
-		// int idUser = (int) component.getValue();
-		String roleName = (String) componentRole.getValue();
-
-		if ((user.getIdUser() != 0)) {
-			boolean verifAddRole = userDAO.attribuerRole(roleName, user.getIdUser());
-
-			if (verifAddRole == true) {
-				boolean verifAddUser = userDAO.add(user);
-
-				if (verifAddUser) {
+			if (verifAddUser == true) {
 
 					// ajout ok //
 					context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout d'un admin  ",
@@ -164,8 +146,7 @@ public class GestionUserBean implements Serializable {
 							" - L'ajout du nouvel admin à échoué ! "));
 
 				} // END ELSE
-			} // END IF verifAddRole
-		} // END IF verifAddUser
+		
 	}// END ajouterUser()
 
 	public boolean updateRole() {
@@ -189,5 +170,14 @@ public class GestionUserBean implements Serializable {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 
 }// END CLASS

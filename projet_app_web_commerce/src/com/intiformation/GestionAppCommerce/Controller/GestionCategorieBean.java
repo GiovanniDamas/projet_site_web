@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.Part;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -40,9 +42,9 @@ public class GestionCategorieBean implements Serializable {
 
 	//////// PROPS
 	private List<Categorie> listeCatBdd;
+	private List<String> listeNomCat;
 	private Categorie categorie;
-
-
+	
 
 	// DAO
 	private ICategorieDAO categorieDAO;
@@ -62,53 +64,82 @@ public class GestionCategorieBean implements Serializable {
 
 		return listeCatBdd;
 	}// END findAllCat
+	
+	public List<String> findNomCat() {
+		listeCatBdd = categorieDAO.getAll();
+
+		for (Categorie cat : listeCatBdd) {
+			listeNomCat = new ArrayList<>();
+			listeNomCat.add(cat.getNomCategorie());
+		}
+		
+		return listeNomCat;
+	}// END findAllCat
 
 	public void initialiserCat(ActionEvent event) {
 
 		// instantiation nouvel objet
-		this.categorie = new Categorie();
+		Categorie categorie = new Categorie();
 
 		// Affectation nouvel cat au formulaire ajout
 		setCategorie(categorie);
+		
 	}// END initialiser
 
 	public void handleFileUpload(FileUploadEvent event) {
-
-		if (categorie.getIdCategorie() == 0) {
-
-			UploadedFile uploadedFile = (UploadedFile) event.getFile();
-
-			String fileName = FilenameUtils.getName(uploadedFile.getFileName());
-
-			// affectation image
-			categorie.setPhoto(fileName);
-
-			categorieDAO.add(categorie);
-
-			InputStream imageContent = null;
-
-			try {
-				imageContent = uploadedFile.getInputstream();
-			} catch (IOException e) {
-			} // END CATCH
-
-			String destPath = "/projet_app_web_commerce/WebContent/resources/images/";
-			File destFile = new File(destPath);
-
-			try {
-				FileUtils.copyInputStreamToFile(imageContent, destFile);
-			} catch (IOException ex) {
-				// log error
-			} // END CATCH
 		
-		}//END IF
 
-	}// END saveCat
-
+		FacesMessage msg = new FacesMessage("Success! ", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        UploadedFile uploadedFile = event.getFile();
+        String fileName = uploadedFile.getFileName();
+        
+        System.out.println(fileName);
+        		
+        categorie.setPhoto(fileName);
+        categorieDAO.add(categorie);
+        
+        // Do what you want with the file
+        try {
+            copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+ 
+    }//END METHODE
+	
+	public void copyFile(String fileName, InputStream in) {
+        try {
+        	String destination = "/projet_app_web_commerce/WebContent/resources/images/";
+ 
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination + fileName));
+ 
+            int read = 0;
+            byte[] bytes = new byte[1024];
+ 
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+ 
+            in.close();
+            out.flush();
+            out.close();
+ 
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }//END METHODE
+	
+	
+	
 	public String ajouter() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
-
+		
+		
 		boolean verifAdd = categorieDAO.add(categorie);
 
 		if (verifAdd) {

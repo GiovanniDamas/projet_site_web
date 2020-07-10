@@ -67,4 +67,9 @@ public class UserServiceImpl implements IUserService{
 		return userDAO.deleteRole(pIdUser);
 	}
 
+	@Override
+	public User getByMdp(String pMotDePasse) {
+		return userDAO.getByMdp(pMotDePasse);
+	}
+
 }//END CLASS
