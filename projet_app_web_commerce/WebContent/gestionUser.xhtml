@@ -3,7 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
 	<title>page gestion des utilisateurs</title>
@@ -12,8 +14,48 @@
 
 	<h:outputStylesheet name="primeicons/primeicons.css"
 		library="primefaces" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
 </h:head>
 <body>
+
+	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+		<b:navbarLinks>
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink value="Gestion Categories" href="gestionCategories.xhtml"></b:navLink>
+			<b:navLink value="Gestion Admin" href="gestionUser.xhtml"></b:navLink>
+			<b:dropMenu value="Catégories">
+				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
+				<b:navLink value="Rôle" href="#"></b:navLink>
+			</b:dropMenu>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search" />
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</h:form>
+		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
+
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:dropMenu value="Profil">
+				<b:navLink value="Nom"></b:navLink>
+				<b:navLink value="Rôle" href="#"></b:navLink>
+			</b:dropMenu>
+			<b:navLink value="Panier" href="#"></b:navLink>
+			<b:navLink value="Déconnexion"
+				href="#{connexionBean.deconnexionAdmin()}"></b:navLink>
+
+		</b:navbarLinks>
+	</b:navBar>
+
 
 	<h:form>
 		<p:growl id="growl" life="2000" />
@@ -25,90 +67,53 @@
 		</div>
 	</h:form>
 
-
 	<h:form>
-		<h:dataTable value="#{userBean.findAllUser()}" var="user">
+		<p:dataTable var="user" value="#{userBean.findAllUser()}">
 			<f:facet name="header">
         Liste des admins
     </f:facet>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="ID User" />
-				</f:facet>
 
-				<!-- données de la colonne -->
+			<p:column headerText="ID User">
 				<h:outputText value="#{user.idUser}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Identifiant" />
-				</f:facet>
-
-				<!-- données de la colonne -->
+			<p:column headerText="Identifiant">
 				<h:outputText value="#{user.userName}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Mot de passe" />
-				</f:facet>
+			</p:column>
 
-				<!-- données de la colonne -->
+			<p:column headerText="Mot de Passe">
 				<h:outputText value="#{user.password}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Actif " />
-				</f:facet>
+			</p:column>
 
-				<!-- données de la colonne -->
+			<p:column headerText="Actif">
 				<h:outputText value="#{user.actived}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Rôle " />
-				</f:facet>
+			</p:column>
 
-				<!-- données de la colonne -->
+			<p:column headerText="Rôle">
 				<h:outputText value="#{user.roleName}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Modifier" />
-				</f:facet>
-
-				<!-- données de la colonne -->
+			<p:column headerText="Modifier">
 				<p:commandButton action="modifUser" id="IconOnly"
 					actionListener="#{userBean.selectUser}" style="margin-right:20px;"
 					icon="pi pi-pencil" title="Icon Only" />
 				<f:param id="updateID" name="id" value="#{user.idUser}" />
 				<f:param id="roleName" name="id" value="#{user.roleName}" />
-
-			</h:column>
-			<h:column>
-
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Supprimer" />
-				</f:facet>
-
-				<!-- données de la colonne -->
+			</p:column>
+			<p:column headerText="Supprimer">
 				<p:commandButton action="gestionUser"
 					actionListener="#{userBean.suppUser}" id="iconOnly"
 					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
 				<f:param id="deleteID" name="id" value="#{user.idUser}" />
+			</p:column>
 
-			</h:column>
-
-		</h:dataTable>
+			<f:facet name="footer">
+         #{fn:length(userBean.findAllUser())} admins.
+    </f:facet>
+		</p:dataTable>
 	</h:form>
+
+
 
 
 

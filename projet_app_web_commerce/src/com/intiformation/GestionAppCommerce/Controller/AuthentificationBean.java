@@ -98,7 +98,7 @@ public class AuthentificationBean implements Serializable {
 		
 		session.invalidate();
 		
-		return "authentification.xhtml";
+		return "accueil.xhtml";
 		
 	}//end logOut()
 

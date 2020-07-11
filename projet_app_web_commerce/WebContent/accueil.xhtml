@@ -16,16 +16,19 @@
 	<h:outputStylesheet name="primeicons/primeicons.css"
 		library="primefaces" />
 
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
+
 </h:head>
 <body>
 
-	<b:navBar brand="Brand" brandHref="#" fluid="true">
+	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
 			<b:navLink value="Link" href="#"></b:navLink>
-			<b:dropMenu value="Catégories">
+			<b:dropMenu class="link" value="Catégories">
 				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
 				<b:navLink value="Rôle" href="#"></b:navLink>
 			</b:dropMenu>
@@ -43,13 +46,12 @@
 		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
 
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
-
-			<b:navLink value="S'identifier" href="authentification.xhtml"></b:navLink>
-			<b:navLink value="Panier" href="#"></b:navLink>
-			<b:navLink value="Déconnexion"
-				href="#{connexionBean.deconnexionAdmin()}"></b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="#">Panier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="#{connexionBean.deconnexionAdmin()}">Déconnexion</b:navLink>
 
 		</b:navbarLinks>
+
 	</b:navBar>
 
 	<br />

@@ -7,11 +7,22 @@
 
 <h:head>
 	<title>page d'accueil de l'admin</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
 </h:head>
 <body>
 
-	<b:navBar brand="Brand" brandHref="#" fluid="true">
-	<b:navbarLinks><b:navLink value= "    " href="#"></b:navLink></b:navbarLinks>
+	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+		<b:navbarLinks>
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
 		<b:navbarLinks>
 			<b:navLink value="Gestion Categories" href="gestionCategories.xhtml"></b:navLink>
 			<b:navLink value="Gestion Admin" href="gestionUser.xhtml"></b:navLink>
@@ -20,7 +31,9 @@
 				<b:navLink value="Rôle" href="#"></b:navLink>
 			</b:dropMenu>
 		</b:navbarLinks>
-		<b:navbarLinks pull="left"><b:navLink value= "    " href="#"></b:navLink></b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
 			<div class="form-group">

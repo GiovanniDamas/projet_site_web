@@ -196,8 +196,8 @@ public class UserDAOImpl implements IUserDAO {
 			// création requete requete
 			ps = this.connection.prepareStatement("SELECT idUser, identifiant, password, actived, roleName\n" + 
 					"FROM users AS u\n" + 
-					"RIGHT JOIN role AS r\n" + 
-					"ON u.idUser = r.userID;");
+					"INNER JOIN role AS r\n" + 
+					"WHERE idUser=? ");
 			
 			//passage de param
 			ps.setInt(1, pIdUser);
@@ -229,7 +229,8 @@ public class UserDAOImpl implements IUserDAO {
 			} // END CATCH
 		} // END FINALLY
 		return null;
-	}
+		
+	}//END getById()
 	
 	
 	@Override
@@ -241,7 +242,6 @@ public class UserDAOImpl implements IUserDAO {
 			ps = this.connection.prepareStatement ("SELECT idUser, identifiant, password, actived, roleName\n" + 
 					"FROM users AS u\n" + 
 					"INNER JOIN role AS r\n" + 
-					"ON u.idUser = r.userID\n" + 
 					"WHERE password=?");
 			
 			//passage de param

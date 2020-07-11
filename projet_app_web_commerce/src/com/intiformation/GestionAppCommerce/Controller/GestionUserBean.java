@@ -66,11 +66,13 @@ public class GestionUserBean implements Serializable {
 		UIParameter componentRole = (UIParameter) event.getComponent().findComponent("roleName");
 
 		int idUser = (int) component.getValue();
+		
 		String roleName = (String) componentRole.getValue();
 
-		User user = userDAO.getById(idUser);
+		User User = userDAO.getById(idUser);
+		
 
-		setUser(user);
+		setUser(User);
 		setRoleName(roleName);
 
 	}// END selectCat
