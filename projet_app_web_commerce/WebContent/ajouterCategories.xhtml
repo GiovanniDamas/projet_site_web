@@ -10,36 +10,47 @@
 </h:head>
 <body>
 
-	<h3>Ajouter une categorie</h3>
+
 	<h:form enctype="multipart/form-data">
+		<h3>Ajouter une categorie</h3>
+		<div class="ui-fluid p-formgrid p-grid">
 
-		<h:inputHidden value="#{categorieBean.categorie.idCategorie}" />
+			<div class="p-field p-col-12 p-md-1"></div>
 
-		<div class="p-field p-grid">
-			<p:outputLabel for="nomCategorie" styleClass="p-col-fixed"
-				style="width:100px" value="Nom Catégorie" />
-			<div class="p-col">
+			<h:inputHidden value="#{categorieBean.categorie.idCategorie}" />
+
+			<div class="p-field p-col-12 p-md-4">
+				<p:outputLabel for="nomCategorie" styleClass="p-col-fixed"
+					style="width:100px" value="Nom Catégorie" />
 				<p:inputText id="nomCategorie"
 					value="#{categorieBean.categorie.nomCategorie}" />
+
 			</div>
+
+			<div class="p-field p-col-12 p-md-2"></div>
+			
+			<div class="p-field p-col-12 p-md-4" style="margin-top: 3%">
+				<p:outputLabel for="description" value="Description" />
+				<p:inputTextarea id="description" rows="4"
+					value="#{categorieBean.categorie.description}" />
+			</div>
+
+			<p:growl id="messages" showDetail="true" />
+			<div class="p-field p-col-12 p-md-1"></div>
+
+			<h:outputLabel value="Image du produit : " />
+			<h:panelGroup>
+				<h:graphicImage library="images"
+					value="#{categorieBean.categorie.photo}" width="75" height="75"
+					rendered="#{categorieBean.categorie.idCategorie gt 0}" />
+				<h:inputFile id="file" value="#{categorieBean.uploadedFile}" />
+			</h:panelGroup>
+
+
+			<h:commandButton value="Ajouter" action="gestionCat"
+				actionListener="#{categorieBean.ajouter()}" />
+
 		</div>
-
-		<div class="p-field p-col-12" style="margin-top: 3%">
-			<p:outputLabel for="description" value="Description" />
-			<p:inputTextarea id="description" rows="4"
-				value="#{categorieBean.categorie.description}" />
-		</div>
-
-		<p:growl id="messages" showDetail="true" />
-
-		<p:fileUpload value="#{categorieBean.categorie.photo}" mode="simple" fileUploadListener="#{categorieBean.handleFileUpload()}"
-			skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-		<br />
-		
-		<p:commandButton value="Submit" ajax="false"  
- 			action="#{categorieBean.ajouter()}"/>   
-
-
 	</h:form>
 </body>
 </html>

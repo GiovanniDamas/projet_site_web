@@ -1,10 +1,10 @@
 package com.intiformation.GestionAppCommerce.Modele;
 
-public class LigneCommande {
+public class LigneCommande  {
 	
 	//Propriete
 	
-	private int quantite, produitId, commandeId;
+	private int quantite, produitId, commandeId, idPanier;
 	private double prix;
 	private String ligneC = ""+produitId+commandeId;
 	
@@ -21,13 +21,22 @@ public class LigneCommande {
 		this.ligneC = ligneC;
 	}
 
-	public LigneCommande(int quantite, int produitId, int commandeId, double prix) {
+	public LigneCommande(int quantite, int produitId, int commandeId, int idPanier, double prix) {
 		this.quantite = quantite;
 		this.produitId = produitId;
 		this.commandeId = commandeId;
+		this.idPanier = idPanier;
 		this.prix = prix;
 	}
 	
+	
+	public LigneCommande(int quantite, int produitId, double prix) {
+		this.quantite = quantite;
+		this.produitId = produitId;
+		this.prix = prix;
+
+	}
+
 	//Getter Setter
 
 	public int getQuantite() {
@@ -70,4 +79,12 @@ public class LigneCommande {
 		this.ligneC = ligneC;
 	}
 
-}
+	public int getIdPanier() {
+		return idPanier;
+	}
+
+	public void setIdPanier(int idPanier) {
+		this.idPanier = idPanier;
+	}
+
+}//END CLASS

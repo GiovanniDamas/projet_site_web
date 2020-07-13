@@ -18,6 +18,8 @@ import com.intiformation.GestionAppCommerce.Dao.IUserDAO;
 import com.intiformation.GestionAppCommerce.Dao.UserDAOImpl;
 import com.intiformation.GestionAppCommerce.Modele.Role;
 import com.intiformation.GestionAppCommerce.Modele.User;
+import com.intiformation.GestionAppCommerce.Service.IUserService;
+import com.intiformation.GestionAppCommerce.Service.UserServiceImpl;
 
 /**
  * ManagedBean pour la gestion des user
@@ -36,14 +38,14 @@ public class GestionUserBean implements Serializable {
 	private String roleName;
 
 	// DAO
-	IUserDAO userDAO;
+	IUserService userService;
 
 	// _______________ CTOR _________________//
 	/**
 	 * ctor vide pour le serveur
 	 */
 	public GestionUserBean() {
-		userDAO = new UserDAOImpl();
+		userService = new UserServiceImpl();
 	}
 
 	// ______________ METHODE ______________//
@@ -52,7 +54,7 @@ public class GestionUserBean implements Serializable {
 	 */
 	public List<User> findAllUser() {
 
-		listeUserBdd = userDAO.getAll();
+		listeUserBdd = userService.getAll();
 
 		return listeUserBdd;
 	}// END METHOD
@@ -69,7 +71,7 @@ public class GestionUserBean implements Serializable {
 		
 		String roleName = (String) componentRole.getValue();
 
-		User User = userDAO.getById(idUser);
+		User User = userService.getById(idUser);
 		
 
 		setUser(User);
@@ -87,8 +89,8 @@ public class GestionUserBean implements Serializable {
 		UIParameter component = (UIParameter) event.getComponent().findComponent("deleteID");
 		int idUser = (int) component.getValue();
 
-		if (userDAO.deleteRole(idUser)) {
-			userDAO.delete(idUser);
+		if (userService.deleteRole(idUser)) {
+			userService.deleteUser(idUser);
 
 		}
 
@@ -103,7 +105,7 @@ public class GestionUserBean implements Serializable {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-			boolean verifUpdateUser = userDAO.update(user);
+			boolean verifUpdateUser = userService.updateUser(user);
 
 			if (verifUpdateUser == true) {
 
@@ -134,7 +136,7 @@ public class GestionUserBean implements Serializable {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		
-			boolean verifAddUser = userDAO.add(user);
+			boolean verifAddUser = userService.ajoutUser(user);
 
 			if (verifAddUser == true) {
 
@@ -151,10 +153,7 @@ public class GestionUserBean implements Serializable {
 		
 	}// END ajouterUser()
 
-	public boolean updateRole() {
-
-		return userDAO.updateRole(user.getRoleName(), user.getIdUser());
-	}
+	
 
 	// __________ GETTER/SETTERS __________//
 	public User getUser() {

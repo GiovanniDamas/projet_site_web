@@ -16,49 +16,45 @@
 </h:head>
 <body>
 
-	<h3>Ajout d'un admin</h3>
+
 	<h:form enctype="multipart/form-data">
+		<div style="margin: 0 auto; width: 100%;">
+			<h3>Ajout d'un admin</h3>
 
-		<h:inputHidden value="#{userBean.user.idUser}" />
+			<h:inputHidden value="#{userBean.user.idUser}" />
 
-		<div class="p-field p-grid">
-			<p:outputLabel for="identifiant" styleClass="p-col-fixed"
-				style="width:100px" value="Identifiant" />
-			<div class="p-col">
+			<div class="p-field p-grid">
+				<p:outputLabel for="identifiant" styleClass="p-col-fixed"
+					style="width:100px" value="Identifiant" />
 				<p:inputText id="identifiant" value="#{userBean.user.userName}" />
 			</div>
-		</div>
 
-		<div class="p-field p-grid">
-			<p:outputLabel for="mdp" styleClass="p-col-fixed" style="width:100px"
-				value="Mot de passe" />
-			<div class="p-col">
+			<div class="p-field p-grid">
+				<p:outputLabel for="mdp" styleClass="p-col-fixed"
+					style="width:100px" value="Mot de passe" />
 				<p:inputText id="mdp" value="#{userBean.user.password}" />
 			</div>
-		</div>
-		<div class="p-field p-grid">
-			<p:outputLabel for="actif" styleClass="p-col-fixed"
-				style="width:100px" value="Actif" />
-			<div class="p-col">
+
+			<div class="p-field p-grid">
+				<p:outputLabel for="actif" styleClass="p-col-fixed"
+					style="width:100px" value="Actif" />
 				<p:inputText id="actif" value="#{userBean.user.actived}" />
 			</div>
-		</div>
-		<div class="p-field p-grid">
-			<p:outputLabel for="roleName" styleClass="p-col-fixed"
-				style="width:100px" value="Rôle" />
-			<div class="p-col">
+
+			<div class="p-field p-grid">
+				<p:outputLabel for="roleName" styleClass="p-col-fixed"
+					style="width:100px" value="Rôle" />
 				<p:inputText id="roleName" value="#{userBean.user.roleName}" />
 			</div>
+
+
+			<p:growl id="messages" showDetail="true" />
+
+
+			<p:commandButton value="Ajouter" id="withIcon" action="gestionUser"
+				actionListener="#{userBean.ajouterUser}" style="margin-right:20px;"
+				icon="pi pi-save" />
 		</div>
-
-
-		<p:growl id="messages" showDetail="true" />
-
-
-		<p:commandButton value="Ajouter" id="withIcon" action="gestionUser"
-			actionListener="#{userBean.ajouterUser}" style="margin-right:20px;"
-			icon="pi pi-save" />
-
 	</h:form>
 
 </body>

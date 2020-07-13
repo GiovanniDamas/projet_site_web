@@ -21,5 +21,7 @@ public interface IProduitService {
 	public List<Produit> findByKeywords(String motsCles);
 	
 	public List<Produit> findBySelectionne();
+	
+	public List<Integer> getListeQuantite(Integer idProduit);
 
 }

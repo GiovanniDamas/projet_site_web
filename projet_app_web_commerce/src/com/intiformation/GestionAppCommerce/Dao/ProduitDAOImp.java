@@ -16,7 +16,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public boolean add(Produit produit) {
 		try {
-			String requeteAddProduit = "insert into produit (nomProduit,description,prix,quantit�,selectionner,photo,categorieID) values (?,?,?,?,?,?,?);";
+			String requeteAddProduit = "insert into produit (nomProduit,description,prix,quantite,selectionner,photo,categorieID) values (?,?,?,?,?,?,?);";
 			ps = this.connection.prepareStatement(requeteAddProduit);
 			
 			ps.setString(1, produit.getNomProduit());
@@ -49,7 +49,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public boolean update(Produit produit) {
 		try {
-			String requeteUpdateProduit = "update produit set nomProduit=?,description=?,prix=?,quantit�=?,selectionner=?,photo=?,categorieID=? where idProduit=?;";
+			String requeteUpdateProduit = "update produit set nomProduit=?,description=?,prix=?,quantite=?,selectionner=?,photo=?,categorieID=? where idProduit=?;";
 			ps = this.connection.prepareStatement(requeteUpdateProduit);
 			
 			ps.setString(1, produit.getNomProduit());
@@ -109,7 +109,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getAll() {
 		try {
-			String requeteGetAllProduit = "select idProduit,quantit�,categorieID,nomProduit, description,photo,prix,selectionner from produit;";
+			String requeteGetAllProduit = "select idProduit,quantite,categorieID,nomProduit, description,photo,prix,selectionner from produit;";
 			ps = this.connection.prepareStatement(requeteGetAllProduit);
 			
 			rs = ps.executeQuery();
@@ -141,7 +141,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public Produit getById(Integer idProduit) {
 		try {
-			String requeteGetByIdProduit = "select idProduit,quantit�,categorieID,nomProduit, description,photo,prix,selectionner from produit where idProduit=?;";
+			String requeteGetByIdProduit = "select idProduit,quantite,categorieID,nomProduit, description,photo,prix,selectionner from produit where idProduit=?;";
 			ps = this.connection.prepareStatement(requeteGetByIdProduit);
 			ps.setInt(1, idProduit);
 			
@@ -171,7 +171,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getByCategorie(String nomCategorie) {
 		try {
-			String requeteGetByCategorie = "select p.idProduit,p.quantit�,p.categorieID,p.nomProduit, p.description,p.photo,p.prix,p.selectionner from produit p , categorie c where p.categorieID=c.idCategorie and nomCategorie=?";
+			String requeteGetByCategorie = "select p.idProduit,p.quantite, p.categorieID,p.nomProduit, p.description,p.photo,p.prix,p.selectionner from produit p , categorie c where p.categorieID=c.idCategorie and nomCategorie=?";
 			ps = this.connection.prepareStatement(requeteGetByCategorie);
 			ps.setString(1, nomCategorie);
 			
@@ -203,7 +203,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getByKeywords(String motsCles) {
 		try {
-			String requeteGetByCategorie = "select idProduit,quantit�,categorieID,nomProduit, description,photo,prix,selectionner from produit where description regexp ?;";
+			String requeteGetByCategorie = "select idProduit,quantite,categorieID,nomProduit, description,photo,prix,selectionner from produit where description regexp ?;";
 			ps = this.connection.prepareStatement(requeteGetByCategorie);
 			ps.setString(1, motsCles);
 			
@@ -235,7 +235,7 @@ public class ProduitDAOImp implements IProduitDAO{
 	@Override
 	public List<Produit> getBySelectionne() {
 		try {
-			String requeteGetByCategorie = "select idProduit,quantit�,categorieID,nomProduit, description,photo,prix,selectionner from produit where selectionner=1;";
+			String requeteGetByCategorie = "select idProduit,quantite,categorieID,nomProduit, description,photo,prix,selectionner from produit where selectionner=1;";
 			ps = this.connection.prepareStatement(requeteGetByCategorie);
 			
 			rs = ps.executeQuery();

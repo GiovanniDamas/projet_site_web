@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+
+<h:outputStylesheet library="style" name="primeFlex.css" />
+
+<h:form enctype="multipart/form-data">
+
+    <h3 >Edition Produit</h3>
+    <div class="ui-fluid p-formgrid p-grid">
+    
+   		<div class="p-field p-col-12 p-md-1"></div>
+        
+        <div class="p-field p-col-12 p-md-4">
+            <p:outputLabel for="designation" value="Désignation" />
+            <p:inputText id="designation" value="#{produitBean.produit.nomProduit}" required="true" requiredMessage="Titre obligatoire"/>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-2"></div>
+        
+        <div class="p-field p-col-12 p-md-4">
+            <p:outputLabel for="categorie" value="Catégorie" />
+            <p:selectOneMenu id="categorie" required="true" value="#{produitBean.produit.idCategorie}">
+                <f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}" noSelectionOption="true"/>
+
+    			<f:selectItems value="#{categorieBean.findAllCat()}" var="categorie" itemLabel="#{categorie.nomCategorie}"
+    				 itemValue="#{categorie.idCategorie}"/>
+                
+            </p:selectOneMenu>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+          
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        <div class="p-field p-col-12 p-md-3">
+            <p:outputLabel for="prix" value="Prix" />
+            <p:inputNumber id="prix" value="#{produitBean.produit.prix}" symbol="€"
+            	symbolPosition="s" required="true" emptyValue="always" minValue="0"/>    
+        </div>
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        <div class="p-field p-col-12 p-md-3">
+            <p:outputLabel for="quantite" value="Quantité" />
+            <p:inputNumber id="quantite" value="#{produitBean.produit.quantite}" required="true" emptyValue="always"
+            	 minValue="0" decimalPlaces="0"/>    
+        </div>
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        <div class="p-field p-col-12 p-md-2">
+            <p:outputLabel for="select" value="Selectionné" />
+            <p:selectBooleanCheckbox value="#{produitBean.produit.selectionne}" id="select"/>
+        </div>
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        <div class="p-field p-col-12 p-md-10">
+            <p:outputLabel for="description" value="Description" />
+            <p:inputTextarea id="description" rows="3" counter="display" maxlength="300" 
+            	counterTemplate="{0} caractères restants." value="#{produitBean.produit.description}" />
+    		<br/>
+    		<h:outputText id="display" />
+        </div>
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        
+        <div class="p-field p-col-12 p-md-1"></div>
+        
+        <h:outputLabel value="Image du produit : " />
+			<h:panelGroup>
+				<h:graphicImage library="images"
+					value="#{produitBean.produit.photo}" width="75"
+					height="75" rendered="#{produitBean.produit.idProduit gt 0}" />
+				<h:inputFile id="file" value="#{produitBean.uploadedFile}" />
+			</h:panelGroup>
+			
+	
+				<h:commandButton value="Ajouter" action="GestionProduit"
+					actionListener="#{produitBean.ajouterProduit}" />
+
+        
+    </div>
+    
+
+				<h:commandButton rendered="#{produitBean.produit.idProduit gt 0}" value="Modifier" action="GestionProduit"
+					actionListener="#{produitBean.modifierProduit}" />
+
+ 
+</h:form>
+
+</body> 
+</html>
+

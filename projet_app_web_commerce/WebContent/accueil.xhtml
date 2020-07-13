@@ -3,12 +3,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
 	<title>page d'accueil</title>
-
 
 
 	<h:outputStylesheet library="style" name="primeFlex.css" />
@@ -17,27 +17,32 @@
 		library="primefaces" />
 
 	<h:outputStylesheet library="style" name="styleHeader.css" />
-
+	
 
 </h:head>
 <body>
+
 
 	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink>
-			<b:dropMenu class="link" value="Catégories">
-				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
-			</b:dropMenu>
+			<b:navLink value="Link" href="#"></b:navLink> 	
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
+			<p:selectOneMenu id="categorie" dynamic="true" required="true"
+					value="#{categorieBean.categorie.idCategorie}">
+					<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+						noSelectionOption="true" />
+
+					<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+						itemLabel="#{cat.nomCategorie}" itemValue="#{cat.idCategorie}" />
+				</p:selectOneMenu>
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search" />
 			</div>
@@ -46,9 +51,11 @@
 		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
 
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="#">Panier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="#{connexionBean.deconnexionAdmin()}">Déconnexion</b:navLink>
+			<b:navLink style="color:#FFA07A;"
+				href="#{connexionBean.deconnexionAdmin()}">Déconnexion</b:navLink>
 
 		</b:navbarLinks>
 
@@ -98,30 +105,7 @@
 				<h:graphicImage library="images/" name="#{cat.photo}" width="80"
 					height="120" />
 			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Modifier" />
-				</f:facet>
 
-				<!-- données de la colonne -->
-				<p:commandButton action="modifCat" id="IconOnly"
-					actionListener="#{categorieBean.selectCat}"
-					style="margin-right:20px;" icon="pi pi-pencil" title="Icon Only" />
-				<f:param id="updateID" name="id" value="#{cat.idCategorie}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Supprimer" />
-				</f:facet>
-
-				<!-- données de la colonne -->
-				<p:commandButton action="gestionCat"
-					actionListener="#{categorieBean.suppCat}" id="iconOnly"
-					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
-				<f:param id="deleteID" name="id" value="#{cat.idCategorie}" />
-			</h:column>
 
 		</h:dataTable>
 	</h:form>

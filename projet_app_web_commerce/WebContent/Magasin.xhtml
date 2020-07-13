@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+	<h:outputScript library="scripts" name="scriptListGrid.js" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
+	<h:outputStylesheet library="style" name="bootstrap.min.css" />
+
+
+
+</h:head>
+<body>
+
+
+	<div class="p-field p-col-12 p-md-12" style="margin-bottom: 4rem">
+		<p:linkButton action="Magasin" id="button-grid" icon="pi pi-th-large"
+			style="margin-right:20px; float : right">
+			<f:param name="type" value="grille" />
+		</p:linkButton>
+
+		<p:linkButton action="Magasin" id="button-list" icon="pi pi-list"
+			style="margin-right:20px; float : right;">
+			<f:param name="type" value="liste" />
+		</p:linkButton>
+	</div>
+
+	<div id="gridproduit" style="display: none">
+		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+			<div class="p-field p-col-12 p-md-4" style="float: left; padding: 0;">
+				<div class="produit-grille-conteneur"
+					style="padding: 0; border: 0.05rem solid black; width: 95%; border-radius: 1rem; text-align: center">
+					<h:graphicImage class="produit-grille-image" library="images/"
+						name="#{produit.photo}" width="300" height="225"
+						style="text-align: center;margin-top: 0.5rem;" />
+					<p class="produit-grille-designation">#{produit.nomProduit}</p>
+					<div>
+
+						<h:form style="float: right">
+							<p:selectOneMenu id="quantite" required="true" value="test">
+								<f:selectItems
+									value="#{produitBean.getListeQuantite(produit.idProduit)}"
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+							</p:selectOneMenu>
+
+							<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
+								action="GestionProduit"
+								actionListener="#{panierBean.ajouterLigneC}">
+								<f:param name="produitID"
+									value="#{produitBean.produit.idProduit}" />
+								<f:param name="prix" value="#{produitBean.produit.prix}" />
+							</p:button>
+						</h:form>
+
+						<p class="produit-grille-prix"
+							style="text-align: left; margin-left: 1rem">#{produit.prix} €</p>
+						<p class="produit-grille-prix"
+							style="text-align: left; margin-left: 1rem">Quantité
+							disponible : #{produit.quantite}</p>
+					</div>
+
+				</div>
+			</div>
+
+		</p:repeat>
+	</div>
+
+	<div id="listproduit" style="display: block">
+		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+			<div class="p-field p-col-12 p-md-12"
+				style="float: left; padding: 0; margin: auto;">
+				<div class="produit-liste-conteneur"
+					style="padding: 0; width: 100%;">
+					<p class="produit-liste-designation">#{produit.nomProduit}</p>
+					<div class="p-field p-col-12 p-md-3"
+						style="float: left; padding: 0;">
+						<h:graphicImage class="produit-liste-image p-md-3"
+							library="images/" name="#{produit.photo}" width="250"
+							height="187.5" style="text-align: center;margin-top: 0.5rem;" />
+					</div>
+					<div class="p-field p-col-12 p-md-9"
+						style="padding: 0; float: left">
+						<div class="p-field p-col-12 p-md-4"
+							style="float: left; padding: 0;">
+							<p class="produit-grille-description"
+								style="text-align: justify; margin-left: 1rem">
+								Description : <br />#{produit.description}
+							</p>
+						</div>
+						<div class="p-field p-col-12 p-md-3"
+							style="float: left; padding: 0;">
+							<p class="produit-grille-prix"
+								style="text-align: left; margin-left: 1rem">Prix :
+								#{produit.prix} €</p>
+							<p class="produit-grille-quantite"
+								style="text-align: left; margin-left: 1rem">Quantité
+								disponible : #{produit.quantite}</p>
+						</div>
+						<h:form>
+							<p:selectOneMenu id="quantite" required="true" value="test">
+								<f:selectItems
+									value="#{produitBean.getListeQuantite(produit.idProduit)}"
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+							</p:selectOneMenu>
+
+							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="GestionProduit"
+								actionListener="#{panierBean.ajouterLigneC}">
+								<f:param name="produitID"
+									value="#{produitBean.produit.idProduit}" />
+								<f:param name="prix" value="#{produitBean.produit.prix}" />
+						
+							</p:button>
+						</h:form>
+					</div>
+				</div>
+				<div class="p-field p-col-12 p-md-3">
+					<p:repeat var="categorie" value="#{categorieBean.findAllCat()}">
+						<h:graphicImage name="#{categorie.photo}" library="images/"
+							width="80" height="120"
+							rendered="#{produit.idCategorie == categorie.idCategorie}" />
+						<h:outputText value="#{categorie.nomCategorie}"
+							rendered="#{produit.idCategorie == categorie.idCategorie}" />
+					</p:repeat>
+				</div>
+				<hr />
+			</div>
+		</p:repeat>
+	</div>
+
+	<script>
+
+    var list = document.getElementById('button-list');
+    var grid = document.getElementById('button-grid');
+    var listproduit = document.getElementById('listproduit');
+    var gridproduit = document.getElementById('gridproduit');
+    
+    
+    list.addEventListener('click', function (e) {
+        if (listproduit.style.display == 'none') {
+            e.preventDefault();
+            listproduit.style.display = 'block';
+            gridproduit.style.display = 'none';
+        }
+    });
+    
+    grid.addEventListener('click', function (e) {
+        if (gridproduit.style.display == 'none') {
+            e.preventDefault();
+            gridproduit.style.display = 'block';
+            listproduit.style.display = 'none';
+        }
+    });
+    
+        </script>
+
+</body>
+</html>

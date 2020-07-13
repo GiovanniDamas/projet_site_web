@@ -1,5 +1,6 @@
 package com.intiformation.GestionAppCommerce.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.intiformation.GestionAppCommerce.Dao.IProduitDAO;
@@ -50,5 +51,14 @@ public class ProduitServiceImp implements IProduitService{
 	public List<Produit> findBySelectionne() {
 		return produitDAO.getBySelectionne();
 	}
+	
+	public List<Integer> getListeQuantite(Integer idProduit) {
+        Produit produit = produitDAO.getById(idProduit);
+        List<Integer> listeQtt = new ArrayList<>();
+        for (int i = 1; i < produit.getQuantite()+1; i++) {
+            listeQtt.add(i);
+        }
+        return listeQtt;
+    }
 
 }
