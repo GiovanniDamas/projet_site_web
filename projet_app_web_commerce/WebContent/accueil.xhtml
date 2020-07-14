@@ -3,8 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui" 
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
@@ -17,7 +16,7 @@
 		library="primefaces" />
 
 	<h:outputStylesheet library="style" name="styleHeader.css" />
-	
+
 
 </h:head>
 <body>
@@ -28,7 +27,7 @@
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink> 	
+			<b:navLink value="Link" href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -36,13 +35,13 @@
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
 			<p:selectOneMenu id="categorie" dynamic="true" required="true"
-					value="#{categorieBean.categorie.idCategorie}">
-					<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
-						noSelectionOption="true" />
+				value="#{categorieBean.categorie.idCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
 
-					<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
-						itemLabel="#{cat.nomCategorie}" itemValue="#{cat.idCategorie}" />
-				</p:selectOneMenu>
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.idCategorie}" />
+			</p:selectOneMenu>
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search" />
 			</div>
@@ -53,7 +52,7 @@
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
 			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="#">Panier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 			<b:navLink style="color:#FFA07A;"
 				href="#{connexionBean.deconnexionAdmin()}">Déconnexion</b:navLink>
 
@@ -65,50 +64,145 @@
 	<br />
 	<br />
 
-	<h:form>
-		<h:dataTable value="#{categorieBean.findAllCat()}" var="cat">
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="ID Categorie" />
-				</f:facet>
+	<div class="p-field p-col-12 p-md-12" style="margin-bottom: 4rem">
+		<p:linkButton action="Magasin" id="button-grid" icon="pi pi-th-large"
+			style="margin-right:20px; float : right">
+			<f:param name="type" value="grille" />
+		</p:linkButton>
 
-				<!-- données de la colonne -->
-				<h:outputText value="#{cat.idCategorie}" />
-			</h:column>
+		<p:linkButton action="Magasin" id="button-list" icon="pi pi-list"
+			style="margin-right:20px; float : right;">
+			<f:param name="type" value="liste" />
+		</p:linkButton>
+	</div>
 
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Nom Catégorie" />
-				</f:facet>
+	<div id="gridproduit" style="display: none">
+		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+			<div class="p-field p-col-12 p-md-4" style="float: left; padding: 0;">
+				<div class="produit-grille-conteneur"
+					style="padding: 0; border: 0.05rem solid black; width: 95%; border-radius: 1rem; text-align: center">
+					<h:graphicImage class="produit-grille-image" library="images/"
+						name="#{produit.photo}" width="300" height="225"
+						style="text-align: center;margin-top: 0.5rem;" />
+					<p class="produit-grille-designation">#{produit.nomProduit}</p>
+					<div>
 
-				<!-- données de la colonne -->
-				<h:outputText value="#{cat.nomCategorie}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Description" />
-				</f:facet>
+						<h:form style="float: right">
+							<p:selectOneMenu id="quantite" required="true"
+								value="#{panierBean.quantite}">
+								<f:selectItems
+									value="#{produitBean.getListeQuantite(produit.idProduit)}"
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+							</p:selectOneMenu>
 
-				<!-- données de la colonne -->
-				<h:outputText value="#{cat.description}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Photo" />
-				</f:facet>
+							<p:commandButton icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="#"
+								actionListener="#{panierBean.ajouterLigneC}">
+								<f:param name="produitID" value="#{produit.idProduit}" />
+								<f:param name="prix" value="#{produit.prix}" />
+							</p:commandButton>
+						</h:form>
 
-				<!-- données de la colonne -->
-				<h:graphicImage library="images/" name="#{cat.photo}" width="80"
-					height="120" />
-			</h:column>
+						<p class="produit-grille-prix"
+							style="text-align: left; margin-left: 1rem">#{produit.prix} €</p>
+						<p class="produit-grille-prix"
+							style="text-align: left; margin-left: 1rem">Quantité
+							disponible : #{produit.quantite}</p>
+					</div>
 
+				</div>
+			</div>
 
-		</h:dataTable>
-	</h:form>
+		</p:repeat>
+	</div>
+
+	<div id="listproduit" style="display: block">
+		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+			<div class="p-field p-col-12 p-md-12"
+				style="float: left; padding: 0; margin: auto;">
+				<div class="produit-liste-conteneur"
+					style="padding: 0; width: 100%;">
+					<p class="produit-liste-designation">#{produit.nomProduit}</p>
+					<div class="p-field p-col-12 p-md-3"
+						style="float: left; padding: 0;">
+						<h:graphicImage class="produit-liste-image p-md-3"
+							library="images/" name="#{produit.photo}" width="250"
+							height="187.5" style="text-align: center;margin-top: 0.5rem;" />
+					</div>
+					<div class="p-field p-col-12 p-md-9"
+						style="padding: 0; float: left">
+						<div class="p-field p-col-12 p-md-4"
+							style="float: left; padding: 0;">
+							<p class="produit-grille-description"
+								style="text-align: justify; margin-left: 1rem">
+								Description : <br />#{produit.description}
+							</p>
+						</div>
+						<div class="p-field p-col-12 p-md-3"
+							style="float: left; padding: 0;">
+							<p class="produit-grille-prix"
+								style="text-align: left; margin-left: 1rem">Prix :
+								#{produit.prix} €</p>
+							<p class="produit-grille-quantite"
+								style="text-align: left; margin-left: 1rem">Quantité
+								disponible : #{produit.quantite}</p>
+						</div>
+						<h:form>
+							<p:selectOneMenu id="quantite" required="true" value="test">
+								<f:selectItems
+									value="#{produitBean.getListeQuantite(produit.idProduit)}"
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+							</p:selectOneMenu>
+
+							<p:commandButton value="Ajouter au Panier"
+								icon="pi pi-shopping-cart" style="margin-right:20px;" action="#"
+								actionListener="#{panierBean.ajouterLigneC}">
+								<f:param name="produitID" value="#{produit.idProduit}" />
+								<f:param name="prix" value="#{produit.prix}" />
+
+							</p:commandButton>
+						</h:form>
+					</div>
+				</div>
+				<div class="p-field p-col-12 p-md-3">
+					<p:repeat var="categorie" value="#{categorieBean.findAllCat()}">
+						<h:graphicImage name="#{categorie.photo}" library="images/"
+							width="80" height="120"
+							rendered="#{produit.idCategorie == categorie.idCategorie}" />
+						<h:outputText value="#{categorie.nomCategorie}"
+							rendered="#{produit.idCategorie == categorie.idCategorie}" />
+					</p:repeat>
+				</div>
+				<hr />
+			</div>
+		</p:repeat>
+	</div>
+
+	<script>
+
+    var list = document.getElementById('button-list');
+    var grid = document.getElementById('button-grid');
+    var listproduit = document.getElementById('listproduit');
+    var gridproduit = document.getElementById('gridproduit');
+    
+    
+    list.addEventListener('click', function (e) {
+        if (listproduit.style.display == 'none') {
+            e.preventDefault();
+            listproduit.style.display = 'block';
+            gridproduit.style.display = 'none';
+        }
+    });
+    
+    grid.addEventListener('click', function (e) {
+        if (gridproduit.style.display == 'none') {
+            e.preventDefault();
+            gridproduit.style.display = 'block';
+            listproduit.style.display = 'none';
+        }
+    });
+    
+        </script>
 
 </body>
 </html>

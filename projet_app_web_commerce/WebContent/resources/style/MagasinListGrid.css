@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+#button-grid{
+	margin-right:2rem; 
+	float : right;
+}
+
+#button-list{
+	margin-right:2rem; 
+	float : right;
+}
+
+#gridproduit{
+	display: none;
+	width : 95%;
+	margin: auto;
+}
+
+.produit-grid-conteneur-parent{
+	float: left;
+	padding: 0;
+	margin-bottom: 2rem;
+}
+
+.produit-grid-conteneur-individuel-enfant{
+	padding: 0;
+	border: 0.05rem solid black;
+	width: 95%;
+	border-radius: 1rem;
+	text-align: center
+}
+
+.produit-grille-image{
+	width:28rem;
+	height:21rem;
+	text-align: center;
+	margin-top: 0.5rem;
+}
+
+.produit-grille-designation{
+	text-transform: uppercase;
+	font-size: 2.60rem;
+	font-weight: bold;
+	height: 3rem;
+	text-overflow: ellipsis;
+	max-width: 26ch;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: center;
+}
+
+.produit-grille-prix{
+	font-weight:bold;
+	font-size: 2rem;
+	color: #FFA07A;
+	text-align: left;
+	margin-left: 2rem;
+}
+
+.produit-grille-quantite{
+	font-style: italic;
+	font-size: 1.3rem;
+	text-align: left;
+	margin-left: 2rem;
+}
+
+.span-modif-quantite{
+	font-weight: bold;
+	font-size: 1.5rem;
+	margin-left: 0.25rem;
+}
+
+.produit-liste-conteneur-global{
+	padding: 0; 
+	margin: auto;
+	width: 95%;
+}
+
+.produit-liste-conteneur{
+	padding: 0; 
+	width: 100%;
+}
+
+.produit-liste-designation{
+	font-weight: bold;
+	font-size: 4rem;
+	text-transform: uppercase;
+}
+
+.produit-image-conteneur{
+	float: left;
+	padding: 0;
+}
+
+.produit-liste-image{
+	width:30rem;
+	height:22.5rem;
+	text-align: center;
+	margin-top: 0.5rem;
+}
+
+.produit-liste-conteneur-infos{
+	padding: 0;
+	float: left;
+}
+
+.produit-liste-conteneur-description{
+	float: left; 
+	padding: 0;
+}
+
+.produit-liste-description{
+	text-align: justify;
+	margin-left: 1rem;
+	font-size: 2rem;
+}
+
+.span-modif-description{
+	text-align: justify;
+	margin-left: 2.5rem;
+	font-style: italic;
+	font-size: 1.5rem;
+}
+
+.produit-liste-conteneur-prix-qtt{
+	float: left;
+	padding: 0;
+}
+
+.produit-liste-prix{
+	text-align: left; 
+	margin-left: 1rem;
+}
+
+.span-modif-prix {
+	font-weight:bold;
+	font-size: 2rem;
+	color: #FFA07A;
+}
+
+
+
+.produit-liste-quantite{
+	text-align: left;
+	margin-left: 1rem
+}
+
+.span-modif-quantite {
+	font-weight:bold;
+	font-size: 2rem;
+	color: #FFA07A;
+}
+
+.categorie-liste-conteneur{
+	
+	padding-bottom: 3rem;
+}
+
+.categorie-liste-image{
+	width: 5rem;
+	height:5rem;
+	float: left;
+}
+
+.categorie-liste-nom{
+	margin-left:6rem;
+	text-transform: uppercase;
+	color: #787c80;
+}
+
+
+

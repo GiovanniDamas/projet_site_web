@@ -1,6 +1,7 @@
 package com.intiformation.GestionAppCommerce.Controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class GestionUserBean implements Serializable {
 	private User user;
 	private Role role;
 	private String roleName;
+	private List<String> listeRoleName;
+	
 
 	// DAO
 	IUserService userService;
@@ -49,6 +52,17 @@ public class GestionUserBean implements Serializable {
 	}
 
 	// ______________ METHODE ______________//
+	
+	public List<String> listeRoleName() {
+		
+		listeRoleName = new ArrayList<>();
+		
+		listeRoleName.add("AdminCat");
+		listeRoleName.add("AdminProd");
+		
+		return listeRoleName;
+	}
+	
 	/**
 	 * Méthode pour afficher user bdd
 	 */
@@ -153,6 +167,25 @@ public class GestionUserBean implements Serializable {
 		
 	}// END ajouterUser()
 
+	public void onCellEdit(CellEditEvent event) {
+
+        
+		Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        
+        System.out.println(oldValue);
+        System.out.println(newValue);
+        
+        
+        
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+	}
 	
 
 	// __________ GETTER/SETTERS __________//
@@ -178,6 +211,14 @@ public class GestionUserBean implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public List<String> getListeRoleName() {
+		return listeRoleName;
+	}
+
+	public void setListeRoleName(List<String> listeRoleName) {
+		this.listeRoleName = listeRoleName;
 	}
 	
 

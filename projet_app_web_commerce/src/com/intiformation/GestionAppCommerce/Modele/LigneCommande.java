@@ -30,9 +30,9 @@ public class LigneCommande  {
 	}
 	
 	
-	public LigneCommande(int quantite, int produitId, double prix) {
-		this.quantite = quantite;
+	public LigneCommande( int produitId, int quantite, double prix) {
 		this.produitId = produitId;
+		this.quantite = quantite;
 		this.prix = prix;
 
 	}

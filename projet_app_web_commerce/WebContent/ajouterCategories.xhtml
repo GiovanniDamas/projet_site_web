@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="p-field p-col-12 p-md-2"></div>
-			
+
 			<div class="p-field p-col-12 p-md-4" style="margin-top: 3%">
 				<p:outputLabel for="description" value="Description" />
 				<p:inputTextarea id="description" rows="4"
@@ -40,7 +40,7 @@
 
 			<h:outputLabel value="Image du produit : " />
 			<h:panelGroup>
-				<h:graphicImage library="images"
+				<h:graphicImage library="images/"
 					value="#{categorieBean.categorie.photo}" width="75" height="75"
 					rendered="#{categorieBean.categorie.idCategorie gt 0}" />
 				<h:inputFile id="file" value="#{categorieBean.uploadedFile}" />
@@ -51,6 +51,10 @@
 				actionListener="#{categorieBean.ajouter()}" />
 
 		</div>
+
+		<h:commandButton rendered="#{categorieBean.categorie.idCategorie gt 0}"
+			value="Modifier" action="gestionCat"
+			actionListener="#{categorieBean.modifierCat()}" />
 	</h:form>
 </body>
 </html>

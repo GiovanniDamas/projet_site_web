@@ -34,9 +34,13 @@
 
 		<p:growl id="messages" showDetail="true" />
 
-		<p:fileUpload value="#{categorieBean.categorie.photo}" mode="simple"
-			skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-		<br />
+		 <h:outputLabel value="Image de la catégorie : " />
+			<h:panelGroup>
+				<h:graphicImage library="images"
+					value="#{categorieBean.categorie.photo}" width="75"
+					height="75" />
+				<h:inputFile id="file" value="#{categorieBean.uploadedFile}" />
+			</h:panelGroup>
 
 		<p:commandButton value="Modifier" id="withIcon"
 			action="#{categorieBean.modifierCat()}" style="margin-right:20px;"
