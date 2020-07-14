@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>page d'ajout d'un user</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+</h:head>
+<body>
+
+	<h3>Ajout d'un admin</h3>
+	<h:form enctype="multipart/form-data">
+
+		<h:inputHidden value="#{userBean.user.idUser}" />
+
+		<div class="p-field p-grid">
+			<p:outputLabel for="identifiant" styleClass="p-col-fixed"
+				style="width:100px" value="Identifiant" />
+			<div class="p-col">
+				<p:inputText id="identifiant" value="#{userBean.user.userName}" />
+			</div>
+		</div>
+
+		<div class="p-field p-grid">
+			<p:outputLabel for="mdp" styleClass="p-col-fixed" style="width:100px"
+				value="Mot de passe" />
+			<div class="p-col">
+				<p:inputText id="mdp" value="#{userBean.user.password}" />
+			</div>
+		</div>
+		<div class="p-field p-grid">
+			<p:outputLabel for="actif" styleClass="p-col-fixed"
+				style="width:100px" value="Actif" />
+			<div class="p-col">
+				<p:inputText id="actif" value="#{userBean.user.actived}" />
+			</div>
+		</div>
+		<div class="p-field p-grid">
+			<p:outputLabel for="roleName" styleClass="p-col-fixed"
+				style="width:100px" value="Rôle" />
+			<div class="p-col">
+				<p:inputText id="roleName" value="#{userBean.user.roleName}" />
+			</div>
+		</div>
+
+
+		<p:growl id="messages" showDetail="true" />
+
+
+		<p:commandButton value="Ajouter" id="withIcon" action="gestionUser"
+			actionListener="#{userBean.ajouterUser}" style="margin-right:20px;"
+			icon="pi pi-save" />
+
+	</h:form>
+
+</body>
+</html>

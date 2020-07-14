@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>page d'accueil de la gestion des catégories</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
+</h:head>
+<body>
+
+	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+		<b:navbarLinks>
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink value="Gestion Categories" href="gestionCategories.xhtml"></b:navLink>
+			<b:navLink value="Gestion Admin" href="gestionUser.xhtml"></b:navLink>
+			<b:dropMenu value="Catégories">
+				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
+				<b:navLink value="Rôle" href="#"></b:navLink>
+			</b:dropMenu>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search" />
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</h:form>
+		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
+
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:dropMenu value="Profil">
+				<b:navLink value="Nom"></b:navLink>
+				<b:navLink value="Rôle" href="#"></b:navLink>
+			</b:dropMenu>
+			<b:navLink value="Panier" href="#"></b:navLink>
+			<b:navLink value="Déconnexion"
+				href="#{connexionBean.deconnexionAdmin()}"></b:navLink>
+
+		</b:navbarLinks>
+	</b:navBar>
+
+
+	<h:form>
+		<p:growl id="growl" life="2000" />
+		<div>
+			<h3>Ajouter une categorie</h3>
+			<p:commandButton value="Ajouter une catégorie" id="withIcon"
+				action="addCat" actionListener="#{categorieBean.initialiserCat}"
+				style="margin-right:20px;" icon="pi pi-save" />
+		</div>
+		<div>
+			<h3>Gestion des admins</h3>
+			<p:commandButton value="Gestion des admins" id="ajax" update="growl"
+				action="gestionUser" style="margin-right:20px;"
+				styleClass="ui-priority-primary" />
+
+		</div>
+	</h:form>
+	<br />
+
+
+	<h:form>
+		<h:dataTable value="#{categorieBean.findAllCat()}" var="cat">
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="ID Categorie" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:outputText value="#{cat.idCategorie}" />
+			</h:column>
+
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Nom Catégorie" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:outputText value="#{cat.nomCategorie}" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Description" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:outputText value="#{cat.description}" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Photo" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<h:graphicImage library="images/" name="#{cat.photo}" width="80"
+					height="120" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Modifier" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<p:commandButton action="modifCat" id="IconOnly"
+					actionListener="#{categorieBean.selectCat}"
+					style="margin-right:20px;" icon="pi pi-pencil" title="Icon Only" />
+				<f:param id="updateID" name="id" value="#{cat.idCategorie}" />
+			</h:column>
+			<h:column>
+				<!-- en-tête de colonne -->
+				<f:facet name="header">
+					<h:outputText value="Supprimer" />
+				</f:facet>
+
+				<!-- données de la colonne -->
+				<p:commandButton action="gestionCat"
+					actionListener="#{categorieBean.suppCat}" id="iconOnly"
+					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
+				<f:param id="deleteID" name="id" value="#{cat.idCategorie}" />
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+
+<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+<h1>Liste des produits</h1>
+
+<h:form>
+		<h:dataTable value="#{produitBean.findAllProduit()}" var="produit">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{produit.idProduit}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Désignation" />
+				</f:facet>
+				<h:outputText value="#{produit.nomProduit}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Description" />
+				</f:facet>
+				<h:outputText value="#{produit.description}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Quantité" />
+				</f:facet>
+				<h:outputText value="#{produit.quantite}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Prix" />
+				</f:facet>
+				<h:outputText value="#{produit.prix}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Photo" />
+				</f:facet>
+				<h:graphicImage library="images/" name="#{produit.photo}" width="80"
+					height="80" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Modifier" />
+				</f:facet>
+
+				<p:commandButton action="modifProduit" id="IconOnly"
+					actionListener="#{produitBean.selectionnerProduit}"
+					style="margin-right:20px;" icon="pi pi-pencil" title="Icon Only" />
+				<f:param id="updateID" name="id" value="#{produit.idProduit}" />
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Supprimer" />
+				</f:facet>
+				<p:commandButton action="supressionProduit"
+					actionListener="#{produitBean.supprimerProduit}" id="iconOnly"
+					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
+				<f:param id="deleteID" name="id" value="#{produit.idProduit}" />
+			</h:column>
+
+		</h:dataTable>
+		
+
+	
+	<h:commandButton action="addproduit" actionListener="#{produitBean.initialiserProduit}" value="Ajouter un Nouveau Produit"/>
+
+	</h:form>
+
+</body> 
+</html>

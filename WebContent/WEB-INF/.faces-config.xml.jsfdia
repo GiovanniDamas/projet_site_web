@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#gestionCategories.xhtml"
+  PATH="/gestionCategories.xhtml" SHAPE="48,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#gestionCategories.xhtml:0" NAME="item"
+   PATH="/gestionCategories.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionCat::#gestionCategories.xhtml"
+    NAME="output" PATH="/gestionCategories.xhtml"
+    TARGET="rules:#gestionCategories.xhtml" TITLE="gestionCat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="addCat::#ajouterCategories.xhtml"
+    NAME="output1" PATH="/ajouterCategories.xhtml"
+    TARGET="rules:#ajouterCategories.xhtml" TITLE="addCat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="modifCat::#modifierCategories.xhtml"
+    NAME="output2" PATH="/modifierCategories.xhtml"
+    TARGET="rules:#modifierCategories.xhtml" TITLE="modifCat" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="gestionUser::#gestionUser.xhtml"
+    NAME="output3" PATH="/gestionUser.xhtml"
+    TARGET="rules:#gestionUser.xhtml" TITLE="gestionUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#ajouterCategories.xhtml"
+  PATH="/ajouterCategories.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#ajouterCategories.xhtml:0" NAME="item"
+   PATH="/ajouterCategories.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionCat::#gestionCategories.xhtml"
+    NAME="output" PATH="/gestionCategories.xhtml"
+    TARGET="rules:#gestionCategories.xhtml" TITLE="gestionCat" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#gestionUser.xhtml" PATH="/gestionUser.xhtml"
+  SHAPE="304,353,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#gestionUser.xhtml:0" NAME="item"
+   PATH="/gestionUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionUser::#gestionUser.xhtml"
+    NAME="output" PATH="/gestionUser.xhtml"
+    TARGET="rules:#gestionUser.xhtml" TITLE="gestionUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="addUser::#ajouterUser.xhtml" NAME="output1"
+    PATH="/ajouterUser.xhtml" TARGET="rules:#ajouterUser.xhtml"
+    TITLE="addUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="modifUser::#modifierUser.xhtml"
+    NAME="output2" PATH="/modifierUser.xhtml"
+    TARGET="rules:#modifierUser.xhtml" TITLE="modifUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#ajouterUser.xhtml" PATH="/ajouterUser.xhtml"
+  SHAPE="48,337,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#ajouterUser.xhtml:0" NAME="item"
+   PATH="/ajouterUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionUser::#gestionUser.xhtml"
+    NAME="output" PATH="/gestionUser.xhtml"
+    TARGET="rules:#gestionUser.xhtml" TITLE="gestionUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#modifierUser.xhtml"
+  PATH="/modifierUser.xhtml" SHAPE="544,337,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#modifierUser.xhtml:0" NAME="item"
+   PATH="/modifierUser.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="gestionUser::#gestionUser.xhtml"
+    NAME="output" PATH="/gestionUser.xhtml"
+    TARGET="rules:#gestionUser.xhtml" TITLE="gestionUser" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#GestionProduit.xhtml"
+  PATH="/GestionProduit.xhtml" SHAPE="32,513,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#GestionProduit.xhtml:0" NAME="item"
+   PATH="/GestionProduit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="addproduit::#editerProduit.xhtml"
+    NAME="output" PATH="/editerProduit.xhtml"
+    TARGET="rules:#editerProduit.xhtml" TITLE="addproduit" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="supressionProduit::#GestionProduit.xhtml"
+    NAME="output1" PATH="/GestionProduit.xhtml"
+    TARGET="rules:#GestionProduit.xhtml" TITLE="supressionProduit" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="modifProduit::#editerProduit.xhtml"
+    NAME="output2" PATH="/editerProduit.xhtml"
+    TARGET="rules:#editerProduit.xhtml" TITLE="modifProduit" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#editerProduit.xhtml"
+  PATH="/editerProduit.xhtml" SHAPE="272,529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#modifierCategories.xhtml"
+  PATH="/modifierCategories.xhtml" SHAPE="304,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Magasin.xhtml" PATH="/Magasin.xhtml"
+  SHAPE="32,801,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Magasin.xhtml:0" NAME="item"
+   PATH="/Magasin.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="magasinfiltre::#MagasinFiltre.xhtml"
+    NAME="output" PATH="/MagasinFiltre.xhtml"
+    TARGET="rules:#MagasinFiltre.xhtml" TITLE="magasinfiltre" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#MagasinFiltre.xhtml"
+  PATH="/MagasinFiltre.xhtml" SHAPE="240,817,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

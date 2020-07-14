@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+    <navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/gestionCategories.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation : de gestionCategories.xhtml vers gestionCategories.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+
+		<!-- 1.2 cas de navigation : de gestionCategories.xhtml vers ajouterCategories.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>addCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/ajouterCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>modifCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/modifierCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+	<!-- 1 règle de naviation pour la page 'ajouterCategories.xhtml' -->
+	<!-- ================================================= -->
+	<navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/ajouterCategories.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionCat</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionCategories.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- 1 règle de naviation pour la page 'gestionUser.xhtml' -->
+	<!-- ================================================= -->
+	<navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/gestionUser.xhtml</from-view-id>
+		
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+		
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>addUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/ajouterUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+
+		<!-- 1.2 cas de navigation : de modifierUser.xhtml vers gestionUser.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>modifUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/modifierUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- 1 règle de naviation pour la page 'ajouterUser.xhtml' -->
+	<!-- ================================================= -->
+	<navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/ajouterUser.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- 1 règle de naviation pour la page 'modifierUser.xhtml' -->
+	<!-- ================================================= -->
+	<navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/modifierUser.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>gestionUser</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/gestionUser.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	
+	
+	<!-- Mes rajouts (Thomas) -->
+	<navigation-rule>
+
+		<from-view-id>/GestionProduit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>addproduit</from-outcome>
+			<to-view-id>/editerProduit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>supressionProduit</from-outcome>
+			<to-view-id>/GestionProduit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>modifProduit</from-outcome>
+			<to-view-id>/editerProduit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+
+		<from-view-id>/Magasin.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>magasinfiltre</from-outcome>
+			<to-view-id>/MagasinFiltre.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+
+</faces-config>

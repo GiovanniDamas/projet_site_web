@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+	
+	<h:outputStylesheet library="style" name="MagasinListGrid.css" />
+
+	<h:outputStylesheet library="style" name="Popup.css" />
+
+
+</h:head>
+<body>
+
+	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink value="Link" href="#"></b:navLink> 	
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			
+            
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+					<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+						noSelectionOption="true" />
+
+					<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+						itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+				</p:selectOneMenu>
+				
+			<div class="form-group">
+				<p:inputText  value="#{rechercheBean.keywords}"/>
+			</div>
+			<h:commandButton action="MagasinFiltre.xhtml" actionListener="#{rechercheBean.getListeSelonFiltre()}" value="Rechercher" class="btn btn-default"/>
+		</h:form>
+
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="#">Panier</b:navLink>
+
+
+		</b:navbarLinks>
+
+	</b:navBar>
+
+	<br />
+	<br />
+	<br />
+	
+
+	<div class="p-field p-col-12 p-md-12" style="margin-bottom: 4rem">
+		<p:linkButton action="#" icon="pi pi-th-large" id="button-grid">
+		</p:linkButton>
+
+		<p:linkButton action="#" id="button-list" icon="pi pi-list">
+		</p:linkButton>
+	</div>
+
+
+
+		
+		<div id="gridproduit" style="display: none">
+			<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+				<div class="p-field p-col-12 p-md-4 produit-grid-conteneur-parent">
+					<div class="produit-grid-conteneur-individuel-enfant btnPopup">
+						<h:graphicImage class="produit-grille-image" library="images/"
+							name="#{produit.photo}"/>
+						<p class="produit-grille-designation">#{produit.nomProduit}</p>
+						<div>
+
+							<h:form style="float: right">
+								<p:selectOneMenu id="quantite" required="true" value="test">
+									<f:selectItems
+										value="#{produitBean.getListeQuantite(produit.idProduit)}"
+										var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+								</p:selectOneMenu>
+
+								<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
+									action="#" actionListener="">
+								</p:button>
+							</h:form>
+
+							<p class="produit-grille-prix">#{produit.prix}
+								€</p>
+							<p class="produit-grille-quantite">Quantité
+								disponible : <span class="span-modif-quantite">#{produit.quantite} pcs</span></p>
+						</div>
+
+					</div>
+				</div>
+
+			</p:repeat>
+		</div>
+	
+
+
+
+	<div id="listproduit" style="display: block">
+		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+			<div class="p-field p-col-12 p-md-12 produit-liste-conteneur-global">
+				<div class="produit-liste-conteneur">
+					<p class="produit-liste-designation">#{produit.nomProduit}</p>
+					<div class="p-field p-col-12 p-md-3 produit-image-conteneur">
+						<h:graphicImage class="produit-liste-image"
+							library="images/" name="#{produit.photo}" />
+					</div>
+					<div class="p-field p-col-12 p-md-9 produit-liste-conteneur-infos">
+						<div class="p-field p-col-12 p-md-4 produit-liste-conteneur-description">
+							<p class="produit-liste-description">
+								Description : <br /> <span class="span-modif-description">#{produit.description}</span>
+							</p>
+						</div>
+						<div class="p-field p-col-12 p-md-3 produit-liste-conteneur-prix-qtt">
+							<p class="produit-liste-prix">Prix :
+								<span class="span-modif-prix">#{produit.prix} €</span></p>
+							<p class="produit-liste-quantite">Quantité
+								disponible : <span class="span-modif-quantite">#{produit.quantite}</span></p>
+						</div>
+						<h:form>
+							<p:selectOneMenu id="quantite" required="true" value="test">
+								<f:selectItems
+									value="#{produitBean.getListeQuantite(produit.idProduit)}"
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+							</p:selectOneMenu>
+
+							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="#" actionListener="">
+								<f:param name="productId" value="10" />
+							</p:button>
+						</h:form>
+					</div>
+				</div>
+				<div class="p-field p-col-12 p-md-3 categorie-liste-conteneur">
+					<p:repeat var="categorie" value="#{categorieBean.findAllCat()}">
+						<h:graphicImage class="categorie-liste-image" library="images/" name="#{categorie.photo}"
+							rendered="#{produit.idCategorie == categorie.idCategorie}" />
+							<p class="categorie-liste-nom">
+						<h:outputText  value="#{categorie.nomCategorie}"
+							rendered="#{produit.idCategorie == categorie.idCategorie}" />
+							</p>
+					</p:repeat>
+				</div>
+				<hr />
+			</div>
+		</p:repeat>
+	</div>
+
+	<h:outputScript library="scripts" name="scriptListGrid.js" />
+
+
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+
+
+
+
+
+
+
+</body>
+</html>
