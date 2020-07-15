@@ -88,7 +88,7 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true" value="test">
+							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.ligneCommande.quantite}">
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
@@ -98,6 +98,8 @@
 								action="#" actionListener="#{panierBean.ajouterLigneC}">
 								<f:param name="produitID" value="#{produit.idProduit}" />
 								<f:param name="prix" value="#{produit.prix}" />
+								<f:param name="quantite" value="#{qtt}" />
+								
 							</p:button>
 						</h:form>
 

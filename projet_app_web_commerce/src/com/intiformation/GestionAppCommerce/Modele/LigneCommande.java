@@ -87,4 +87,11 @@ public class LigneCommande  {
 		this.idPanier = idPanier;
 	}
 
+	@Override
+	public String toString() {
+		return "LigneCommande [quantite=" + quantite + ", produitId=" + produitId + ", commandeId=" + commandeId
+				+ ", idPanier=" + idPanier + ", prix=" + prix + ", ligneC=" + ligneC + "]";
+	}
+	
+
 }//END CLASS

@@ -39,6 +39,9 @@
    <PROCESS-ITEM-OUTPUT ID="addUser::#ajouterUser.xhtml" NAME="output1"
     PATH="/ajouterUser.xhtml" TARGET="rules:#ajouterUser.xhtml"
     TITLE="addUser" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="modifUser::#modifierUser.xhtml"
+    NAME="output2" PATH="/modifierUser.xhtml"
+    TARGET="rules:#modifierUser.xhtml" TITLE="modifUser" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#modifierUser.xhtml"
@@ -89,6 +92,14 @@
    PATH="/Magasin.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="Magasin::#Magasin.xhtml" NAME="output"
     PATH="/Magasin.xhtml" TARGET="rules:#Magasin.xhtml" TITLE="Magasin" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
+  SHAPE="32,1025,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#panier.xhtml:0" NAME="item"
+   PATH="/panier.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="panier::#panier.xhtml" NAME="output"
+    PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="panier" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

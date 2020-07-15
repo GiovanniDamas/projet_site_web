@@ -61,10 +61,10 @@
 
 	<div id="ligneCommande" style="display: block">
 		<p:repeat var="lc" value="#{listeLigneC}">
+
 			<div class="p-field p-col-12 p-md-12"
 				style="float: left; padding: 0; margin: auto;">
-				<div class="produit-liste-conteneur"
-					style="padding: 0; ">
+				<div class="produit-liste-conteneur" style="padding: 0;">
 					<p class="produit-grille-description"
 						style="text-align: justify; margin-left: 1rem">
 						ID du produit : <br /> #{lc.produitId}
@@ -87,16 +87,34 @@
 							style="text-align: justify; margin-left: 1rem">
 							Quantité selectionnée : <br /> #{lc.quantite}
 						</p>
+						<p:repeat var="nbligne" value="#{nombreLigneC}"></p:repeat>
+						<h:form>
 
+							<p:commandButton value="Supprimer" action="#"
+								actionListener="#{panierBean.suppLigneC}"
+								style="margin-right:20px;" />
+							<f:param id="index" value="#{nbligne}"></f:param>
+						</h:form>
 					</div>
 				</div>
 			</div>
 		</p:repeat>
 	</div>
 
-	<div style="float: right; padding: 0; margin-right: 10%; margin-bottom: 40%;">
+	<h:form>
+		<div
+			style="float: right; padding: 0; margin-right: 10%; margin-bottom: 70%;">
+			<p:commandButton value="Vider Panier" action="panier"
+				actionListener="#{panierBean.viderPanier}"
+				style="margin-right:20px;" />
+		</div>
+
+	</h:form>
+
+	<div
+		style="float: right; padding: 0; margin-right: 10%; margin-bottom: 40%;">
 		<div class="produit-grille-conteneur"
-			style="padding: 0; border: 0.05rem solid black; width: 95%; border-radius: 1rem; text-align: center; margin-right:30%;">
+			style="padding: 0; border: 0.05rem solid black; width: 95%; border-radius: 1rem; text-align: center; margin-right: 30%;">
 			<p>Prix total : #{panierBean.sommePrix()}</p>
 			<p>Délai livraison</p>
 

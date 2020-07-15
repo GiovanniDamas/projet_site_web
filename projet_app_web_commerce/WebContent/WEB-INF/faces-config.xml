@@ -222,4 +222,22 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- 1 règle de naviation pour la page 'editerProduit.xhtml' -->
+	<!-- ================================================= -->
+	<navigation-rule>
+
+		<!-- page de départ -->
+		<from-view-id>/panier.xhtml</from-view-id>
+
+		<!-- 1.2 cas de navigation : de accueil.xhtml vers accueil.xhtml -->
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>panier</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/panier.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 </faces-config>
