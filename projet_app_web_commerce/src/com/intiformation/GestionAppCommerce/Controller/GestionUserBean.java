@@ -37,8 +37,8 @@ public class GestionUserBean implements Serializable {
 	private User user;
 	private Role role;
 	private String roleName;
-	private List<String> listeRoleName;
-	
+	private String [] pRoleName = {"AdminCat","AdminProd"};
+
 
 	// DAO
 	IUserService userService;
@@ -52,7 +52,7 @@ public class GestionUserBean implements Serializable {
 	}
 
 	// ______________ METHODE ______________//
-	
+/*	
 	public List<String> listeRoleName() {
 		
 		listeRoleName = new ArrayList<>();
@@ -62,7 +62,7 @@ public class GestionUserBean implements Serializable {
 		
 		return listeRoleName;
 	}
-	
+*/	
 	/**
 	 * Méthode pour afficher user bdd
 	 */
@@ -167,25 +167,6 @@ public class GestionUserBean implements Serializable {
 		
 	}// END ajouterUser()
 
-	public void onCellEdit(CellEditEvent event) {
-
-        
-		Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        
-        
-        System.out.println(oldValue);
-        System.out.println(newValue);
-        
-        
-        
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-	}
 	
 
 	// __________ GETTER/SETTERS __________//
@@ -212,7 +193,7 @@ public class GestionUserBean implements Serializable {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
+/*
 	public List<String> getListeRoleName() {
 		return listeRoleName;
 	}
@@ -220,6 +201,19 @@ public class GestionUserBean implements Serializable {
 	public void setListeRoleName(List<String> listeRoleName) {
 		this.listeRoleName = listeRoleName;
 	}
+*/
+	public List<User> getListeUserBdd() {
+		return listeUserBdd;
+	}
+
+	public void setListeUserBdd(List<User> listeUserBdd) {
+		this.listeUserBdd = listeUserBdd;
+	}
+	
+	public List<String> getPRoleName() {
+        return Arrays.asList(pRoleName);
+    }
+     	
 	
 
 }// END CLASS

@@ -11,13 +11,20 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.PrimeFaces;
 
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
 import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.intiformation.GestionAppCommerce.Service.ILigneCommandeService;
 import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
+
+import javafx.beans.binding.MapBinding;
 
 /**
  * ManagedBean pour la gestion des lignes de commandes
@@ -66,14 +73,15 @@ public class GestionPanierBean implements Serializable {
 
 		String pIdProduit = (String) params.get("produitID");
 		String pPrix = (String) params.get("prix");
-		String pQuantite = (String) params.get("quantite");
-
+		
+	
+		
 		int produit = Integer.parseInt(pIdProduit);
-		int quantite = Integer.parseInt(pQuantite);
 		Double prix = Double.parseDouble(pPrix);
 		
+		
+		
 		System.out.println(quantite);
-		setQuantite(quantite);
 		
 
 		ligneC = new LigneCommande(produit, quantite, prix);
@@ -109,6 +117,7 @@ public class GestionPanierBean implements Serializable {
 		session.setAttribute("nombreLigneC", nombreLigneC);
 
 	}// END METHODE
+	
 
 	public double sommePrix() {
 

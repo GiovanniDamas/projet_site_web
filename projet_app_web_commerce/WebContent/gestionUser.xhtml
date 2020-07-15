@@ -66,16 +66,37 @@
 		</div>
 	</h:form>
 
-	<h:form id="table">
+<!-- 	<h:form id="form"> -->
+<!-- 		<p:dataTable id="role" var="role" value="#{editCellBean.roleName}" -->
+<!-- 			editable="true" editMode="cell" > -->
+<!-- 			<f:facet name="header"> -->
+<!--             Cell Editing with Click and RightClick -->
+<!--         </f:facet> -->
+
+<!-- 			<p:ajax event="cellEdit" listener="#{editCellBean.onCellEdit}" -->
+<!-- 				update=":form:role" /> -->
+
+<!-- 			<p:column headerText="role"> -->
+<!--             <p:cellEditor> -->
+<!--                 <f:facet name="output"><h:outputText value="#{role}" /></f:facet> -->
+<!--                 <f:facet name="input"> -->
+<!--                     <h:selectOneMenu value="#{role}" style="width:100%"> -->
+<!--                         <f:selectItems value="#{editCellBean.roleName}" var="man" itemLabel="#{man}" itemValue="#{man}" /> -->
+<!--                     </h:selectOneMenu> -->
+<!--                 </f:facet> -->
+<!--             </p:cellEditor> -->
+<!--         </p:column> -->
+<!-- 		</p:dataTable> -->
+<!-- 	</h:form> -->
+
+	<h:form>
 		<p:growl id="msgs" showDetail="true" />
-		<p:dataTable id="user" var="user" value="#{userBean.findAllUser()}"
-			editable="true" editMode="cell" widgetVar="user">
+		<p:dataTable id="user" var="user" value="#{userBean.listeUserBdd}"
+			editable="true" editMode="cell">
 			<f:facet name="header">
         Liste des admins
     </f:facet>
 
-			<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}"
-				update="role" />
 
 			<p:column headerText="ID User">
 				<h:outputText value="#{user.idUser}" />
@@ -93,12 +114,18 @@
 				<h:outputText value="#{user.actived}" />
 			</p:column>
 
-			<p:column headerText="Role">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{user.roleName}" /></f:facet>
-                <f:facet name="input"><p:inputText value="#{user.roleName}" style="width:96%" label="roleName"/></f:facet>
-            </p:cellEditor>
-        </p:column>
+			<p:column headerText="Rôle">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{user.roleName}" />
+					</f:facet>
+					<f:facet name="input">
+                    <h:selectOneMenu value="#{role}" style="width:100%">
+                        <f:selectItems value="#{editCellBean.roleName}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                    </h:selectOneMenu>
+                </f:facet>
+				</p:cellEditor>
+			</p:column>
 
 			<p:column headerText="Modifier">
 				<p:commandButton action="modifUser" id="IconOnly"

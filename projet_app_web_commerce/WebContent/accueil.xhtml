@@ -88,19 +88,18 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true"
-								value="#{panierBean.quantite}">
+							<h:selectOneMenu required="true" value="#{panierBean.quantite}">
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
-							</p:selectOneMenu>
+								
+							</h:selectOneMenu>
 
 							<p:commandButton icon="pi pi-shopping-cart"
 								style="margin-right:20px;" action="#"
 								actionListener="#{panierBean.ajouterLigneC}">
 								<f:param name="produitID" value="#{produit.idProduit}" />
 								<f:param name="prix" value="#{produit.prix}" />
-								<f:param name="quantite" value="#{panierBean.quantite}" />
 							</p:commandButton>
 						</h:form>
 
