@@ -263,4 +263,38 @@ public class ProduitDAOImp implements IProduitDAO{
 		return null;
 	}
 	
+	@Override
+	public List<Produit> getByKeywordsAndCategorie(String motsCles, String nomCategorie) {
+		try {
+			String requeteGetByCategorie = "select p.idProduit,p.quantite,p.categorieID,p.nomProduit, p.description,p.photo,p.prix,p.selectionner from produit p, categorie c where p.description regexp ? and (p.categorieID=c.idCategorie and c.nomCategorie=?);";
+			ps = this.connection.prepareStatement(requeteGetByCategorie);
+			ps.setString(1, motsCles);
+			ps.setString(2, nomCategorie);
+			
+			
+			rs = ps.executeQuery();
+			Produit produit = null;
+			List<Produit> listeP = new ArrayList<>();
+
+			while(rs.next()) {
+				produit = new Produit(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDouble(7), rs.getBoolean(8));
+				listeP.add(produit);
+			}
+			return listeP;
+			
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la r�cuperation du produit getBySelectionne");
+			e.printStackTrace();
+		}finally {
+				try {
+					if (rs!=null)rs.close();
+					if (ps!=null)ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}//end try/catch
+				
+		}//end finally
+		return null;
+	}
+	
 }

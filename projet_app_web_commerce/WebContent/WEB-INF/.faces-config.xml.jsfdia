@@ -92,7 +92,12 @@
    PATH="/Magasin.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID="Magasin::#Magasin.xhtml" NAME="output"
     PATH="/Magasin.xhtml" TARGET="rules:#Magasin.xhtml" TITLE="Magasin" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="magasinfiltre::#MagasinFiltre.xhtml"
+    NAME="output1" PATH="/MagasinFiltre.xhtml"
+    TARGET="rules:#MagasinFiltre.xhtml" TITLE="magasinfiltre" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#Magasin.xhtml:1" NAME="item1"
+   PATH="/Magasin.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
   SHAPE="32,1025,0,0" model-entity="JSFProcessGroup">
@@ -102,4 +107,6 @@
     PATH="/panier.xhtml" TARGET="rules:#panier.xhtml" TITLE="panier" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#MagasinFiltre.xhtml"
+  PATH="/MagasinFiltre.xhtml" SHAPE="256,1249,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

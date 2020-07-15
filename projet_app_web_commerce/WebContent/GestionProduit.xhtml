@@ -6,7 +6,12 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
+
 	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet library="style" name="DataTableProduit.css" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
 
 	<h:outputStylesheet name="primeicons/primeicons.css"
 		library="primefaces" />
@@ -14,119 +19,157 @@
 </h:head>
 <body>
 
-
 	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
-		<b:navbarLinks>
+		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Gestion Categories" href="gestionCategories.xhtml"></b:navLink>
-			<b:navLink value="Gestion Admin" href="gestionUser.xhtml"></b:navLink>
-			<b:navLink value="Gestion Produits" href="GestionProduit.xhtml"></b:navLink>
-			<b:dropMenu value="Catégories">
-				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
-			</b:dropMenu>
+			<b:navLink value="Link" href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
+
+
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search" />
+				<p:inputText value="#{rechercheBean.keywords}" />
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
 
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:dropMenu value="Profil">
-				<b:navLink value="Nom"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
-			</b:dropMenu>
-			<b:navLink value="Panier" href="#"></b:navLink>
-			<b:navLink value="Déconnexion"
-				href="#{connexionBean.deconnexionAdmin()}"></b:navLink>
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="#">Panier</b:navLink>
+
 
 		</b:navbarLinks>
+
 	</b:navBar>
 
 
+	<h1>Liste des produits</h1>
 
 	<h:form>
-		<h1>Liste des produits</h1>
-		<h:dataTable value="#{produitBean.findAllProduit()}" var="produit">
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="ID" />
-				</f:facet>
+		<p:dataTable class="dataTable-produit" var="produit"
+			value="#{produitBean.findAllProduit()}" widgetVar="produitTable"
+			emptyMessage="Aucun ne produit correspondant aux critères "
+			filteredValue="#{FiltreBean.filteredProduit}">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Recherche :" />
+					<p:inputText id="globalFilter"
+						onkeyup="PF('produitTable').filter()"
+						style="width:150px; margin-left:10px" placeholder="Mots Clés" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column class="column-idProduit" filterBy="#{produit.idProduit}"
+				headerText="ID" filterMatchMode="exact">
 				<h:outputText value="#{produit.idProduit}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Désignation" />
+			<p:column class="column-image" headerText="Image">
+				<h:graphicImage class="image-produit" library="images/"
+					name="#{produit.photo}" />
+			</p:column>
+
+			<p:column class="column-idCategorie"
+				filterBy="#{produit.idCategorie}" headerText="Catégorie"
+				filterMatchMode="exact">
+				<f:facet name="filter">
+					<p:selectOneMenu onchange="PF('produitTable').filter()"
+						styleClass="custom-filter">
+						<f:selectItem itemLabel="Select One" itemValue="#{null}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{categorieBean.findAllCat()}"
+							var="categorie" itemLabel="#{categorie.nomCategorie}"
+							itemValue="#{categorie.idCategorie}" />
+					</p:selectOneMenu>
 				</f:facet>
+				<h:outputText value="#{produit.idCategorie}" />
+
+			</p:column>
+
+			<p:column class="column-designation" filterBy="#{produit.nomProduit}"
+				headerText="Désignation">
 				<h:outputText value="#{produit.nomProduit}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Description" />
-				</f:facet>
+			<p:column class="column-description" row="3"
+				filterBy="#{produit.description}" headerText="Description"
+				filterMatchMode="contains">
 				<h:outputText value="#{produit.description}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Quantité" />
-				</f:facet>
+			<p:column class="column-quantite" headerText="Quantité">
 				<h:outputText value="#{produit.quantite}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Prix" />
-				</f:facet>
+			<p:column class="column-prix" headerText="Prix">
 				<h:outputText value="#{produit.prix}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Photo" />
+
+			<p:column class="column-selectionne"
+				filterBy="#{produit.selectionne}" headerText="Selection"
+				filterMatchMode="equals">
+				<f:facet name="filter">
+					<p:selectOneButton onchange="PF('produitTable').filter()"
+						styleClass="custom-filter">
+						<f:converter converterId="javax.faces.Boolean" />
+						<f:selectItem itemLabel="Picked" itemValue="true" />
+						<f:selectItem itemLabel="Not picked" itemValue="false" />
+					</p:selectOneButton>
 				</f:facet>
-				<h:graphicImage library="images/" name="#{produit.photo}" width="80"
-					height="80" />
-			</h:column>
-			<h:column>
+				<h:outputText
+					value="#{produit.selectionne ? 'Picked': 'Not picked'}" />
+			</p:column>
+
+			<p:column class="column-modifier">
 				<f:facet name="header">
 					<h:outputText value="Modifier" />
 				</f:facet>
 
 				<p:commandButton action="modifProduit" id="IconOnly"
 					actionListener="#{produitBean.selectionnerProduit}"
-					style="margin-right:20px;" icon="pi pi-pencil" title="Icon Only" />
+					icon="pi pi-pencil" title="Icon Only" />
 				<f:param id="updateID" name="id" value="#{produit.idProduit}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
+			<p:column class="column-supprimer">
 				<f:facet name="header">
 					<h:outputText value="Supprimer" />
 				</f:facet>
-				<p:commandButton action="GestionProduit"
+				<p:commandButton action="supressionProduit"
 					actionListener="#{produitBean.supprimerProduit}" id="iconOnly"
-					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
+					icon="pi pi-trash" title="Icon Only" />
 				<f:param id="deleteID" name="id" value="#{produit.idProduit}" />
-			</h:column>
+			</p:column>
 
-		</h:dataTable>
+			<f:facet name="footer">
+				<p:outputPanel>
+					<p:commandButton value="Ajouter un Nouveau Produit"
+						action="addproduit"
+						actionListener="#{produitBean.initialiserProduit}"
+						icon="pi pi-plus" />
+				</p:outputPanel>
+			</f:facet>
 
-
-
-		<h:commandButton action="addproduit"
-			actionListener="#{produitBean.initialiserProduit}"
-			value="Ajouter un Nouveau Produit" />
+		</p:dataTable>
 
 	</h:form>
 

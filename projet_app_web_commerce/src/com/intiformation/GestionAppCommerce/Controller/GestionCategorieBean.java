@@ -8,9 +8,6 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
@@ -20,14 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.Part;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
-import org.primefaces.shaded.commons.io.FilenameUtils;
-
-import org.apache.commons.io.FileUtils;
-
-import com.intiformation.GestionAppCommerce.Dao.CategorieDAOImp;
-import com.intiformation.GestionAppCommerce.Dao.ICategorieDAO;
 import com.intiformation.GestionAppCommerce.Modele.Categorie;
 import com.intiformation.GestionAppCommerce.Service.CategorieServiceImp;
 import com.intiformation.GestionAppCommerce.Service.ICategorieService;

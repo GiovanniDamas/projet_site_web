@@ -11,5 +11,7 @@ public interface IProduitDAO extends IGenericDAO<Produit>{
 	public List<Produit> getByKeywords(String motsCles);
 	
 	public List<Produit> getBySelectionne();
+	
+	public List<Produit> getByKeywordsAndCategorie(String motsCles, String nomCategorie);
 
 }

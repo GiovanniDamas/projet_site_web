@@ -16,9 +16,6 @@
 
 	<h:outputStylesheet library="style" name="MagasinListGrid.css" />
 
-	<h:outputStylesheet library="style" name="Popup.css" />
-
-
 </h:head>
 <body>
 
@@ -88,18 +85,14 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.ligneCommande.quantite}">
+							<p:selectOneMenu id="quantite" required="true" value="test">
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
 							</p:selectOneMenu>
 
 							<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
-								action="#" actionListener="#{panierBean.ajouterLigneC}">
-								<f:param name="produitID" value="#{produit.idProduit}" />
-								<f:param name="prix" value="#{produit.prix}" />
-								<f:param name="quantite" value="#{qtt}" />
-								
+								action="#" actionListener="#{panierBean.ajouterLigneC()}">
 							</p:button>
 						</h:form>
 
@@ -152,10 +145,8 @@
 							</p:selectOneMenu>
 
 							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#"
-								actionListener="#{panierBean.ajouterLigneC}">
-								<f:param name="produitID" value="#{produit.idProduit}" />
-								<f:param name="prix" value="#{produit.prix}" />
+								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneC()}">
+								<f:param name="productId" value="10" />
 							</p:button>
 						</h:form>
 					</div>

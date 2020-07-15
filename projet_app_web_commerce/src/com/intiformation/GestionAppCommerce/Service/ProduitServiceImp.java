@@ -52,6 +52,7 @@ public class ProduitServiceImp implements IProduitService{
 		return produitDAO.getBySelectionne();
 	}
 	
+	@Override
 	public List<Integer> getListeQuantite(Integer idProduit) {
         Produit produit = produitDAO.getById(idProduit);
         List<Integer> listeQtt = new ArrayList<>();
@@ -60,5 +61,11 @@ public class ProduitServiceImp implements IProduitService{
         }
         return listeQtt;
     }
+	
+	@Override
+	public List<Produit> findByKeywordsAndCategorie(String motsCles, String nomCategorie) {
+		motsCles.replace(" ", "|");
+		return produitDAO.getByKeywordsAndCategorie(motsCles, nomCategorie);
+	}
 
 }

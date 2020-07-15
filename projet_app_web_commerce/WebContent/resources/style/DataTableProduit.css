@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+.dataTable-produit{
+	margin:  0 1rem 0 1rem;
+}
+
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+}
+
+.column-idProduit {
+	width: 5%;
+	text-align: center;
+	padding-bottom: 0;
+	
+}
+
+.column-image {
+	text-align: center;
+	width: 10%;
+}
+
+.image-produit {
+	width: 8rem;
+	height: 6rem;
+}
+
+.column-idCategorie {
+	width: 10%;
+	text-align: center;
+}
+
+.column-designation {
+	text-align: center;
+	text-transform: uppercase;
+	text-overflow: ellipsis;
+	font-size: 1.25rem;
+	width: 12.5%;
+}
+
+.column-description {
+	text-overflow: ellipsis;
+}
+
+.column-quantite {
+	width: 5%;
+	text-align: center;
+}
+
+.column-prix {
+	width: 7%;
+	text-align: center;
+}
+
+.column-modifier {
+	width: 5%;
+	text-align: center;
+}
+
+.column-supprimer {
+	width: 7.5%;
+	text-align: center;
+}
+
+.column-selectionne{
+	width: 8%;
+	text-align: center;
+}]

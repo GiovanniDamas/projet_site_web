@@ -220,6 +220,13 @@
 			<!-- redirection -->
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>magasinfiltre</from-outcome>
+			<to-view-id>/MagasinFiltre.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
 	</navigation-rule>
 	
 	<!-- 1 règle de naviation pour la page 'editerProduit.xhtml' -->
@@ -238,6 +245,15 @@
 			<!-- redirection -->
 			<redirect />
 		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	<navigation-rule>
+
+		<from-view-id>/Magasin.xhtml</from-view-id>
+		
+		
 	</navigation-rule>
 	
 </faces-config>

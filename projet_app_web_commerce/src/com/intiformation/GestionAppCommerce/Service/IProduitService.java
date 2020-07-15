@@ -23,5 +23,8 @@ public interface IProduitService {
 	public List<Produit> findBySelectionne();
 	
 	public List<Integer> getListeQuantite(Integer idProduit);
+	
+	public List<Produit> findByKeywordsAndCategorie(String motsCles, String nomCategorie);
+
 
 }
