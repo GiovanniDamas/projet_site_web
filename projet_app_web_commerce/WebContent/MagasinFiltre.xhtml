@@ -51,7 +51,7 @@
 		<b:navbarLinks pull="right" >
 			<b:navLink style="color:#FFA07A;" value="Magasin" href="Magasin.xhtml"></b:navLink>
 			<b:navLink style="color:#FFA07A;" value="S'identifier" href="authentification.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="Panier" href="#"></b:navLink>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
 
 
 		</b:navbarLinks>
@@ -90,14 +90,17 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true" value="test">
+							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
+							<f:selectItem itemLabel="QTT" itemValue="#{null}"
+						noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+									<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
 							<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
-								action="#" actionListener="#{panierBean.ajouterLigneC()}">
+								action="#" actionListener="#{panierBean.ajouterLigneCommande}">
 							</p:button>
 						</h:form>
 
@@ -143,14 +146,15 @@
 							</p>
 						</div>
 						<h:form>
-							<p:selectOneMenu id="quantite" required="true" value="test">
+							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+									<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
 							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneC()}">
+								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneCommande}">
 								<f:param name="productId" value="10" />
 							</p:button>
 						</h:form>

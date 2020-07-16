@@ -25,25 +25,19 @@ public class RechercheBean implements Serializable{
 	
 	
 	public List<Produit> getListeSelonFiltre() {
-		System.out.println(nomCategorie+keywords);
 		if((nomCategorie.isEmpty() || nomCategorie==null) && !keywords.isEmpty()) {
 			listeFiltreProduit= produitService.findByKeywords(keywords);
-			System.out.println("if1"+nomCategorie+keywords);
 		}
 		if(keywords.isEmpty() && !nomCategorie.isEmpty()) {
 			listeFiltreProduit=produitService.findByCategorie(nomCategorie);
-			System.out.println("if2"+nomCategorie+keywords);
-			System.out.println(listeFiltreProduit);
 		}
 		
 		if(!keywords.isEmpty() && !nomCategorie.isEmpty()) {
 			listeFiltreProduit = produitService.findByKeywordsAndCategorie(keywords, nomCategorie);
-			System.out.println("if3"+nomCategorie+keywords);
 		}
 		
 		if(keywords.isEmpty() && (nomCategorie.isEmpty()||nomCategorie==null)) {
 			listeFiltreProduit = produitService.findAllProduit();
-			System.out.println("if4"+nomCategorie+keywords);
 		}
 		
 		return listeFiltreProduit;

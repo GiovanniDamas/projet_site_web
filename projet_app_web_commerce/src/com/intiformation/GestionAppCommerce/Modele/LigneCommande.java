@@ -34,8 +34,9 @@ public class LigneCommande  {
 		this.produitId = produitId;
 		this.quantite = quantite;
 		this.prix = prix;
-
 	}
+	
+
 
 	//Getter Setter
 
@@ -92,6 +93,9 @@ public class LigneCommande  {
 		return "LigneCommande [quantite=" + quantite + ", produitId=" + produitId + ", commandeId=" + commandeId
 				+ ", idPanier=" + idPanier + ", prix=" + prix + ", ligneC=" + ligneC + "]";
 	}
+	
+	
+
 	
 
 }//END CLASS

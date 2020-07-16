@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import com.intiformation.GestionAppCommerce.Modele.Clients;
+import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
+import com.mysql.jdbc.Statement;
 
 
 
@@ -113,14 +115,64 @@ public class ClientsDAOImpl implements IClientDAO{
 
 	@Override
 	public List<Clients> getAll() {
-		
 		return null;
 	}
 
 	@Override
 	public Clients getById(Integer id) {
-		
 		return null;
 	}
+
+	@Override
+	public boolean validationClientCommande(Clients pClient, List<LigneCommande> listeLC) {
+		
+		try {
+			//Ajout Client
+			ps = this.connection.prepareStatement("INSERT INTO clients (nomClient,adresse,email,telephone) VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, pClient.getNomClient());
+			ps.setString(2, pClient.getAdresse());
+			ps.setString(3, pClient.getEmail());
+			ps.setString(4, pClient.getTel());
+
+			int verifAddClient = ps.executeUpdate();
+			
+			rs = ps.getGeneratedKeys();
+			rs.next();
+			int generatedKey = rs.getInt(1);
+			
+			//Ajout Commande
+			ps = this.connection.prepareStatement("insert into commande (dateCommande,clientID) values (curdate(),?);",Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, generatedKey);
+			int verifAddCommande = ps.executeUpdate();
+			
+			rs = ps.getGeneratedKeys();
+			rs.next();
+			generatedKey = rs.getInt(1);
+			
+			//Ajout Ligne de commande
+			int verifAddLC =0;
+			for (LigneCommande lc : listeLC) {
+				ps = this.connection.prepareStatement("insert into ligneCommande (quantite, prix, produitID, commandeID) values (?,?,?,?);");
+				ps.setInt(1, lc.getQuantite());
+				ps.setDouble(2, lc.getPrix());
+				ps.setInt(3, lc.getProduitId());
+				ps.setInt(4, generatedKey);
+				verifAddLC = verifAddLC + ps.executeUpdate();
+				
+			}
+			return (verifAddClient+verifAddCommande+verifAddLC) == (2+listeLC.size());
+
+		} catch (Exception e) {
+			System.out.println("... Erreur lors de la validation commande add client/commande/lignecommande ");
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (Exception e) {
+			} 
+		} 
+		return false;
+	}//end validation commande
 
 }//END CLASS

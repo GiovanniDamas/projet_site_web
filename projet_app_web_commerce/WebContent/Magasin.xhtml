@@ -31,8 +31,6 @@
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
-
-
 			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
 				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
 					noSelectionOption="true" />
@@ -48,16 +46,13 @@
 				actionListener="#{rechercheBean.getListeSelonFiltre()}"
 				value="Rechercher" class="btn btn-default" />
 		</h:form>
-
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
 			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="#">Panier</b:navLink>
-
-
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 		</b:navbarLinks>
-
 	</b:navBar>
+
 
 	<br />
 	<br />
@@ -73,8 +68,6 @@
 	</div>
 
 
-
-
 	<div id="gridproduit" style="display: none">
 		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
 			<div class="p-field p-col-12 p-md-4 produit-grid-conteneur-parent">
@@ -85,15 +78,19 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true" value="test">
+							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+									<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
-							<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
-								action="#" actionListener="#{panierBean.ajouterLigneC()}">
-							</p:button>
+							<p:commandButton icon="pi pi-shopping-cart" style="margin-right:20px;"
+								action="#" actionListener="#{panierBean.ajouterLigneCommande}">
+								</p:commandButton>
+								<f:param name = "idProduit" value = "#{produit.idProduit}" /> 
+								<f:param name = "prix" value = "#{produit.prix}" /> 
+
 						</h:form>
 
 						<p class="produit-grille-prix">#{produit.prix} €</p>
@@ -102,14 +99,10 @@
 								pcs</span>
 						</p>
 					</div>
-
 				</div>
 			</div>
-
 		</p:repeat>
 	</div>
-
-
 
 
 	<div id="listproduit" style="display: block">
@@ -137,17 +130,21 @@
 								Quantité disponible : <span class="span-modif-quantite">#{produit.quantite}</span>
 							</p>
 						</div>
-						<h:form>
-							<p:selectOneMenu id="quantite" required="true" value="test">
+						<h:form >
+							<p:selectOneMenu id="quantite"  value="#{panierBean.quantite}" >
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
-									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
-							</p:selectOneMenu>
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" /> 
+									<p:ajax event="change" process="@this" update="@this"></p:ajax>
+							</p:selectOneMenu> 
 
-							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneC()}">
-								<f:param name="productId" value="10" />
-							</p:button>
+							<p:commandButton value="Ajouter au Panier" icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneCommande}">
+							<f:param name = "produitID" value = "#{produit.idProduit}" /> 
+								<f:param name = "prix" value = "#{produit.prix}" />
+							</p:commandButton>
+							 
+
 						</h:form>
 					</div>
 				</div>
@@ -166,19 +163,11 @@
 			</div>
 		</p:repeat>
 	</div>
+	
 
 	<h:outputScript library="scripts" name="scriptListGrid.js" />
 
-
-
-	<h:outputScript library="primefaces" name="jquery/jquery.js"
-		target="head" />
-
-
-
-
-
-
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
 
 </body>
 </html>

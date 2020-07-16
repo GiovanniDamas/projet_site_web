@@ -3,6 +3,7 @@ package com.intiformation.GestionAppCommerce.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,144 +17,101 @@ import javax.servlet.http.HttpSession;
 
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
 import com.intiformation.GestionAppCommerce.Modele.Produit;
+import com.intiformation.GestionAppCommerce.Service.CommandeServiceImp;
+import com.intiformation.GestionAppCommerce.Service.IClientsService;
+import com.intiformation.GestionAppCommerce.Service.ICommandeService;
 import com.intiformation.GestionAppCommerce.Service.ILigneCommandeService;
 import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
 
-/**
- * ManagedBean pour la gestion des lignes de commandes
- * 
- * @author giovanni
- *
- */
+
 @ManagedBean(name = "panierBean")
 @SessionScoped
 public class GestionPanierBean implements Serializable {
-
-	private List<LigneCommande> listeLigneC;
-	private List<Integer> nombreLigneC;
+	
+	private int quantite, produitID;
+	private Double prix;
+	private List<LigneCommande> listeLigneCommande;
 	private LigneCommande ligneCommande;
-	private LigneCommande ligneC;
-	private Produit produit;
-	private int quantite;
-	private double prixTotal;
-
-	// Service
-	ILigneCommandeService ligneCommandeService;
+	
+	private ILigneCommandeService ligneCommandeService;
+	private ICommandeService commandeService;
+	private IClientsService clientService;
 
 	public GestionPanierBean() {
 		ligneCommandeService = new LigneCommandeServiceImpl();
+		commandeService = new CommandeServiceImp();
 	}
-
-	public List<LigneCommande> findAllLigneC() {
-
-		listeLigneC = ligneCommandeService.getAll();
-
-		return listeLigneC;
-	}
-
-	public void ajouterLigneC(ActionEvent event) {
-
-		LigneCommande ligneC = new LigneCommande();
-
-		setLigneCommande(ligneC);
-
+	
+	public void ajouterLigneCommande(ActionEvent event) {
+		
 		FacesContext context = FacesContext.getCurrentInstance();
-
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		
+		Map params = context.getExternalContext().getRequestParameterMap();
 
-		Map params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-
-		String pIdProduit = (String) params.get("produitID");
-		String pPrix = (String) params.get("prix");
-		String pQuantite = (String) params.get("quantite");
-
-		int produit = Integer.parseInt(pIdProduit);
-		int quantite = Integer.parseInt(pQuantite);
-		Double prix = Double.parseDouble(pPrix);
+		produitID = Integer.parseInt((String) params.get("produitID"));
+		prix = Double.parseDouble((String) params.get("prix"));
 		
-		System.out.println(quantite);
-		setQuantite(quantite);
+		ligneCommande = new LigneCommande(produitID, quantite, prix);
 		
-
-		ligneC = new LigneCommande(produit, quantite, prix);
-		System.out.println(ligneC);
-
-		int index = 1;
-
-		List<LigneCommande> listeLigneC = new ArrayList<>();
-		List<Integer> nombreLigneC = new ArrayList<>();
-
-		if (session.getAttribute("listeLigneC") != null) {
-			listeLigneC = (List<LigneCommande>) session.getAttribute("listeLigneC");
-			nombreLigneC = (List<Integer>) session.getAttribute("nombreLigneC");
-
-			System.out.println(nombreLigneC);
-
-			index = nombreLigneC.size();
-
-			index++;
-
+		listeLigneCommande = new ArrayList<>();
+		
+		if (session.getAttribute("listeLigneCommande") != null) {
+			listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		}
+		
+		listeLigneCommande.add(ligneCommande);
 
-		listeLigneC.add(ligneC);
-
-		nombreLigneC.add(index);
-
-		System.out.println(listeLigneC);
-		System.out.println(nombreLigneC);
-
-		System.out.println(index);
-
-		session.setAttribute("listeLigneC", listeLigneC);
-		session.setAttribute("nombreLigneC", nombreLigneC);
-
-	}// END METHODE
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
+		
+	}
+	
 
 	public double sommePrix() {
 
-		prixTotal = 0;
+		double prixTotal = 0;
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
-		listeLigneC = (List<LigneCommande>) session.getAttribute("listeLigneC");
-		System.out.println(listeLigneC);
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 
-		for (LigneCommande lc : listeLigneC) {
+		for (LigneCommande lc : listeLigneCommande) {
 
-			prixTotal = prixTotal + lc.getPrix() * lc.getQuantite();
+			prixTotal = prixTotal + lc.getPrix()* lc.getQuantite();
 
 		}
-
 		return prixTotal;
+		
+	}// 
+	
+	
 
-	}// END METHODE
-
-	public void suppLigneC(ActionEvent event) {
+	public void suppLigneCommande(ActionEvent event) {
+		
+		
 
 		FacesContext context = FacesContext.getCurrentInstance();
-
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
-		UIParameter uiIndex = (UIParameter) event.getComponent().findComponent("index");
-		int index = (int) uiIndex.getValue();
+		UIParameter uipLigneCommande = (UIParameter) event.getComponent().findComponent("ligneCommande");
+		LigneCommande lc = (LigneCommande) uipLigneCommande.getValue();
 
+		System.out.println(lc);
+		
+		System.out.println(listeLigneCommande);
+				
+		int indexSupp = listeLigneCommande.indexOf(lc);
+		
+		listeLigneCommande.remove(indexSupp);
+		
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
+		
+		System.out.println(indexSupp);
 
-		listeLigneC = (List<LigneCommande>) session.getAttribute("listeLigneC");
-		nombreLigneC = (List<Integer>) session.getAttribute("nombreLigneC");
-
-		listeLigneC.remove(index - 1);
-		nombreLigneC.remove(nombreLigneC.size() - 1);
-
-		System.out.println(index);
-
-		session.setAttribute("listeLigneC", listeLigneC);
-		session.setAttribute("nombreLigneC",nombreLigneC);
-
-
-	}// END METHODE
+	}
+	
 	
 	public void viderPanier() {
 		
@@ -161,49 +119,31 @@ public class GestionPanierBean implements Serializable {
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		
-		listeLigneC = (List<LigneCommande>) session.getAttribute("listeLigneC");
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		
-		listeLigneC.clear();
+		listeLigneCommande.clear();
 			
-		session.setAttribute("listeLigneC", listeLigneC);
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
 		
 	}//END METHODE
+	
+	public void enregistrerPanier() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
 
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+		
+		listeLigneCommande.clear();
+			
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
+		
+	}//END METHO
+
+	
 	// __________ GETTER/SETTER ______________ //
 	
-	
-	public LigneCommande getLigneCommande() {
-		return ligneCommande;
-	}
-
-	public List<LigneCommande> getListeLigneC() {
-		return listeLigneC;
-	}
-
-	public void setListeLigneC(List<LigneCommande> listeLigneC) {
-		this.listeLigneC = listeLigneC;
-	}
-
-	public List<Integer> getNombreLigneC() {
-		return nombreLigneC;
-	}
-
-	public void setNombreLigneC(List<Integer> nombreLigneC) {
-		this.nombreLigneC = nombreLigneC;
-	}
-
-	public void setLigneCommande(LigneCommande ligneCommande) {
-		this.ligneCommande = ligneCommande;
-	}
-
-	public Produit getProduit() {
-		return produit;
-	}
-
-	public void setProduit(Produit produit) {
-		this.produit = produit;
-	}
-
 	public int getQuantite() {
 		return quantite;
 	}
@@ -212,17 +152,36 @@ public class GestionPanierBean implements Serializable {
 		this.quantite = quantite;
 	}
 
-	public LigneCommande getLigneC() {
-		return ligneC;
+	public int getProduitID() {
+		return produitID;
 	}
 
-	public void setLigneC(LigneCommande ligneC) {
-		this.ligneC = ligneC;
+	public void setProduitID(int produitID) {
+		this.produitID = produitID;
 	}
 
-	@Override
-	public String toString() {
-		return "GestionPanierBean [ligneC=" + ligneC + "]";
+	public Double getPrix() {
+		return prix;
 	}
 
-}// END CLASS
+	public void setPrix(Double prix) {
+		this.prix = prix;
+	}
+
+	public LigneCommande getLigneCommande() {
+		return ligneCommande;
+	}
+
+	public void setLigneCommande(LigneCommande ligneCommande) {
+		this.ligneCommande = ligneCommande;
+	}
+
+	public List<LigneCommande> getListeLigneCommande() {
+		return listeLigneCommande;
+	}
+
+	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
+		this.listeLigneCommande = listeLigneCommande;
+	}
+	
+}

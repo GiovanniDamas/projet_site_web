@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
+</h:head>
+
+<body>
+
+	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink value="Link" href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			<p:selectOneMenu id="categorie" dynamic="true" required="true"
+				value="#{categorieBean.categorie.idCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.idCategorie}" />
+			</p:selectOneMenu>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search" />
+			</div>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</h:form>
+		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
+
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:navLink style="color:#FFA07A;" value="Magasin"
+				href="Magasin.xhtml"></b:navLink>
+			<b:navLink style="color:#FFA07A;" value="S'identifier"
+				href="authentification.xhtml"></b:navLink>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
+
+		</b:navbarLinks>
+
+	</b:navBar>
+
+	<br />
+	<br />
+	<br />
+	
+	<h:form enctype="multipart/form-data">
+
+		<h1 class="titre">Inscription :</h1>
+		<div class="ui-fluid p-formgrid p-grid">
+
+			<div class="p-field p-col-12 p-md-2"></div>
+
+			<div class="p-field p-col-12 p-md-5">
+				<p:outputLabel for="nom" value="Nom" />
+				<p:inputText id="nom"
+					value="#{clientBean.client.nomClient}" required="true"
+					requiredMessage="Nom obligatoire" />
+			</div>
+			
+			<div class="p-field p-col-12 p-md-1"></div>
+			
+			<div class="p-field p-col-12 p-md-2">
+				<p:outputLabel for="tel" value="Numéro de Téléphone" />
+				<p:inputText id="tel"
+					value="#{clientBean.client.tel}" required="true"
+					requiredMessage="Téléphone obligatoire" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-2"></div>
+			
+			<div class="p-field p-col-12 p-md-2"></div>
+
+			<div class="p-field p-col-12 p-md-8">
+				<p:outputLabel for="adresse" value="Adresse" />
+				<p:inputText id="adresse"
+					value="#{clientBean.client.adresse}" required="true"
+					requiredMessage="Adresse obligatoire" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-2"></div>
+			
+			<div class="p-field p-col-12 p-md-2"></div>
+
+			<div class="p-field p-col-12 p-md-8">
+				<p:outputLabel for="mail" value="Email" />
+				<p:inputText id="mail"
+					value="#{clientBean.client.email}" required="true"
+					requiredMessage="Email obligatoire" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-2"></div>
+
+		<div class="div-bouton-validation">
+
+			<p:commandButton value="S'Inscrire et Valider la Commande" action="#{clientBean.ajouterClient()}" >
+				<f:actionListener binding="#{panierBean.enregistrerPanier()}" />
+			</p:commandButton>
+				
+
+		</div>
+		<b:navLink style="color:#FFA07A;" value="Déjà Client ?" href="panier.xhtml"></b:navLink>
+		</div>
+
+	</h:form>
+
+	
+</body>
+</html>

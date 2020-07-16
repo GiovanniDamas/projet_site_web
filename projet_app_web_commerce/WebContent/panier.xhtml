@@ -60,7 +60,7 @@
 	<br />
 
 	<div id="ligneCommande" style="display: block">
-		<p:repeat var="lc" value="#{listeLigneC}">
+		<p:repeat var="lc" value="#{panierBean.listeLigneCommande}">
 
 			<div class="p-field p-col-12 p-md-12"
 				style="float: left; padding: 0; margin: auto;">
@@ -90,10 +90,10 @@
 						<p:repeat var="nbligne" value="#{nombreLigneC}"></p:repeat>
 						<h:form>
 
-							<p:commandButton value="Supprimer" action="#"
-								actionListener="#{panierBean.suppLigneC}"
+							<p:commandButton value="Supprimer" action="panier"
+								actionListener="#{panierBean.suppLigneCommande}"
 								style="margin-right:20px;" />
-							<f:param id="index" value="#{nbligne}"></f:param>
+							<f:param id="ligneCommande" value="#{lc}"></f:param>
 						</h:form>
 					</div>
 				</div>
@@ -105,8 +105,9 @@
 		<div
 			style="float: right; padding: 0; margin-right: 10%; margin-bottom: 70%;">
 			<p:commandButton value="Vider Panier" action="panier"
-				actionListener="#{panierBean.viderPanier}"
+				actionListener="#{panierBean.suppLigneCommande()}"
 				style="margin-right:20px;" />
+				
 		</div>
 
 	</h:form>
@@ -118,8 +119,10 @@
 			<p>Prix total : #{panierBean.sommePrix()}</p>
 			<p>Délai livraison</p>
 
-
-			<p:button style="margin-right:20px;" value="Valider la commande"></p:button>
+<h:form>
+			<p:commandButton style="margin-right:20px;" value="Valider la commande"
+			actionListener="#{clientBean.initialiserClient()}" action="ValidationCommande"/>
+			</h:form>
 		</div>
 	</div>
 </body>

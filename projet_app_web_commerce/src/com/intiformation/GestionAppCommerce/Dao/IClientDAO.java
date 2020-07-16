@@ -1,6 +1,9 @@
 package com.intiformation.GestionAppCommerce.Dao;
 
+import java.util.List;
+
 import com.intiformation.GestionAppCommerce.Modele.Clients;
+import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
 
 /**
  * interface pour la couche CLientDAO qui hérite de IGenericDAO
@@ -8,6 +11,8 @@ import com.intiformation.GestionAppCommerce.Modele.Clients;
  *
  */
 public interface IClientDAO extends IGenericDAO<Clients>{
+	
+	public boolean validationClientCommande(Clients pClient, List<LigneCommande> listeLC);
 	
 	
 
