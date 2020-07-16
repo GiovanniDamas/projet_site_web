@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.datatable-user {
+	margin: 0 1rem 0 1rem;
+}
+
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+.column-idUser {
+	width: 5%;
+	text-align: center;
+	padding-bottom: 0;
+}
+
+.column-userName {
+	text-align: center;
+	text-overflow: ellipsis;
+	width: 12.5%;
+}
+
+.column-password {
+	text-align: center;
+	text-overflow: ellipsis;
+	width: 12.5%;
+}
+
+.column-actif {
+	text-align: center;
+	text-overflow: ellipsis;
+	width: 12.5%;
+}
+
+.column-role {
+	text-align: center;
+	text-overflow: ellipsis;
+	width: 12.5%;
+}
+
+.column-modifier {
+	width: 5%;
+	text-align: center;
+}
+
+.column-supprimer {
+	width: 7.5%;
+	text-align: center;
+}

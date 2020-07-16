@@ -54,8 +54,8 @@ public class AuthentificationBean implements Serializable {
 			
 			session.setAttribute("user_login", userIdentifiant);
 			
-			User user = userDAO.getByMdp(userPassword);
-			String roleName = user.getRoleName();
+			user = userDAO.getByMdp(userPassword);
+			roleName = user.getRoleName();
 
 			
 			switch (roleName) {
@@ -64,7 +64,7 @@ public class AuthentificationBean implements Serializable {
 				
 
 			case "AdminProd":
-				return "accueilAdmins.xhtml";
+				return "accueilAdmin.xhtml";
 			
 			}
 		
@@ -98,7 +98,7 @@ public class AuthentificationBean implements Serializable {
 		
 		session.invalidate();
 		
-		return "accueil.xhtml";
+		return "/Magasin.xhtml";
 		
 	}//end logOut()
 

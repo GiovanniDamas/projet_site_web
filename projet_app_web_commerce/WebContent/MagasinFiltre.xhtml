@@ -3,8 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
 
@@ -21,51 +20,42 @@
 <body>
 
 
-<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+	
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink> 	
+			<b:navLink value="Link" href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
-            
 			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
-					<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
-						noSelectionOption="true" />
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
 
-					<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
-						itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
-				</p:selectOneMenu>
-				
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
 			<div class="form-group">
-				<p:inputText  value="#{rechercheBean.keywords}"/>
+				<p:inputText value="#{rechercheBean.keywords}" />
 			</div>
-			<h:commandButton action="MagasinFiltre" actionListener="#{rechercheBean.getListeSelonFiltre()}" value="Rechercher" class="btn btn-default"/>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
 		</h:form>
-
-		<b:navbarLinks pull="right" >
-			<b:navLink style="color:#FFA07A;" value="Magasin" href="Magasin.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="S'identifier" href="authentification.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
-
-
+		<b:navbarLinks pull="right" class="text">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 		</b:navbarLinks>
-
 	</b:navBar>
-
-
-	<br />
-	<br />
-	<br />
-	
-	
-
-	
 
 
 	<div class="p-field p-col-12 p-md-12" style="margin-bottom: 4rem">
@@ -79,6 +69,9 @@
 			<f:param name="type" value="liste" />
 		</p:linkButton>
 	</div>
+	
+	<br/>
+	<br />
 
 	<div id="gridproduit" style="display: none">
 		<p:repeat var="produit" value="#{rechercheBean.listeFiltreProduit}">
@@ -90,13 +83,14 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
-							<f:selectItem itemLabel="QTT" itemValue="#{null}"
-						noSelectionOption="true" />
+							<p:selectOneMenu id="quantite" required="true"
+								value="#{panierBean.quantite}">
+								<f:selectItem itemLabel="QTT" itemValue="#{null}"
+									noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
-									<p:ajax event="change" process="@this" update="@this"></p:ajax>
+								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
 							<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
@@ -146,15 +140,17 @@
 							</p>
 						</div>
 						<h:form>
-							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
+							<p:selectOneMenu id="quantite" required="true"
+								value="#{panierBean.quantite}">
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
-									<p:ajax event="change" process="@this" update="@this"></p:ajax>
+								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
 							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneCommande}">
+								style="margin-right:20px;" action="#"
+								actionListener="#{panierBean.ajouterLigneCommande}">
 								<f:param name="productId" value="10" />
 							</p:button>
 						</h:form>

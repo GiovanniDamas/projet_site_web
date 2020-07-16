@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.intiformation.GestionAppCommerce.Modele.Categorie;
 import com.intiformation.GestionAppCommerce.Modele.Produit;
+import com.intiformation.GestionAppCommerce.Modele.User;
 
 
 @ManagedBean(name = "FiltreBean")
@@ -16,6 +17,7 @@ public class FiltreDataTableBean implements Serializable{
 	
 	private List<Produit> filteredProduit;
     private List<Categorie> filteredCategorie;
+    private List<User> filteredUser;
     
    
 	public FiltreDataTableBean() {
@@ -32,6 +34,14 @@ public class FiltreDataTableBean implements Serializable{
 	}
 	public void setFilteredCategorie(List<Categorie> filteredCategorie) {
 		this.filteredCategorie = filteredCategorie;
+	}
+
+	public List<User> getFilteredUser() {
+		return filteredUser;
+	}
+
+	public void setFilteredUser(List<User> filteredUser) {
+		this.filteredUser = filteredUser;
 	}
     
     

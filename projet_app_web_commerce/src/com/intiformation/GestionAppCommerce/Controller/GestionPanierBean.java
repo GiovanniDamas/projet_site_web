@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -16,23 +17,23 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
-import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.intiformation.GestionAppCommerce.Service.CommandeServiceImp;
 import com.intiformation.GestionAppCommerce.Service.IClientsService;
 import com.intiformation.GestionAppCommerce.Service.ICommandeService;
 import com.intiformation.GestionAppCommerce.Service.ILigneCommandeService;
 import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
 
+import sun.nio.cs.ext.ISCII91;
 
 @ManagedBean(name = "panierBean")
 @SessionScoped
 public class GestionPanierBean implements Serializable {
-	
+
 	private int quantite, produitID;
 	private Double prix;
 	private List<LigneCommande> listeLigneCommande;
 	private LigneCommande ligneCommande;
-	
+
 	private ILigneCommandeService ligneCommandeService;
 	private ICommandeService commandeService;
 	private IClientsService clientService;
@@ -41,31 +42,30 @@ public class GestionPanierBean implements Serializable {
 		ligneCommandeService = new LigneCommandeServiceImpl();
 		commandeService = new CommandeServiceImp();
 	}
-	
+
 	public void ajouterLigneCommande(ActionEvent event) {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
+
 		Map params = context.getExternalContext().getRequestParameterMap();
 
 		produitID = Integer.parseInt((String) params.get("produitID"));
 		prix = Double.parseDouble((String) params.get("prix"));
-		
+
 		ligneCommande = new LigneCommande(produitID, quantite, prix);
-		
+
 		listeLigneCommande = new ArrayList<>();
-		
+
 		if (session.getAttribute("listeLigneCommande") != null) {
 			listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		}
-		
+
 		listeLigneCommande.add(ligneCommande);
 
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
-	}
-	
+
+	}// END METHODE
 
 	public double sommePrix() {
 
@@ -77,66 +77,73 @@ public class GestionPanierBean implements Serializable {
 
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 
-		for (LigneCommande lc : listeLigneCommande) {
+		if (listeLigneCommande != null) {
 
-			prixTotal = prixTotal + lc.getPrix()* lc.getQuantite();
+			for (LigneCommande lc : listeLigneCommande) {
 
+				prixTotal = prixTotal + lc.getPrix() * lc.getQuantite();
+
+			}
 		}
 		return prixTotal;
-		
-	}// 
-	
-	
+	}//
 
 	public void suppLigneCommande(ActionEvent event) {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
 		UIParameter uipLigneCommande = (UIParameter) event.getComponent().findComponent("ligneCommande");
 		LigneCommande lc = (LigneCommande) uipLigneCommande.getValue();
-				
+
 		int indexSupp = listeLigneCommande.indexOf(lc);
-		
+
 		listeLigneCommande.remove(indexSupp);
-		
+
+		if (listeLigneCommande.isEmpty()) {
+
+			listeLigneCommande = null;
+		}
+
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
 
 	}
-	
-	
+
 	public void viderPanier() {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
+
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
-		
+
 		listeLigneCommande.clear();
-			
+
+		if (listeLigneCommande.isEmpty()) {
+
+			listeLigneCommande = null;
+		}
+
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
-	}//END METHODE
-	
-	
+
+	}// END METHODE
+
 	public void enregistrerPanier() {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
-		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
-		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
-		
-		listeLigneCommande.clear();
-			
-	}//END METHO
 
-	
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
+
+		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+
+		listeLigneCommande.clear();
+
+	}// END METHO
+
 	// __________ GETTER/SETTER ______________ //
-	
+
 	public int getQuantite() {
 		return quantite;
 	}
@@ -176,5 +183,5 @@ public class GestionPanierBean implements Serializable {
 	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
 		this.listeLigneCommande = listeLigneCommande;
 	}
-	
+
 }

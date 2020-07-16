@@ -16,98 +16,123 @@
 
 	<h:outputStylesheet library="style" name="styleHeader.css" />
 
-</h:head>
-<body>
+	<h:outputStylesheet library="style" name="DatatableUser.css" />
 
-	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+</h:head>
+<h:body style="background-color: #FFF5EB">
+
+<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Gestion Categories" href="gestionCategories.xhtml"></b:navLink>
-			<b:navLink value="Gestion Admin" href="gestionUser.xhtml"></b:navLink>
-			<b:dropMenu value="Catégories">
-				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
-			</b:dropMenu>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search" />
+				<p:inputText value="#{rechercheBean.keywords}" />
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
-
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:dropMenu value="Profil">
-				<b:navLink value="Nom"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+				<b:commandButton style="text-align:center;" value="Déconnexion"
+					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
 			</b:dropMenu>
-			<b:navLink value="Panier" href="#"></b:navLink>
-			<b:navLink value="Déconnexion"
-				href="#{connexionBean.deconnexionAdmin()}"></b:navLink>
-
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
 
+	<br />
+	<br />
 
 	<h:form>
-		<p:growl id="growl" life="2000" />
-		<div>
-			<h3>Ajouter un admin</h3>
-			<p:commandButton value="Ajouter un admin" id="withIcon"
-				action="addUser" actionListener="#{userBean.initialiserUser}"
-				style="margin-right:20px;" icon="pi pi-save" />
-		</div>
-	</h:form>
+		<p:dataTable class="datatable-user" var="user"
+			value="#{userBean.findAllUser()}"
+			filteredValue="#{FiltreBean.filteredUser}" widgetVar="userTable">
 
-	<h:form id="table">
-		<p:growl id="msgs" showDetail="true" />
-		<p:dataTable id="user" var="user" value="#{userBean.findAllUser()}"
-			editable="true" editMode="cell" widgetVar="user">
 			<f:facet name="header">
-        Liste des admins
-    </f:facet>
+				<p:outputPanel style="float:left;">
+					<p:commandButton value="Ajouter un admin" action="addUser"
+						actionListener="#{userBean.initialiserUser}" icon="pi pi-plus" />
+				</p:outputPanel>
+				<h:outputText value="Liste des admins"
+					style="text-align: center; margin-right: 45%;" />
+				<p:outputPanel>
+					<h:outputText value="Recherche :" />
+					<p:inputText id="globalFilter" onkeyup="PF('userTable').filter()"
+						placeholder="Mots Clés" />
+				</p:outputPanel>
+			</f:facet>
 
-			<p:ajax event="cellEdit" listener="#{userBean.onCellEdit}"
-				update="role" />
 
-			<p:column headerText="ID User">
+			<p:column class="column-idUser" filterBy="#{user.idUser}"
+				headerText="ID User" filterMatchMode="exact">
 				<h:outputText value="#{user.idUser}" />
 			</p:column>
 
-			<p:column headerText="Identifiant">
+			<p:column class="column-userName" headerText="Identifiant"
+				filterMatchMode="exact">
 				<h:outputText value="#{user.userName}" />
 			</p:column>
 
-			<p:column headerText="Mot de Passe">
+			<p:column class="column-password" headerText="Mot de Passe">
 				<h:outputText value="#{user.password}" />
 			</p:column>
 
-			<p:column headerText="Actif">
+			<p:column class="column-actif" headerText="Actif"
+				filterMatchMode="exact">
 				<h:outputText value="#{user.actived}" />
 			</p:column>
 
-			<p:column headerText="Role">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{user.roleName}" /></f:facet>
-                <f:facet name="input"><p:inputText value="#{user.roleName}" style="width:96%" label="roleName"/></f:facet>
-            </p:cellEditor>
-        </p:column>
+			<p:column class="column-role" headerText="Role">
+				<h:outputText value="#{user.roleName}" />
+			</p:column>
 
-			<p:column headerText="Modifier">
-				<p:commandButton action="modifUser" id="IconOnly"
+			<p:column class="column-modifier" headerText="Modifier">
+				<p:commandButton action="addUser" id="IconOnly"
 					actionListener="#{userBean.selectUser}" style="margin-right:20px;"
 					icon="pi pi-pencil" title="Icon Only" />
 				<f:param id="updateID" name="id" value="#{user.idUser}" />
 				<f:param id="roleName" name="id" value="#{user.roleName}" />
 			</p:column>
-			<p:column headerText="Supprimer">
+			<p:column class="column-supprimer" headerText="Supprimer">
 				<p:commandButton action="gestionUser"
 					actionListener="#{userBean.suppUser}" id="iconOnly"
 					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
@@ -115,14 +140,11 @@
 			</p:column>
 
 			<f:facet name="footer">
-         #{fn:length(userBean.findAllUser())} admins.
+         Il y a #{fn:length(userBean.findAllUser())} admins.
     </f:facet>
 		</p:dataTable>
 	</h:form>
 
 
-
-
-
-</body>
+</h:body>
 </html>

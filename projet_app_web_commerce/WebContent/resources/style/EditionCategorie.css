@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.titre {
+	text-align: center;
+	margin-bottom: 5rem;
+	color: #FFA07A;
+	text-decoration: underline;
+	font-size: 3rem;
+}
+
+
+.label-image{
+	padding-left:0.5rem;
+	width : 91%;
+	float: left;
+}
+
+.image-editer-produit{
+	width: 10rem;
+	height: 8rem;
+	margin-left: 12rem;
+}
+
+.bouton-file-modif{
+	font-size: 1rem;
+	font-weight: bold;
+	height: 2rem;
+}
+
+.bouton-file-ajout{
+	font-size: 1rem;
+	font-weight: bold;
+	height: 2rem;
+	margin-left: 12rem;
+}
+
+
+.div-bouton-validation{
+
+	text-align: center;
+	margin-top: 2rem;
+}
+
