@@ -90,25 +90,17 @@ public class GestionPanierBean implements Serializable {
 
 	public void suppLigneCommande(ActionEvent event) {
 		
-		
-
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
 		UIParameter uipLigneCommande = (UIParameter) event.getComponent().findComponent("ligneCommande");
 		LigneCommande lc = (LigneCommande) uipLigneCommande.getValue();
-
-		System.out.println(lc);
-		
-		System.out.println(listeLigneCommande);
 				
 		int indexSupp = listeLigneCommande.indexOf(lc);
 		
 		listeLigneCommande.remove(indexSupp);
 		
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
-		System.out.println(indexSupp);
 
 	}
 	
@@ -127,18 +119,19 @@ public class GestionPanierBean implements Serializable {
 		
 	}//END METHODE
 	
+	
 	public void enregistrerPanier() {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		
+		session.setAttribute("listeLigneCommande", listeLigneCommande);
+		
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		
 		listeLigneCommande.clear();
 			
-		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
 	}//END METHO
 
 	
