@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
+	<title>Page d'édition de produit</title>
 
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
@@ -19,24 +20,30 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true">
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
-				value="Gestion Categories" href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
 				disabled="true" value="Gestion Categories"
 				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
-				value="Gestion Admin" href="gestionUser.xhtml" style="color:#FFA07A;"></b:navLink>
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
-				disabled="true" value="Gestion Admin" href="gestionUser.xhtml" style="color:#FFA07A;"></b:navLink>
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
-				value="Gestion Produits" href="GestionProduit.xhtml" style="color:#FFA07A;"></b:navLink>
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
-				value="Gestion Produits" href="GestionProduit.xhtml" style="color:#FFA07A;"></b:navLink>
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>

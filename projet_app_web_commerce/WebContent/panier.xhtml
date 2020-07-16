@@ -7,6 +7,8 @@
 
 <h:head>
 
+<title>Panier</title>
+
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
 	<h:outputStylesheet name="primeicons/primeicons.css"
@@ -24,40 +26,33 @@
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
-		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink>
-		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
-			<p:selectOneMenu id="categorie" dynamic="true" required="true"
-				value="#{categorieBean.categorie.idCategorie}">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
 				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
 					noSelectionOption="true" />
 
 				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
-					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.idCategorie}" />
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
 			</p:selectOneMenu>
+
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search" />
+				<p:inputText value="#{rechercheBean.keywords}" />
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
-
-		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:navLink style="color:#FFA07A;" value="Magasin"
-				href="Magasin.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="S'identifier"
-				href="authentification.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
-
+		<b:navbarLinks pull="right" class="text">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 		</b:navbarLinks>
-
 	</b:navBar>
-
+	
 
 	<h:outputText rendered="#{panierBean.listeLigneCommande == null}"
 		value="Votre panier est vide"

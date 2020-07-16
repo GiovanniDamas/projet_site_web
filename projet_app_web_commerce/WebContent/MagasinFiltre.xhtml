@@ -7,6 +7,8 @@
 
 <h:head>
 
+	<title>Accueil filtré</title>
+
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
 	<h:outputStylesheet name="primeicons/primeicons.css"
@@ -17,18 +19,13 @@
 	<h:outputStylesheet library="style" name="MagasinListGrid.css" />
 
 </h:head>
-<body>
+<h:body style="background-color: #FFF5EB">
 
 
-	
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
-		fluid="true"
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
-		</b:navbarLinks>
-		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -56,6 +53,7 @@
 			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
+
 
 
 	<div class="p-field p-col-12 p-md-12" style="margin-bottom: 4rem">
@@ -176,7 +174,6 @@
 
 	<h:outputScript library="scripts" name="scriptListGrid.js" />
 
-	<h:outputScript library="scripts" name="scriptPopup.js" />
 
-</body>
+</h:body>
 </html>
