@@ -218,7 +218,7 @@
 			<!-- 1.2.2 destination -->
 			<to-view-id>/Magasin.xhtml</to-view-id>
 			<!-- redirection -->
-			<redirect />
+			
 		</navigation-case>
 		
 		<navigation-case>
@@ -229,8 +229,7 @@
 		
 	</navigation-rule>
 	
-	<!-- 1 règle de naviation pour la page 'editerProduit.xhtml' -->
-	<!-- ================================================= -->
+
 	<navigation-rule>
 
 		<!-- page de départ -->

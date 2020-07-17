@@ -7,7 +7,7 @@
 
 <h:head>
 
-<title>Panier</title>
+	<title>Panier</title>
 
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
@@ -21,7 +21,8 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -52,11 +53,13 @@
 			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
-	
+
 
 	<h:outputText rendered="#{panierBean.listeLigneCommande == null}"
 		value="Votre panier est vide"
 		style="margin-left:20%; font-weight:bold; color:#FFA07A; font-size:22px;" />
+
+	<h:messages globalOnly="true" showDetail="true" />
 
 
 	<div id="ligneCommande">
@@ -76,10 +79,9 @@
 						</div>
 
 						<div class="p-field p-col-12 p-md-3 produit-ligne-commande">
-							<h:graphicImage 
-								rendered="#{produit.idProduit == lc.produitId}"
-								library="images/" name="#{produit.photo}"
-								width="250" height="187.5" style="margin-top: 0.5rem;" />
+							<h:graphicImage rendered="#{produit.idProduit == lc.produitId}"
+								library="images/" name="#{produit.photo}" width="250"
+								height="187.5" style="margin-top: 0.5rem;" />
 						</div>
 					</p:repeat>
 				</h:form>
@@ -115,16 +117,22 @@
 
 	<div class="grid-bouton-parent">
 		<div class="grid-bouton-enfant">
-			<p style="margin-top:1rem;">Prix total : #{panierBean.sommePrix()}€</p>
+			<p style="margin-top: 1rem;">Prix total :
+				#{panierBean.sommePrix()}€</p>
 
-<h:form>
-			<p:commandButton style="margin-right:20px; margin-bottom: 1rem;" value="Valider la commande"
-			action="#{panierBean.enregistrerPanier()}" >
-				<f:actionListener binding="#{clientBean.initialiserClient()}" />
-			</p:commandButton>
-			
+
+			<h:form>
+			<p:growl id="growl" severity="info" showDetail="true" life="3000" />
+				<p:commandButton style="margin-right:20px; margin-bottom: 1rem;"
+					value="Valider la commande"
+					action="#{panierBean.enregistrerPanier()}" update="@form">
+					<f:actionListener binding="#{clientBean.initialiserClient()}" />
+				</p:commandButton>
+
 			</h:form>
 		</div>
 	</div>
+	
+	
 </h:body>
 </html>

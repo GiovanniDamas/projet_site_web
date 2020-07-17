@@ -1,8 +1,7 @@
 package com.intiformation.GestionAppCommerce.Controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -12,11 +11,8 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.event.CellEditEvent;
 
-import com.intiformation.GestionAppCommerce.Dao.IUserDAO;
-import com.intiformation.GestionAppCommerce.Dao.UserDAOImpl;
+
 import com.intiformation.GestionAppCommerce.Modele.Role;
 import com.intiformation.GestionAppCommerce.Modele.User;
 import com.intiformation.GestionAppCommerce.Service.IUserService;

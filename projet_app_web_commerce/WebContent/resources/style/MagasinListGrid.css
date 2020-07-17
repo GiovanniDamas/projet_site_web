@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.ui-growl {
+	margin-top: 5rem;
+}
+
 #button-grid{
 	margin-right:2rem; 
 	float : right;

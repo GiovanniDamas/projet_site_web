@@ -21,7 +21,6 @@ import com.intiformation.GestionAppCommerce.Service.IProduitService;
 import com.intiformation.GestionAppCommerce.Service.ProduitServiceImp;
 
 
-
 @ManagedBean(name = "panierBean")
 @SessionScoped
 public class GestionPanierBean implements Serializable {
@@ -55,9 +54,15 @@ public class GestionPanierBean implements Serializable {
 
 		if (session.getAttribute("listeLigneCommande") != null) {
 			listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+			
 		}
 
-		listeLigneCommande.add(ligneCommande);
+		if(listeLigneCommande.add(ligneCommande)) {
+			
+			FacesMessage messageAjoutPanier = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout produit au panier",
+					" - Le produit a bien été ajouté au panier");
+			context.addMessage(null, messageAjoutPanier);
+		}
 
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
 		}
@@ -157,9 +162,6 @@ public class GestionPanierBean implements Serializable {
 				
 				chgtCommande++;
 
-				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Quantit� demand�e indisponible",
-						" - La quantit� demand�e est sup�rieure aux stocks");
-				context.addMessage(null, message);
 				
 				ligneCommandeModif = ligneCommande; 
 				nouvelleQuantite = produitTest.getQuantite()-(testQuantite-ligneCommande.getQuantite());
@@ -173,7 +175,8 @@ public class GestionPanierBean implements Serializable {
 					ligneCommandeModif.setQuantite(nouvelleQuantite);
 					testQuantite=produitTest.getQuantite();
 					listeLigneCommande.set(listeLigneCommande.indexOf(ligneCommande), ligneCommandeModif);
-
+					
+					
 				}
 				
 			}
@@ -193,6 +196,10 @@ public class GestionPanierBean implements Serializable {
 			
 		}else {
 			session.setAttribute("listeLigneCommande", listeLigneCommande);
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Quantité demandée indisponible",
+					" - La quantité demandée est supérieure aux stocks");
+			context.addMessage(null, message);
+			
 			return "panier";
 		}	
 			

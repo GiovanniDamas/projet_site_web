@@ -21,7 +21,8 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -66,6 +67,8 @@
 	<br />
 
 
+
+
 	<div id="gridproduit" style="display: none">
 		<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
 			<div class="p-field p-col-12 p-md-4 produit-grid-conteneur-parent">
@@ -76,21 +79,24 @@
 					<div>
 
 						<h:form style="float: right">
-							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
-							<f:selectItem itemLabel="Quantité" itemValue="#{null}"
-					noSelectionOption="true" />
+							<p:growl id="growl" severity="info" showDetail="true" life="3000" />
+							<p:selectOneMenu id="quantite" required="true"
+								value="#{panierBean.quantite}">
+								<f:selectItem itemLabel="Quantité" itemValue="#{null}"
+									noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
 								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
-							<p:commandButton 
-								icon="pi pi-shopping-cart" style="margin-right:20px;" action="#"
-								actionListener="#{panierBean.ajouterLigneCommande}">
+							<p:commandButton icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="Magasin.xhtml"
+								actionListener="#{panierBean.ajouterLigneCommande}" update="@form">
 								<f:param name="produitID" value="#{produit.idProduit}" />
 								<f:param name="prix" value="#{produit.prix}" />
 							</p:commandButton>
+							
 						</h:form>
 
 						<p class="produit-grille-prix">#{produit.prix} €</p>
@@ -130,10 +136,11 @@
 								Quantité disponible : <span class="span-modif-quantite">#{produit.quantite}</span>
 							</p>
 						</div>
-						<h:form >
-							<p:selectOneMenu id="quantite"  value="#{panierBean.quantite}" >
-							<f:selectItem itemLabel="Quantité" itemValue="#{null}"
-					noSelectionOption="true" />
+						<h:form>
+						<p:growl id="growl" severity="info" showDetail="true" life="3000" />  
+							<p:selectOneMenu id="quantite" value="#{panierBean.quantite}">
+								<f:selectItem itemLabel="Quantité" itemValue="#{null}"
+									noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
@@ -141,13 +148,13 @@
 							</p:selectOneMenu>
 
 							<p:commandButton value="Ajouter au Panier"
-								icon="pi pi-shopping-cart" style="margin-right:20px;" action="#"
-								actionListener="#{panierBean.ajouterLigneCommande}">
+								icon="pi pi-shopping-cart" style="margin-right:20px;"
+								action="Magasin"
+								actionListener="#{panierBean.ajouterLigneCommande}" update="@form">
 								<f:param name="produitID" value="#{produit.idProduit}" />
 								<f:param name="prix" value="#{produit.prix}" />
 							</p:commandButton>
-
-
+							
 						</h:form>
 					</div>
 				</div>
