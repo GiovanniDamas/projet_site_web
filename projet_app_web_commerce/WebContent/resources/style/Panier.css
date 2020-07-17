@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+
+#ligneCommande {
+	display: block;
+	float: left;
+	width: 70%;
+	margin: auto;
+}
+
+.produit-ligne-commande {
+	float: left;
+	padding: 0;
+	margin: auto;
+}
+
+.produit-grille-description {
+	text-align: justify;
+	margin-left: 1rem
+}
+
+
+.produit-resume {
+	padding: 0; 
+	
+}
+
+.bouton-vider-panier {
+	float: right; 
+	padding: 0; 
+	margin-bottom: 8 rem;
+	margin-right: 4rem;
+}
+
+.grid-bouton-parent {
+	
+	float: right; 
+	padding: 0; 
+	width: 20% ;
+	margin-top: 4rem;
+	
+}
+
+.grid-bouton-enfant {
+	
+	padding: 0; 
+	border: 0.05rem solid black;
+	width: 95%; 
+	border-radius: 1rem; 
+	text-align: center; 
+	margin-right: 5rem;
+	margin-top: 2 rem;
+	
+}

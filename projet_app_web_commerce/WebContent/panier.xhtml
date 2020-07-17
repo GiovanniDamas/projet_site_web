@@ -7,6 +7,8 @@
 
 <h:head>
 
+<title>Panier</title>
+
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
 	<h:outputStylesheet name="primeicons/primeicons.css"
@@ -14,110 +16,106 @@
 
 	<h:outputStylesheet library="style" name="styleHeader.css" />
 
-</h:head>
-<body>
+	<h:outputStylesheet library="style" name="Panier.css" />
 
-	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+</h:head>
+<h:body style="background-color: #FFF5EB">
+
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
-		</b:navbarLinks>
-		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
-			<p:selectOneMenu id="categorie" dynamic="true" required="true"
-				value="#{categorieBean.categorie.idCategorie}">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
 				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
 					noSelectionOption="true" />
 
 				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
-					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.idCategorie}" />
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
 			</p:selectOneMenu>
+
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search" />
+				<p:inputText value="#{rechercheBean.keywords}" />
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
-
-		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:navLink style="color:#FFA07A;" value="Magasin"
-				href="Magasin.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="S'identifier"
-				href="authentification.xhtml"></b:navLink>
-			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
-
+		<b:navbarLinks pull="right" class="text">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 		</b:navbarLinks>
-
 	</b:navBar>
+	
 
-	<br />
-	<br />
-	<br />
+	<h:outputText rendered="#{panierBean.listeLigneCommande == null}"
+		value="Votre panier est vide"
+		style="margin-left:20%; font-weight:bold; color:#FFA07A; font-size:22px;" />
 
-	<div id="ligneCommande" style="display: block">
+
+	<div id="ligneCommande">
 		<p:repeat var="lc" value="#{panierBean.listeLigneCommande}">
 
-			<div class="p-field p-col-12 p-md-12"
-				style="float: left; padding: 0; margin: auto;">
-				<div class="produit-liste-conteneur" style="padding: 0;">
-					<p class="produit-grille-description"
-						style="text-align: justify; margin-left: 1rem">
-						ID du produit : <br /> #{lc.produitId}
+			<div class="p-field p-col-12 p-md-12 produit-ligne-commande">
+
+				<p class="produit-grille-description">
+					ID du produit : <br /> #{lc.produitId}
+				</p>
+				<h:form>
+
+					<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
+						<div class="p-field p-col-12 p-md-12 produit-ligne-commande">
+							<h:outputText rendered="#{produit.idProduit == lc.produitId}"
+								value="#{produit.nomProduit}" />
+						</div>
+
+						<div class="p-field p-col-12 p-md-3 produit-ligne-commande">
+							<h:graphicImage class="p-md-3"
+								rendered="#{produit.idProduit == lc.produitId}"
+								library="images/" name="#{produitBean.produit.photo}"
+								width="250" height="187.5" style="margin-top: 0.5rem;" />
+						</div>
+					</p:repeat>
+				</h:form>
+
+				<div class="p-field p-col-12 p-md-9 produit-resume">
+					<p class="produit-grille-description">
+						Prix : <br />#{lc.prix}
 					</p>
-					<div class="p-field p-col-12 p-md-3"
-						style="float: left; padding: 0;">
-						<h:graphicImage class="produit-liste-image p-md-3"
-							library="images/" name="#{produitBean.produit.photo}" width="250"
-							height="187.5" style="text-align: center;margin-top: 0.5rem;" />
-					</div>
-					<div class="p-field p-col-12 p-md-9"
-						style="padding: 0; float: left">
 
-						<p class="produit-grille-description"
-							style="text-align: justify; margin-left: 1rem">
-							Prix : <br />#{lc.prix}
-						</p>
+					<p class="produit-grille-description">
+						Quantité selectionnée : <br /> #{lc.quantite}
+					</p>
+					<p:repeat var="nbligne" value="#{nombreLigneC}"></p:repeat>
+					<h:form>
 
-						<p class="produit-grille-description"
-							style="text-align: justify; margin-left: 1rem">
-							Quantité selectionnée : <br /> #{lc.quantite}
-						</p>
-						<p:repeat var="nbligne" value="#{nombreLigneC}"></p:repeat>
-						<h:form>
-
-							<p:commandButton value="Supprimer" action="panier"
-								actionListener="#{panierBean.suppLigneCommande}"
-								style="margin-right:20px;" />
-							<f:param id="ligneCommande" value="#{lc}"></f:param>
-						</h:form>
-					</div>
+						<p:commandButton value="Supprimer" action="panier"
+							actionListener="#{panierBean.suppLigneCommande}"
+							style="margin-right:20px;" />
+						<f:param id="ligneCommande" value="#{lc}"></f:param>
+					</h:form>
 				</div>
 			</div>
 		</p:repeat>
 	</div>
 
 	<h:form>
-		<div
-			style="float: right; padding: 0; margin-right: 10%; margin-bottom: 70%;">
+		<div class="bouton-vider-panier">
 			<p:commandButton value="Vider Panier" action="panier"
-				actionListener="#{panierBean.viderPanier()}"
-				style="margin-right:20px;" />
-				
+				actionListener="#{panierBean.viderPanier()}" />
 		</div>
 
 	</h:form>
 
-	<div
-		style="float: right; padding: 0; margin-right: 10%; margin-bottom: 40%;">
-		<div class="produit-grille-conteneur"
-			style="padding: 0; border: 0.05rem solid black; width: 95%; border-radius: 1rem; text-align: center; margin-right: 30%;">
+	<div class="grid-bouton-parent">
+		<div class="grid-bouton-enfant">
 			<p>Prix total : #{panierBean.sommePrix()}</p>
-			<p>Délai livraison</p>
 
 <h:form>
 			<p:commandButton style="margin-right:20px;" value="Valider la commande"
@@ -128,5 +126,5 @@
 			</h:form>
 		</div>
 	</div>
-</body>
+</h:body>
 </html>

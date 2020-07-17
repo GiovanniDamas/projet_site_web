@@ -84,7 +84,7 @@ public class CategorieDAOImp implements ICategorieDAO{
 			return verifDeleteCategorie==1;
 			
 		} catch (SQLException e) {
-			System.out.println("Erreur lors de l'update d'une cat�gorie");
+			System.out.println("Erreur lors de la suppresion d'une catégorie");
 			e.printStackTrace();
 		}finally {
 				try {

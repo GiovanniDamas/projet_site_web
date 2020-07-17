@@ -7,6 +7,8 @@
 
 <h:head>
 
+	<title> Page d'accueil de la gestion des produits</title>
+
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
 	<h:outputStylesheet library="style" name="DataTableProduit.css" />
@@ -17,22 +19,38 @@
 		library="primefaces" />
 
 </h:head>
-<body>
+<h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
-		<b:navbarLinks pull="left">
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
+		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
-
-
 			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
 				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
 					noSelectionOption="true" />
@@ -48,15 +66,17 @@
 				actionListener="#{rechercheBean.getListeSelonFiltre()}"
 				value="Rechercher" class="btn btn-default" />
 		</h:form>
-
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
-
-
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+				<b:commandButton style="text-align:center;" value="Déconnexion"
+					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
+			</b:dropMenu>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
 		</b:navbarLinks>
-
 	</b:navBar>
 
 
@@ -173,5 +193,5 @@
 
 	</h:form>
 
-</body>
+</h:body>
 </html>

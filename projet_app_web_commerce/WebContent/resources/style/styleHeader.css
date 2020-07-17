@@ -1,12 +1,10 @@
 @charset "UTF-8";
 
 #header {
-	
-	background-color: #F0F8FF ;
-		
-
+	background-color: #DAF0FF;
+	border-bottom: solid 3px black;
 }
 
 .text {
-	color: #FFA07A;
+	color: #FFA07A !important;
 }

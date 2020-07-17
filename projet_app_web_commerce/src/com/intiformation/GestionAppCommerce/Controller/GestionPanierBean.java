@@ -19,7 +19,6 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
-import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.intiformation.GestionAppCommerce.Service.CommandeServiceImp;
 import com.intiformation.GestionAppCommerce.Service.IClientsService;
 import com.intiformation.GestionAppCommerce.Service.ICommandeService;
@@ -28,11 +27,12 @@ import com.intiformation.GestionAppCommerce.Service.IProduitService;
 import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
 import com.intiformation.GestionAppCommerce.Service.ProduitServiceImp;
 
+import sun.nio.cs.ext.ISCII91;
 
 @ManagedBean(name = "panierBean")
 @SessionScoped
 public class GestionPanierBean implements Serializable {
-	
+
 	private int quantite, produitID;
 	private Double prix;
 	private List<LigneCommande> listeLigneCommande;
@@ -43,9 +43,9 @@ public class GestionPanierBean implements Serializable {
 	public GestionPanierBean() {
 		produitService = new ProduitServiceImp();
 	}
-	
+
 	public void ajouterLigneCommande(ActionEvent event) {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		
@@ -55,15 +55,15 @@ public class GestionPanierBean implements Serializable {
 
 		produitID = Integer.parseInt((String) params.get("produitID"));
 		prix = Double.parseDouble((String) params.get("prix"));
-		
+
 		ligneCommande = new LigneCommande(produitID, quantite, prix);
-		
+
 		listeLigneCommande = new ArrayList<>();
-		
+
 		if (session.getAttribute("listeLigneCommande") != null) {
 			listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		}
-		
+
 		listeLigneCommande.add(ligneCommande);
 
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
@@ -81,44 +81,53 @@ public class GestionPanierBean implements Serializable {
 
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 
-		for (LigneCommande lc : listeLigneCommande) {
+		if (listeLigneCommande != null) {
 
-			prixTotal = prixTotal + lc.getPrix()* lc.getQuantite();
+			for (LigneCommande lc : listeLigneCommande) {
 
+				prixTotal = prixTotal + lc.getPrix() * lc.getQuantite();
+
+			}
 		}
 		return prixTotal;
-		
-	}// 
-	
-	
+	}//
 
 	public void suppLigneCommande(ActionEvent event) {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
 		UIParameter uipLigneCommande = (UIParameter) event.getComponent().findComponent("ligneCommande");
 		LigneCommande lc = (LigneCommande) uipLigneCommande.getValue();
-				
+
 		int indexSupp = listeLigneCommande.indexOf(lc);
-		
+
 		listeLigneCommande.remove(indexSupp);
-		
+
+		if (listeLigneCommande.isEmpty()) {
+
+			listeLigneCommande = null;
+		}
+
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
 
 	}
-	
-	
+
 	public void viderPanier() {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
+
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
-		
+
 		listeLigneCommande.clear();
-			
+
+		if (listeLigneCommande.isEmpty()) {
+
+			listeLigneCommande = null;
+		}
+
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
 		
 	}//END METHODE
@@ -155,8 +164,8 @@ public class GestionPanierBean implements Serializable {
 				
 				chgtCommande++;
 
-				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Quantité demandée indisponible",
-						" - La quantité demandée est supérieure aux stocks");
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Quantitï¿½ demandï¿½e indisponible",
+						" - La quantitï¿½ demandï¿½e est supï¿½rieure aux stocks");
 				context.addMessage(null, message);
 				
 				ligneCommandeModif = ligneCommande; 
@@ -194,7 +203,7 @@ public class GestionPanierBean implements Serializable {
 			return "panier";
 		}	
 			
-	}
+	}//
 	
 	public void detruireLigneCommande() {
 		
@@ -207,11 +216,12 @@ public class GestionPanierBean implements Serializable {
 		listeLigneCommande=null;
 		ligneCommande=null;
 					
-	}
+	}//
 
 	
+
 	// __________ GETTER/SETTER ______________ //
-	
+
 	public int getQuantite() {
 		return quantite;
 	}
@@ -251,5 +261,5 @@ public class GestionPanierBean implements Serializable {
 	public void setListeLigneCommande(List<LigneCommande> listeLigneCommande) {
 		this.listeLigneCommande = listeLigneCommande;
 	}
-	
+
 }

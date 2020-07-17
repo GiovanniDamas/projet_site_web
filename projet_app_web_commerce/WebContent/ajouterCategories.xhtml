@@ -3,59 +3,150 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
 
 	<title>Page d'ajout d'une nouvelle catégorie</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet library="style" name="styleHeader.css" />
+
+	<h:outputStylesheet library="style" name="EditionCategorie.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
 </h:head>
-<body>
+<h:body style="background-color: #FFF5EB">
+
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
+		<b:navbarLinks>
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
+			<div class="form-group">
+				<p:inputText value="#{rechercheBean.keywords}" />
+			</div>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
+		</h:form>
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+				<b:commandButton style="text-align:center;" value="Déconnexion"
+					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
+			</b:dropMenu>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
+		</b:navbarLinks>
+	</b:navBar>
 
 
 	<h:form enctype="multipart/form-data">
-		<h3>Ajouter une categorie</h3>
+
+		<h1 class="titre">Edition Catégorie</h1>
 		<div class="ui-fluid p-formgrid p-grid">
 
 			<div class="p-field p-col-12 p-md-1"></div>
 
-			<h:inputHidden value="#{categorieBean.categorie.idCategorie}" />
-
 			<div class="p-field p-col-12 p-md-4">
-				<p:outputLabel for="nomCategorie" styleClass="p-col-fixed"
-					style="width:100px" value="Nom Catégorie" />
+				<p:outputLabel for="nomCategorie" value="Nom Catégorie" />
 				<p:inputText id="nomCategorie"
-					value="#{categorieBean.categorie.nomCategorie}" />
-
+					value="#{categorieBean.categorie.nomCategorie}" required="true"
+					requiredMessage="Nom obligatoire" />
 			</div>
 
-			<div class="p-field p-col-12 p-md-2"></div>
-
-			<div class="p-field p-col-12 p-md-4" style="margin-top: 3%">
-				<p:outputLabel for="description" value="Description" />
-				<p:inputTextarea id="description" rows="4"
-					value="#{categorieBean.categorie.description}" />
-			</div>
-
-			<p:growl id="messages" showDetail="true" />
+			<div class="p-field p-col-12 p-md-11"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
 			<div class="p-field p-col-12 p-md-1"></div>
 
-			<h:outputLabel value="Image du produit : " />
+
+			<div class="p-field p-col-12 p-md-9">
+				<p:outputLabel for="description" value="Description" />
+				<p:inputTextarea id="description" rows="3" counter="display"
+					maxlength="300" counterTemplate="{0} caractères restants."
+					value="#{categorieBean.categorie.description}" />
+				<br />
+				<h:outputText id="display" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-1"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+
+
+			<div class="p-field p-col-12 p-md-1"></div>
+
+
+
+			<h:outputLabel class="label-image" value="Image du produit : " />
 			<h:panelGroup>
-				<h:graphicImage library="images/"
-					value="#{categorieBean.categorie.photo}" width="75" height="75"
+				<h:graphicImage class="image-editer-produit" library="images"
+					value="#{categorieBean.categorie.photo}"
 					rendered="#{categorieBean.categorie.idCategorie gt 0}" />
-				<h:inputFile id="file" value="#{categorieBean.uploadedFile}" />
+				<h:inputFile rendered="#{categorieBean.categorie.idCategorie gt 0}"
+					class="bouton-file-modif" id="file-modif"
+					value="#{categorieBean.uploadedFile}" />
+				<h:inputFile rendered="#{categorieBean.categorie.idCategorie == 0}"
+					class="bouton-file-ajout" id="file-ajout"
+					value="#{categorieBean.uploadedFile}" />
 			</h:panelGroup>
-
-
-			<h:commandButton value="Ajouter" action="gestionCat"
-				actionListener="#{categorieBean.ajouter()}" />
 
 		</div>
 
-		<h:commandButton rendered="#{categorieBean.categorie.idCategorie gt 0}"
-			value="Modifier" action="gestionCat"
-			actionListener="#{categorieBean.modifierCat()}" />
+		<div class="div-bouton-validation">
+
+			<h:commandButton
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+				rendered="#{categorieBean.categorie.idCategorie == 0}" value="Ajouter"
+				action="GestionProduit"
+				actionListener="#{categorieBean.ajouter()}" />
+
+
+			<h:commandButton
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+				rendered="#{categorieBean.categorie.idCategorie gt 0}" value="Modifier"
+				action="GestionProduit"
+				actionListener="#{categorieBean.modifierCat()}" />
+		</div>
+
 	</h:form>
-</body>
+
+</h:body>
 </html>

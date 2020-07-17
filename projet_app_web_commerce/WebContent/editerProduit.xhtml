@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
+	<title>Page d'édition de produit</title>
 
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
@@ -17,9 +18,65 @@
 		library="primefaces" />
 
 </h:head>
-<body>
+<h:body style="background-color: #FFF5EB">
 
-	
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true">
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+
+
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
+			<div class="form-group">
+				<p:inputText value="#{rechercheBean.keywords}" />
+			</div>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
+		</h:form>
+
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
+
+
+		</b:navbarLinks>
+
+	</b:navBar>
 
 
 
@@ -106,9 +163,11 @@
 				<h:graphicImage class="image-editer-produit" library="images"
 					value="#{produitBean.produit.photo}"
 					rendered="#{produitBean.produit.idProduit gt 0}" />
-				<h:inputFile rendered="#{produitBean.produit.idProduit gt 0}" class="bouton-file-modif" id="file-modif"
+				<h:inputFile rendered="#{produitBean.produit.idProduit gt 0}"
+					class="bouton-file-modif" id="file-modif"
 					value="#{produitBean.uploadedFile}" />
-				<h:inputFile rendered="#{produitBean.produit.idProduit == 0}" class="bouton-file-ajout" id="file-ajout"
+				<h:inputFile rendered="#{produitBean.produit.idProduit == 0}"
+					class="bouton-file-ajout" id="file-ajout"
 					value="#{produitBean.uploadedFile}" />
 			</h:panelGroup>
 
@@ -129,6 +188,6 @@
 
 	</h:form>
 
-</body>
+</h:body>
 </html>
 

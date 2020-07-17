@@ -3,59 +3,143 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 
 <h:head>
 	<title>page d'ajout d'un user</title>
 
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
+	<h:outputStylesheet library="style" name="EditionCategorie.css" />
+
 	<h:outputStylesheet name="primeicons/primeicons.css"
 		library="primefaces" />
 
 </h:head>
-<body>
+<h:body style="background-color: #FFF5EB">
+
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
+		<b:navbarLinks>
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
+			<div class="form-group">
+				<p:inputText value="#{rechercheBean.keywords}" />
+			</div>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
+		</h:form>
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+				<b:commandButton style="text-align:center;" value="Déconnexion"
+					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
+			</b:dropMenu>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
+		</b:navbarLinks>
+	</b:navBar>
 
 
 	<h:form enctype="multipart/form-data">
-		<div style="margin: 0 auto; width: 100%;">
-			<h3>Ajout d'un admin</h3>
+
+		<h1 class="titre">Edition Admin</h1>
+		<div class="ui-fluid p-formgrid p-grid">
 
 			<h:inputHidden value="#{userBean.user.idUser}" />
 
-			<div class="p-field p-grid">
-				<p:outputLabel for="identifiant" styleClass="p-col-fixed"
-					style="width:100px" value="Identifiant" />
-				<p:inputText id="identifiant" value="#{userBean.user.userName}" />
+			<div class="p-field p-col-12 p-md-1"></div>
+
+			<div class="p-field p-col-12 p-md-4">
+				<p:outputLabel for="identifiant" value="Identifiant" />
+				<p:inputText id="identifiant" value="#{userBean.user.userName}"
+					required="true" requiredMessage="Idantifiant obligatoire" />
 			</div>
 
-			<div class="p-field p-grid">
-				<p:outputLabel for="mdp" styleClass="p-col-fixed"
-					style="width:100px" value="Mot de passe" />
-				<p:inputText id="mdp" value="#{userBean.user.password}" />
+			<div class="p-field p-col-12 p-md-11"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+
+			<div class="p-field p-col-12 p-md-4">
+				<p:outputLabel for="password" value="Mot de Passe" />
+				<p:inputText id="password" value="#{userBean.user.password}"
+					required="true" requiredMessage="Idantifiant Obligatoire" />
 			</div>
 
-			<div class="p-field p-grid">
-				<p:outputLabel for="actif" styleClass="p-col-fixed"
-					style="width:100px" value="Actif" />
+			<div class="p-field p-col-12 p-md-11"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+
+
+			<div class="p-field p-col-12 p-md-4">
+				<p:outputLabel for="actif" value="Actif" />
 				<p:inputText id="actif" value="#{userBean.user.actived}" />
 			</div>
 
-			<div class="p-field p-grid">
-				<p:outputLabel for="roleName" styleClass="p-col-fixed"
-					style="width:100px" value="Rôle" />
-				<p:inputText id="roleName" value="#{userBean.user.roleName}" />
+			<div class="p-field p-col-12 p-md-11"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+			<div class="p-field p-col-12 p-md-1"></div>
+
+
+			<div class="p-field p-col-12 p-md-4">
+				<p:outputLabel for="role" value="Rôle" />
+				<p:inputText id="role" value="#{userBean.user.roleName}"
+					required="true" />
 			</div>
 
-
-			<p:growl id="messages" showDetail="true" />
-
-
-			<p:commandButton value="Ajouter" id="withIcon" action="gestionUser"
-				actionListener="#{userBean.ajouterUser}" style="margin-right:20px;"
-				icon="pi pi-save" />
 		</div>
+
+		<div class="div-bouton-validation">
+
+			<p:commandButton
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+				rendered="#{userBean.user.idUser == 0}" value="Ajouter" action="gestionUser"
+				actionListener="#{userBean.ajouterUser}" />
+			
+
+			<p:commandButton
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+				rendered="#{userBean.user.idUser gt 0}" value="Modifier"
+				action="gestionUser" actionListener="#{userBean.modifierUser}" />
+		</div>
+
 	</h:form>
 
-</body>
+</h:body>
 </html>

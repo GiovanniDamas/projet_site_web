@@ -15,133 +15,143 @@
 
 	<h:outputStylesheet library="style" name="styleHeader.css" />
 
-</h:head>
-<body>
+	<h:outputStylesheet library="style" name="DatatableCategorie.css" />
 
-	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+</h:head>
+<h:body style="background-color: #FFF5EB">
+
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
-			<b:navLink value="Gestion Categories" href="gestionCategories.xhtml"></b:navLink>
-			<b:navLink value="Gestion Admin" href="gestionUser.xhtml"></b:navLink>
-			<b:dropMenu value="Catégories">
-				<b:navLink value="#{categorieBean.categorie.nomCategorie}"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
-			</b:dropMenu>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search" />
+				<p:inputText value="#{rechercheBean.keywords}" />
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<!-- Following line is needed for TBS 3.0.1 (panel content overflow issue) -->
-
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:dropMenu value="Profil">
-				<b:navLink value="Nom"></b:navLink>
-				<b:navLink value="Rôle" href="#"></b:navLink>
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+				<b:commandButton style="text-align:center;" value="Déconnexion"
+					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
 			</b:dropMenu>
-			<b:navLink value="Panier" href="#"></b:navLink>
-			<b:navLink value="Déconnexion"
-				href="#{connexionBean.deconnexionAdmin()}"></b:navLink>
-
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
 
-
-	<h:form>
-		<p:growl id="growl" life="2000" />
-		<div>
-			<h3>Ajouter une categorie</h3>
-			<p:commandButton value="Ajouter une catégorie" id="withIcon"
-				action="addCat" actionListener="#{categorieBean.initialiserCat}"
-				style="margin-right:20px;" icon="pi pi-save" />
-		</div>
-		<div>
-			<h3>Gestion des admins</h3>
-			<p:commandButton value="Gestion des admins" id="ajax" update="growl"
-				action="gestionUser" style="margin-right:20px;"
-				styleClass="ui-priority-primary" />
-
-		</div>
-	</h:form>
+	<br />
+	<br />
 	<br />
 
 
 	<h:form>
-		<h:dataTable value="#{categorieBean.findAllCat()}" var="cat">
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="ID Categorie" />
-				</f:facet>
+		<p:dataTable class="dataTable-categorie" var="cat"
+			value="#{categorieBean.findAllCat()}" widgetVar="categorieTable"
+			emptyMessage="Aucun ne produit correspondant aux critères "
+			filteredValue="#{FiltreBean.filteredCategorie}">
 
-				<!-- données de la colonne -->
+			<f:facet name="header">
+				<p:outputPanel style="float:left;">
+					<p:commandButton value="Ajouter une nouvelle catégorie"
+						action="addCat" actionListener="#{categorieBean.initialiserCat}"
+						icon="pi pi-plus" />
+				</p:outputPanel>
+				<h:outputText value="Liste des Catégories"
+					style="text-align: center; margin-right: 45%;" />
+				<p:outputPanel>
+					<h:outputText value="Recherche :" />
+					<p:inputText id="globalFilter"
+						onkeyup="PF('categorieTable').filter()"
+						style="width:150px; margin-left:10px" placeholder="Mots Clés" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column class="column-idCategorie" filterBy="#{cat.idCategorie}"
+				headerText="ID" filterMatchMode="exact">
 				<h:outputText value="#{cat.idCategorie}" />
-			</h:column>
+			</p:column>
 
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Nom Catégorie" />
-				</f:facet>
-
-				<!-- données de la colonne -->
+			<p:column class="column-nomCategorie" filterBy="#{cat.nomCategorie}"
+				headerText=" Nom Catégorie" filterMatchMode="exact">
 				<h:outputText value="#{cat.nomCategorie}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Description" />
-				</f:facet>
+			</p:column>
 
-				<!-- données de la colonne -->
+			<p:column class="column-description" row="2"
+				filterBy="#{cat.description}" headerText="Description"
+				filterMatchMode="contains">
 				<h:outputText value="#{cat.description}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
-				<f:facet name="header">
-					<h:outputText value="Photo" />
-				</f:facet>
+			</p:column>
 
-				<!-- données de la colonne -->
-				<h:graphicImage library="images/" name="#{cat.photo}" width="80"
-					height="120" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
+			<p:column class="column-image" headerText="Image">
+				<h:graphicImage class="image-categorie" library="images/"
+					name="#{cat.photo}" />
+			</p:column>
+
+			<p:column class="column-modifier">
 				<f:facet name="header">
 					<h:outputText value="Modifier" />
 				</f:facet>
 
-				<!-- données de la colonne -->
 				<p:commandButton action="addCat" id="IconOnly"
-					actionListener="#{categorieBean.selectCat}"
-					style="margin-right:20px;" icon="pi pi-pencil" title="Icon Only" />
+					actionListener="#{categorieBean.selectCat}" icon="pi pi-pencil"
+					title="Icon Only" />
 				<f:param id="updateID" name="id" value="#{cat.idCategorie}" />
-			</h:column>
-			<h:column>
-				<!-- en-tête de colonne -->
+			</p:column>
+
+			<p:column class="column-supprimer">
 				<f:facet name="header">
 					<h:outputText value="Supprimer" />
 				</f:facet>
-
-				<!-- données de la colonne -->
 				<p:commandButton action="gestionCat"
 					actionListener="#{categorieBean.suppCat}" id="iconOnly"
-					style="margin-right:20px;" icon="pi pi-trash" title="Icon Only" />
+					icon="pi pi-trash" title="Icon Only" />
 				<f:param id="deleteID" name="id" value="#{cat.idCategorie}" />
-			</h:column>
+			</p:column>
 
-		</h:dataTable>
+		</p:dataTable>
+
 	</h:form>
 
 
-</body>
+
+</h:body>
 </html>

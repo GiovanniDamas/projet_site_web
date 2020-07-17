@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.dataTable-categorie{
+	margin:  0 1rem 0 1rem;
+}
+
+.ui-datatable .ui-datatable-header {
+        text-align: right !important;
+}
+
+.column-idCategorie {
+	width: 5%;
+	text-align: center;
+	padding-bottom: 0;
+	
+}
+
+.column-nomCategorie {
+	width: 10%;
+	text-align: center;
+	padding-bottom: 0;
+	
+}
+
+.column-description {
+	text-overflow: ellipsis;
+}
+
+.column-image {
+	text-align: center;
+	width: 15%;
+}
+
+.image-categorie {
+	width: 8rem;
+	height: 6rem;
+}
+
+
+
+.column-modifier {
+	width: 5%;
+	text-align: center;
+}
+
+.column-supprimer {
+	width: 7.5%;
+	text-align: center;
+}
+

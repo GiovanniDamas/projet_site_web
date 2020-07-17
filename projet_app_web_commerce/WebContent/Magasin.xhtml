@@ -7,6 +7,8 @@
 
 <h:head>
 
+	<title>Accueil</title>
+
 	<h:outputStylesheet library="style" name="primeFlex.css" />
 
 	<h:outputStylesheet name="primeicons/primeicons.css"
@@ -17,14 +19,12 @@
 	<h:outputStylesheet library="style" name="MagasinListGrid.css" />
 
 </h:head>
-<body>
+<h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="#" fluid="true">
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
-		</b:navbarLinks>
-		<b:navbarLinks>
-			<b:navLink value="Link" href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -46,18 +46,13 @@
 				actionListener="#{rechercheBean.getListeSelonFiltre()}"
 				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<b:navbarLinks pull="right" styleClass="hidden-xs">
+		<b:navbarLinks pull="right" class="text">
 			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="GestionProduit.xhtml">gestion produit</b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
-
-
-	<br />
-	<br />
-	<br />
 
 
 	<div class="p-field p-col-12 p-md-12" style="margin-bottom: 4rem">
@@ -67,6 +62,9 @@
 		<p:linkButton action="#" id="button-list" icon="pi pi-list">
 		</p:linkButton>
 	</div>
+
+	<br />
+	<br />
 
 
 	<div id="gridproduit" style="display: none">
@@ -85,14 +83,15 @@
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
-									<p:ajax event="change" process="@this" update="@this"></p:ajax>
+								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
-							<p:commandButton icon="pi pi-shopping-cart" style="margin-right:20px;"
-								action="#" actionListener="#{panierBean.ajouterLigneCommande}">
-								</p:commandButton>
-								<f:param name = "idProduit" value = "#{produit.idProduit}" /> 
-								<f:param name = "prix" value = "#{produit.prix}" /> 
+							<p:commandButton icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="#"
+								actionListener="#{panierBean.ajouterLigneCommande}">
+							</p:commandButton>
+							<f:param name="idProduit" value="#{produit.idProduit}" />
+							<f:param name="prix" value="#{produit.prix}" />
 
 						</h:form>
 
@@ -139,16 +138,17 @@
 					noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
-									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" /> 
-									<p:ajax event="change" process="@this" update="@this"></p:ajax>
-							</p:selectOneMenu> 
+									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
+								<p:ajax event="change" process="@this" update="@this"></p:ajax>
+							</p:selectOneMenu>
 
-							<p:commandButton value="Ajouter au Panier" icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#" actionListener="#{panierBean.ajouterLigneCommande}">
-							<f:param name = "produitID" value = "#{produit.idProduit}" /> 
-								<f:param name = "prix" value = "#{produit.prix}" />
+							<p:commandButton value="Ajouter au Panier"
+								icon="pi pi-shopping-cart" style="margin-right:20px;" action="#"
+								actionListener="#{panierBean.ajouterLigneCommande}">
+								<f:param name="produitID" value="#{produit.idProduit}" />
+								<f:param name="prix" value="#{produit.prix}" />
 							</p:commandButton>
-							 
+
 
 						</h:form>
 					</div>
@@ -168,11 +168,12 @@
 			</div>
 		</p:repeat>
 	</div>
-	
+
 
 	<h:outputScript library="scripts" name="scriptListGrid.js" />
 
-	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
 
-</body>
+</h:body>
 </html>
