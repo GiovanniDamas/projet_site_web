@@ -14,14 +14,19 @@
 	padding: 15px;
 }
 </style>
-    <link type="text/css" rel="stylesheet" href="/Examples/javax.faces.resource/css/spacelab/core.css.jsf?ln=bsf"/>
-    <link type="text/css" rel="stylesheet" href="/Examples/javax.faces.resource/css/spacelab/theme.css.jsf?ln=bsf"/>
-    <link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>
-    <link type="text/css" rel="stylesheet" href="/Examples/javax.faces.resource/css/bsf.css.jsf?ln=bsf"/>
+	<link type="text/css" rel="stylesheet"
+		href="/Examples/javax.faces.resource/css/spacelab/core.css.jsf?ln=bsf" />
+	<link type="text/css" rel="stylesheet"
+		href="/Examples/javax.faces.resource/css/spacelab/theme.css.jsf?ln=bsf" />
+	<link type="text/css" rel="stylesheet"
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		crossorigin="anonymous" />
+	<link type="text/css" rel="stylesheet"
+		href="/Examples/javax.faces.resource/css/bsf.css.jsf?ln=bsf" />
 
 
 </h:head>
-<body>
+<body style="background-color:#DAF0FF">
 
 	<!-- Affichage des messages -->
 	<h:messages globalOnly="true" layout="table" showDetail="true"
@@ -31,34 +36,34 @@
 	<!-- Formulaire de connexion -->
 
 	<b:form class="form-signin" horizontal="true">
-		<h2 class="form-signin-header">S'identifier</h2>
-		<div class="form-group">
+		<div style="width:100%; margin:auto; margin-top:25%">
+		<h2 class="form-signin-header" style="margin-left:22.5%">S'identifier</h2>
 		
+			<div class="form-group" style="margin-left: 10%">
 				<b:inputText class="form-control" placeholder="Identifiant"
-					required="true"  colMd="10" labelColMd="2"
+					required="true" colMd="10" labelColMd="2"
 					value="#{connexionBean.userIdentifiant}">
 					<f:facet name="prepend">
 						<b:icon name="user" />
 					</f:facet>
 				</b:inputText>
-		
-		</div>
-		<div class="form-group">
-			
+			</div>
+
+			<div class="form-group" style="margin-left:10%">
 				<b:inputText class="form-control" placeholder="Mot De Passe"
-					required="true"  colMd="10" labelColMd="2"
+					required="true" colMd="10" labelColMd="2"
 					value="#{connexionBean.userPassword}">
 					<f:facet name="prepend">
 						<b:iconAwesome name="key" />
 					</f:facet>
 				</b:inputText>
-			
-		</div>
-		<b:commandButton type="submit"
-			action="#{connexionBean.connexionAdmin()}" name="j_idt11"
-			class="btn btn-lg btn-primary btn-block">
-			<span> <i class="glyphicon glyphicon-log-in"></i>
-			</span> Se Connecter
+			</div>
+</div>
+			<b:commandButton type="submit"
+				action="#{connexionBean.connexionAdmin()}" name="j_idt11"
+				class="btn btn-lg btn-primary btn-block" >
+				<span> <i class="glyphicon glyphicon-log-in"></i>
+				</span> Se Connecter
 		</b:commandButton>
 	</b:form>
 
