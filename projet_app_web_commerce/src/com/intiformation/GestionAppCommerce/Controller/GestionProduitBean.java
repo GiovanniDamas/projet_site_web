@@ -77,6 +77,39 @@ public class GestionProduitBean implements Serializable {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
+		if (uploadedFile != null) {
+
+			String fileNameToUpdate = uploadedFile.getSubmittedFileName();
+
+			if (!"".equals(fileNameToUpdate) && fileNameToUpdate != null) {
+
+				// affectation du nouveau nom à la prop urlImage du livre
+				produit.setPhoto(fileNameToUpdate);
+
+				try {
+					InputStream imageContent = uploadedFile.getInputStream();
+
+					String pathTmp = context.getExternalContext().getInitParameter("file-upload");
+
+					String filePath = context.getExternalContext().getRealPath(pathTmp);
+
+					File targetFile = new File(filePath, fileNameToUpdate);
+
+					OutputStream outStream = new FileOutputStream(targetFile);
+					byte[] buf = new byte[1024];
+					int len;
+
+					while ((len = imageContent.read(buf)) > 0) {
+						outStream.write(buf, 0, len);
+					}
+
+					outStream.close();
+
+				} catch (IOException ex) {
+					System.out.println("erreur dans creation image");
+				}
+			}
+		}
 		if (produitService.modifierProduit(produit)) {
 
 			FacesMessage messageOk = new FacesMessage(FacesMessage.SEVERITY_INFO, "Modification r�ussie",
@@ -112,9 +145,11 @@ public class GestionProduitBean implements Serializable {
 
 				InputStream imageContent = uploadedFile.getInputStream();
 
-				File targetFile = new File(
-						"/Users/giovanni/Desktop/FormationJAVA/projet_site_web/projet_app_web_commerce/WebContent/resources/images",
-						fileName);
+				String pathTmp = context.getExternalContext().getInitParameter("file-upload");
+
+				String filePath = context.getExternalContext().getRealPath(pathTmp);
+
+				File targetFile = new File(filePath, fileName);
 
 				OutputStream outStream = new FileOutputStream(targetFile);
 				byte[] buf = new byte[1024];
@@ -149,7 +184,6 @@ public class GestionProduitBean implements Serializable {
 		}
 
 	}// end ajouterProduit()
-	
 
 	public List<Integer> getListeQuantite(int idProduit) {
 		listeQuantite = produitService.getListeQuantite(idProduit);

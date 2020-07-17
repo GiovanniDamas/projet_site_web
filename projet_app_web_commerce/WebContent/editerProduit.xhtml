@@ -21,8 +21,9 @@
 <h:body style="background-color: #FFF5EB">
 
 	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
-		fluid="true">
-		<b:navbarLinks pull="left">
+		fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
+		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks>
@@ -50,8 +51,6 @@
 		</b:navbarLinks>
 		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
 			role="search">
-
-
 			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
 				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
 					noSelectionOption="true" />
@@ -67,15 +66,17 @@
 				actionListener="#{rechercheBean.getListeSelonFiltre()}"
 				value="Rechercher" class="btn btn-default" />
 		</h:form>
-
 		<b:navbarLinks pull="right" styleClass="hidden-xs">
-			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
-
-
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+					<b:commandButton style="text-align:center; border: none;"
+						value="Déconnexion" action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
+			</b:dropMenu>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
 		</b:navbarLinks>
-
 	</b:navBar>
 
 
@@ -159,9 +160,9 @@
 			<div class="p-field p-col-12 p-md-1"></div>
 
 			<h:outputLabel class="label-image" value="Image du produit : " />
-			<h:panelGroup>
-				<h:graphicImage class="image-editer-produit" library="images"
-					value="#{produitBean.produit.photo}"
+		
+				<h:graphicImage class="image-editer-produit"
+					value="/resources/images/#{produitBean.produit.photo}"
 					rendered="#{produitBean.produit.idProduit gt 0}" />
 				<h:inputFile rendered="#{produitBean.produit.idProduit gt 0}"
 					class="bouton-file-modif" id="file-modif"
@@ -169,7 +170,7 @@
 				<h:inputFile rendered="#{produitBean.produit.idProduit == 0}"
 					class="bouton-file-ajout" id="file-ajout"
 					value="#{produitBean.uploadedFile}" />
-			</h:panelGroup>
+		
 
 		</div>
 
@@ -178,12 +179,12 @@
 
 			<b:commandButton  rendered="#{produitBean.produit.idProduit == 0}"
 				value="Ajouter" action="GestionProduit"
-				actionListener="#{produitBean.ajouterProduit()}" />
+				actionListener="#{produitBean.ajouterProduit}" />
 
 
 			<b:commandButton  rendered="#{produitBean.produit.idProduit gt 0}"
 				value="Modifier" action="GestionProduit"
-				actionListener="#{produitBean.modifierProduit()}" />
+				actionListener="#{produitBean.modifierProduit}" />
 		</div>
 
 	</h:form>

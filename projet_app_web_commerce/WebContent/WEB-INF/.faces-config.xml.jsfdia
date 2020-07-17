@@ -108,7 +108,13 @@
  <PROCESS-ITEM NAME="rules:#MagasinFiltre.xhtml"
   PATH="/MagasinFiltre.xhtml" SHAPE="256,1249,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#Facture.xhtml" PATH="/Facture.xhtml"
-  SHAPE="256,1665,0,0" model-entity="JSFProcessGroup"/>
+  SHAPE="256,1665,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#Facture.xhtml:0" NAME="item"
+   PATH="/Facture.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="magasin::#Magasin.xhtml" NAME="output"
+    PATH="/Magasin.xhtml" TARGET="rules:#Magasin.xhtml" TITLE="magasin" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#ValidationCommande.xhtml"
   PATH="/ValidationCommande.xhtml" SHAPE="32,1841,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#ValidationCommande.xhtml:0" NAME="item"

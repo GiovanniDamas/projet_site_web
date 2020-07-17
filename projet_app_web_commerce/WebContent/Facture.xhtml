@@ -69,7 +69,7 @@
 	</div>
 	<div class="div-validation-button">
 	<h:form>
-	<p:commandButton class="validation-button" value="Valider et Retourner au Magasin" action="#{commandeBean.editerFacture()}">
+	<p:commandButton class="validation-button" value="Valider et Retourner au Magasin" action="magasin">
 			<f:actionListener binding="#{commandeBean.detruireCommande()}" />
 			<f:actionListener binding="#{panierBean.detruireLigneCommande()}" />
 	</p:commandButton>

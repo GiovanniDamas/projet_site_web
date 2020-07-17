@@ -20,7 +20,8 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
@@ -70,8 +71,8 @@
 				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
 				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
 				<h:form>
-				<b:commandButton style="text-align:center;" value="Déconnexion"
-					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+					<b:commandButton style="text-align:center; border: none;"
+						value="Déconnexion" action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
 				</h:form>
 			</b:dropMenu>
 			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
@@ -116,17 +117,16 @@
 
 
 			<h:outputLabel class="label-image" value="Image du produit : " />
-			<h:panelGroup>
-				<h:graphicImage class="image-editer-produit" library="images"
-					value="#{categorieBean.categorie.photo}"
+				<h:graphicImage class="image-editer-produit"
+					value="/resources/images/#{categorieBean.categorie.photo}"
 					rendered="#{categorieBean.categorie.idCategorie gt 0}" />
 				<h:inputFile rendered="#{categorieBean.categorie.idCategorie gt 0}"
 					class="bouton-file-modif" id="file-modif"
 					value="#{categorieBean.uploadedFile}" />
 				<h:inputFile rendered="#{categorieBean.categorie.idCategorie == 0}"
 					class="bouton-file-ajout" id="file-ajout"
-					value="#{categorieBean.uploadedFile}" />
-			</h:panelGroup>
+					value="#{categorieBean.uploadedFile}" required="true" />
+		
 
 		</div>
 
@@ -134,15 +134,15 @@
 
 			<h:commandButton
 				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-				rendered="#{categorieBean.categorie.idCategorie == 0}" value="Ajouter"
-				action="GestionProduit"
+				rendered="#{categorieBean.categorie.idCategorie == 0}"
+				value="Ajouter" action="gestionCat"
 				actionListener="#{categorieBean.ajouter()}" />
 
 
 			<h:commandButton
 				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-				rendered="#{categorieBean.categorie.idCategorie gt 0}" value="Modifier"
-				action="GestionProduit"
+				rendered="#{categorieBean.categorie.idCategorie gt 0}"
+				value="Modifier" action="gestionCat"
 				actionListener="#{categorieBean.modifierCat()}" />
 		</div>
 

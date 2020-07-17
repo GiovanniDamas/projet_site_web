@@ -83,7 +83,7 @@
 						<h:form style="float: right">
 							<p:selectOneMenu id="quantite" required="true"
 								value="#{panierBean.quantite}">
-								<f:selectItem itemLabel="QTT" itemValue="#{null}"
+								<f:selectItem itemLabel="Quantité" itemValue="#{null}"
 									noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
@@ -91,9 +91,12 @@
 								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
-							<p:button icon="pi pi-shopping-cart" style="margin-right:20px;"
-								action="#" actionListener="#{panierBean.ajouterLigneCommande}">
-							</p:button>
+							<p:commandButton icon="pi pi-shopping-cart"
+								style="margin-right:20px;" action="#"
+								actionListener="#{panierBean.ajouterLigneCommande}">
+								<f:param name="produitID" value="#{produit.idProduit}" />
+								<f:param name="prix" value="#{produit.prix}" />
+							</p:commandButton>
 						</h:form>
 
 						<p class="produit-grille-prix">#{produit.prix} €</p>
@@ -102,14 +105,10 @@
 								pcs</span>
 						</p>
 					</div>
-
 				</div>
 			</div>
-
 		</p:repeat>
 	</div>
-
-
 
 
 	<div id="listproduit" style="display: block">
@@ -138,19 +137,23 @@
 							</p>
 						</div>
 						<h:form>
-							<p:selectOneMenu id="quantite" required="true"
-								value="#{panierBean.quantite}">
+							<p:selectOneMenu id="quantite" value="#{panierBean.quantite}">
+								<f:selectItem itemLabel="Quantité" itemValue="#{null}"
+									noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
 								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
-							<p:button value="Ajouter au Panier" icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#"
+							<p:commandButton value="Ajouter au Panier"
+								icon="pi pi-shopping-cart" style="margin-right:20px;" action="#"
 								actionListener="#{panierBean.ajouterLigneCommande}">
-								<f:param name="productId" value="10" />
-							</p:button>
+								<f:param name="produitID" value="#{produit.idProduit}" />
+								<f:param name="prix" value="#{produit.prix}" />
+							</p:commandButton>
+
+
 						</h:form>
 					</div>
 				</div>
@@ -170,9 +173,11 @@
 		</p:repeat>
 	</div>
 
-	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 
 	<h:outputScript library="scripts" name="scriptListGrid.js" />
+
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
 
 
 </h:body>

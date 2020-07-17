@@ -71,7 +71,7 @@
 			<!-- 1.2.2 destination -->
 			<to-view-id>/gestionCategories.xhtml</to-view-id>
 			<!-- redirection -->
-			<redirect />
+			<redirect  />
 		</navigation-case>
 	</navigation-rule>
 	
@@ -254,6 +254,18 @@
 		<navigation-case>
 			<from-outcome>toFacture</from-outcome>
 			<to-view-id>/Facture.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+
+		<from-view-id>/Facture.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>magasin</from-outcome>
+			<to-view-id>/Magasin.xhtml</to-view-id>
 			<!-- redirection -->
 			<redirect />
 		</navigation-case>

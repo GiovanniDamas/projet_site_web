@@ -35,7 +35,7 @@ public class GestionCategorieBean implements Serializable {
 	private List<Categorie> listeCatBdd;
 	private List<String> listeNomCat;
 	private Categorie categorie;
-	
+
 	private Part uploadedFile;
 
 	// DAO
@@ -90,9 +90,11 @@ public class GestionCategorieBean implements Serializable {
 
 				InputStream imageContent = uploadedFile.getInputStream();
 
-				File targetFile = new File(
-						"/Users/giovanni/Desktop/FormationJAVA/projet_site_web/projet_app_web_commerce/WebContent/resources/images",
-						fileName);
+				String pathTmp = context.getExternalContext().getInitParameter("file-upload");
+
+				String filePath = context.getExternalContext().getRealPath(pathTmp);
+
+				File targetFile = new File(filePath, fileName);
 
 				OutputStream outStream = new FileOutputStream(targetFile);
 				byte[] buf = new byte[1024];
@@ -165,6 +167,40 @@ public class GestionCategorieBean implements Serializable {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 
+		if (uploadedFile != null) {
+
+			String fileNameToUpdate = uploadedFile.getSubmittedFileName();
+
+			if (!"".equals(fileNameToUpdate) && fileNameToUpdate != null) {
+
+				// affectation du nouveau nom à la prop urlImage du livre
+				categorie.setPhoto(fileNameToUpdate);
+
+				try {
+					InputStream imageContent = uploadedFile.getInputStream();
+
+					String pathTmp = context.getExternalContext().getInitParameter("file-upload");
+
+					String filePath = context.getExternalContext().getRealPath(pathTmp);
+
+					File targetFile = new File(filePath, fileNameToUpdate);
+
+					OutputStream outStream = new FileOutputStream(targetFile);
+					byte[] buf = new byte[1024];
+					int len;
+
+					while ((len = imageContent.read(buf)) > 0) {
+						outStream.write(buf, 0, len);
+					}
+
+					outStream.close();
+
+				} catch (IOException ex) {
+					System.out.println("erreur dans creation image");
+				}
+			}
+		}
+
 		if (categorieService.modifierCategorie(categorie)) {
 
 			// if modif ok //
@@ -204,7 +240,5 @@ public class GestionCategorieBean implements Serializable {
 	public void setUploadedFile(Part uploadedFile) {
 		this.uploadedFile = uploadedFile;
 	}
-	
-	
 
 }// END CLASS

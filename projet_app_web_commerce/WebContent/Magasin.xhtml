@@ -50,7 +50,6 @@
 			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="GestionProduit.xhtml">gestion produit</b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
 
@@ -86,13 +85,12 @@
 								<p:ajax event="change" process="@this" update="@this"></p:ajax>
 							</p:selectOneMenu>
 
-							<p:commandButton icon="pi pi-shopping-cart"
-								style="margin-right:20px;" action="#"
+							<p:commandButton 
+								icon="pi pi-shopping-cart" style="margin-right:20px;" action="#"
 								actionListener="#{panierBean.ajouterLigneCommande}">
+								<f:param name="produitID" value="#{produit.idProduit}" />
+								<f:param name="prix" value="#{produit.prix}" />
 							</p:commandButton>
-							<f:param name="idProduit" value="#{produit.idProduit}" />
-							<f:param name="prix" value="#{produit.prix}" />
-
 						</h:form>
 
 						<p class="produit-grille-prix">#{produit.prix} €</p>

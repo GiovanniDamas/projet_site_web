@@ -2,9 +2,6 @@ package com.intiformation.GestionAppCommerce.Controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,22 +9,18 @@ import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
+
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
-import com.intiformation.GestionAppCommerce.Service.CommandeServiceImp;
-import com.intiformation.GestionAppCommerce.Service.IClientsService;
-import com.intiformation.GestionAppCommerce.Service.ICommandeService;
-import com.intiformation.GestionAppCommerce.Service.ILigneCommandeService;
+import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.intiformation.GestionAppCommerce.Service.IProduitService;
-import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
 import com.intiformation.GestionAppCommerce.Service.ProduitServiceImp;
 
-import sun.nio.cs.ext.ISCII91;
+
 
 @ManagedBean(name = "panierBean")
 @SessionScoped
