@@ -25,6 +25,8 @@ public interface IProduitService {
 	public List<Integer> getListeQuantite(Integer idProduit);
 	
 	public List<Produit> findByKeywordsAndCategorie(String motsCles, String nomCategorie);
+	
+	public boolean updateQttAndSelectionne(int quantite, boolean selectionne, int idProduit);
 
 
 }

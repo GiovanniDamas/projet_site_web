@@ -121,7 +121,10 @@
 
 <h:form>
 			<p:commandButton style="margin-right:20px;" value="Valider la commande"
-			actionListener="#{clientBean.initialiserClient()}" action="ValidationCommande"/>
+			action="#{panierBean.enregistrerPanier()}" >
+				<f:actionListener binding="#{clientBean.initialiserClient()}" />
+			</p:commandButton>
+			
 			</h:form>
 		</div>
 	</div>

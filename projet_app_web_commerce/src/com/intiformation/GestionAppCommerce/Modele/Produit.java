@@ -121,6 +121,16 @@ public class Produit {
 	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Produit [idProduit=" + idProduit + ", quantite=" + quantite + ", idCategorie=" + idCategorie
+				+ ", nomProduit=" + nomProduit + ", description=" + description + ", photo=" + photo + ", prix=" + prix
+				+ ", selectionne=" + selectionne + "]";
+	}
+	
+	
 	
 
 }//end class

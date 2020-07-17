@@ -296,5 +296,33 @@ public class ProduitDAOImp implements IProduitDAO{
 		}//end finally
 		return null;
 	}
+
+	/*
+	public boolean updateQttAndSelectionne(int quantite, boolean selectionne, int idProduit) {
+		try {
+			String requeteUpdateProduit = "update produit set quantite=?,selectionner=? where idProduit=?;";
+			ps = this.connection.prepareStatement(requeteUpdateProduit);
+			
+			ps.setInt(1, quantite);
+			ps.setBoolean(2, selectionne);
+			ps.setInt(3,idProduit);
+							
+			int verifUpdateCategorie = ps.executeUpdate();
+			
+			return verifUpdateCategorie==1;
+			
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de l'update quantite d'un produit");
+			e.printStackTrace();
+		}finally {
+				try {
+					if (ps!=null)ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}//end try/catch
+				
+		}//end finally
+		return false;
+	}*/
 	
 }

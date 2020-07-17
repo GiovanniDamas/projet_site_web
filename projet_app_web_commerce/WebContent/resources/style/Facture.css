@@ -1,0 +1,79 @@
+@charset "ISO-8859-1";
+
+.facture{
+	text-align: center;
+	width:30rem;
+	margin:auto;
+	margin-top:5rem;
+	margin-bottom:5rem;
+	border: dotted 2px black;
+	border-radius: 1rem;
+}
+
+.table-facture{
+	margin:auto;
+}
+
+.titre-commande{
+	font-size: 1.5rem;
+	font-style: italic;
+	text-decoration:underline;
+	margin: 1rem 0 2rem 0;
+	text-overflow: ellipsis;
+}
+
+
+.commande-produit{
+	width: 10rem;
+	display: block;
+	text-align: left ! important;
+	
+}
+
+.commande-prix{
+	width: 8rem;
+	display: block;
+	text-align: left ! important;
+}
+
+.commande-quantite{
+	width: 6rem;
+	display: block;
+	text-align: left ! important;
+}
+
+.commande-somme-total{
+	padding-top:2.5rem;
+	text-align: right ! important;
+	margin-right: 2rem;
+	text-decoration : underline;
+	margin-bottom:2.5rem;
+}
+
+.commande-nom-client{
+	text-align: left ! important;
+	margin-left: 2rem;
+	margin-bottom:1rem;
+	font-weight: bold;
+}
+
+.commande-adresse-client{
+	text-align: left ! important;
+	margin-left: 2rem;
+	margin-bottom:2rem;
+}
+
+
+
+.div-validation-button{
+	width:20rem;
+	margin: auto
+}
+
+.row-header{
+	font-size: 1.25rem;
+}
+
+.row-body{
+	font-size: 1rem;
+}

@@ -3,6 +3,7 @@ package com.intiformation.GestionAppCommerce.Service;
 import java.util.List;
 
 import com.intiformation.GestionAppCommerce.Modele.Clients;
+import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
 
 /**
  * interface de la couche service pour le client <br/>
@@ -21,5 +22,7 @@ public interface IClientsService {
 	    public List<Clients> getAll();
 
 	    public Clients getById(Integer id);
+	    
+	    public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC);
 
 }//END INTERFACE

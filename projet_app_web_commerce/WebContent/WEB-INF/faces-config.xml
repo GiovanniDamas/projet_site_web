@@ -247,13 +247,19 @@
 		</navigation-case>
 	</navigation-rule>
 	
-	
-	
 	<navigation-rule>
 
-		<from-view-id>/Magasin.xhtml</from-view-id>
-		
-		
+		<from-view-id>/ValidationCommande.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-outcome>toFacture</from-outcome>
+			<to-view-id>/Facture.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
+	
+	
+	
 	
 </faces-config>

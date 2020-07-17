@@ -3,10 +3,13 @@ package com.intiformation.GestionAppCommerce.Controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -21,7 +24,9 @@ import com.intiformation.GestionAppCommerce.Service.CommandeServiceImp;
 import com.intiformation.GestionAppCommerce.Service.IClientsService;
 import com.intiformation.GestionAppCommerce.Service.ICommandeService;
 import com.intiformation.GestionAppCommerce.Service.ILigneCommandeService;
+import com.intiformation.GestionAppCommerce.Service.IProduitService;
 import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
+import com.intiformation.GestionAppCommerce.Service.ProduitServiceImp;
 
 
 @ManagedBean(name = "panierBean")
@@ -33,19 +38,18 @@ public class GestionPanierBean implements Serializable {
 	private List<LigneCommande> listeLigneCommande;
 	private LigneCommande ligneCommande;
 	
-	private ILigneCommandeService ligneCommandeService;
-	private ICommandeService commandeService;
-	private IClientsService clientService;
+	private IProduitService produitService;
 
 	public GestionPanierBean() {
-		ligneCommandeService = new LigneCommandeServiceImpl();
-		commandeService = new CommandeServiceImp();
+		produitService = new ProduitServiceImp();
 	}
 	
 	public void ajouterLigneCommande(ActionEvent event) {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		
+		if (quantite!=0) {
 		
 		Map params = context.getExternalContext().getRequestParameterMap();
 
@@ -63,7 +67,7 @@ public class GestionPanierBean implements Serializable {
 		listeLigneCommande.add(ligneCommande);
 
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
+		}
 	}
 	
 
@@ -120,19 +124,90 @@ public class GestionPanierBean implements Serializable {
 	}//END METHODE
 	
 	
-	public void enregistrerPanier() {
+	public String enregistrerPanier() {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		
-		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
 		
-		listeLigneCommande.clear();
+		List<LigneCommande> listeTrie = listeLigneCommande.stream()
+														  .sorted((lc1,lc2)-> lc1.getProduitId() - lc2.getProduitId())
+														  .collect(Collectors.toList());
+		int testQuantite = 0;
+		int nouvelleQuantite;
+		int chgtCommande=0;
+		Produit produitTest = new Produit();
+		LigneCommande ligneCommandeModif;
+		
+		for (LigneCommande ligneCommande : listeTrie) {
+
+			if (produitTest.getIdProduit()!=(ligneCommande.getProduitId())) {
+				testQuantite = 0;
+			}
 			
-	}//END METHO
+			produitTest = produitService.findProduitById(ligneCommande.getProduitId());
+
+			testQuantite = testQuantite + ligneCommande.getQuantite();
+
+			if (testQuantite > produitTest.getQuantite()) {
+				
+				chgtCommande++;
+
+				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Quantité demandée indisponible",
+						" - La quantité demandée est supérieure aux stocks");
+				context.addMessage(null, message);
+				
+				ligneCommandeModif = ligneCommande; 
+				nouvelleQuantite = produitTest.getQuantite()-(testQuantite-ligneCommande.getQuantite());
+
+				if (nouvelleQuantite <= 0) {
+					
+					listeLigneCommande.remove(listeLigneCommande.indexOf(ligneCommande));
+					
+				} else {
+					
+					ligneCommandeModif.setQuantite(nouvelleQuantite);
+					testQuantite=produitTest.getQuantite();
+					listeLigneCommande.set(listeLigneCommande.indexOf(ligneCommande), ligneCommandeModif);
+
+				}
+				
+			}
+		}
+		
+		if (chgtCommande== 0) {
+			for (LigneCommande ligneCommande : listeLigneCommande) {
+				
+				Produit produitToEdit = produitService.findProduitById(ligneCommande.getProduitId());
+				
+				int quantiteToEdit = produitToEdit.getQuantite()-ligneCommande.getQuantite();
+				
+				produitService.updateQttAndSelectionne(quantiteToEdit, true, ligneCommande.getProduitId());
+			}
+
+			 return "ValidationCommande.xhtml";
+			
+		}else {
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
+			return "panier";
+		}	
+			
+	}
+	
+	public void detruireLigneCommande() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		
+		session.removeAttribute("listeLigneCommande");
+		
+		listeLigneCommande=null;
+		ligneCommande=null;
+					
+	}
 
 	
 	// __________ GETTER/SETTER ______________ //

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Facture</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+	
+	<h:outputStylesheet library="style" name="Facture.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+
+</h:head>
+<h:body>
+
+
+
+	<div class="facture">
+	
+	<div class="titre-commande">
+		<h:outputText  value="Commande N° #{commandeBean.commande.idCommande}, effectuée le : #{commandeBean.commande.dateCommande}"/>
+		</div>
+	
+	<h:panelGrid class="table-facture">
+			<f:facet  name="header">
+				
+			<h:panelGrid rowClasses="row-header" columns="3">
+				<h:outputText rendered="#{lc.produitId==produit.idProduit}" class="commande-produit" value="Produit"/>
+				<h:outputText rendered="#{lc.produitId==produit.idProduit}" class="commande-quantite" value="Quantité"/>
+				<h:outputText rendered="#{lc.produitId==produit.idProduit}" class="commande-prix" value="Prix Unitaire"/>
+				
+			</h:panelGrid>
+			</f:facet>
+			
+			<ui:repeat var="lc" value="#{panierBean.listeLigneCommande}">
+			
+			<ui:repeat var="produit" value="#{produitBean.findAllProduit()}">
+			 <h:panelGrid rowClasses="row-body" rendered="#{lc.produitId==produit.idProduit}" columns="3">
+				<h:outputText rendered="#{lc.produitId==produit.idProduit}" class="commande-produit" value="#{produit.nomProduit}"/>
+				<h:outputText rendered="#{lc.produitId==produit.idProduit}" class="commande-quantite" value="#{lc.quantite}pcs"/>
+				<h:outputText rendered="#{lc.produitId==produit.idProduit}" class="commande-prix" value="#{produit.prix}€"/>
+				</h:panelGrid>
+			
+			</ui:repeat>
+			
+		</ui:repeat>
+				
+			
+		</h:panelGrid>
+		
+		<div class="commande-somme-total">
+		<h:outputText  value="Prix Total : #{panierBean.sommePrix()} €"/>
+		</div>
+		<div class="commande-nom-client">
+		<h:outputText  value="#{clientBean.client.nomClient}"/>
+		</div>
+		<div class="commande-adresse-client">
+		<h:outputText  value="Adresse de Facturation : #{clientBean.client.adresse}"/>
+		</div>
+		
+		
+
+	</div>
+	<div class="div-validation-button">
+	<h:form>
+	<p:commandButton class="validation-button" value="Valider et Retourner au Magasin" action="#{commandeBean.editerFacture()}">
+			<f:actionListener binding="#{commandeBean.detruireCommande()}" />
+			<f:actionListener binding="#{panierBean.detruireLigneCommande()}" />
+	</p:commandButton>
+	</h:form>
+</div>
+
+</h:body>
+</html>

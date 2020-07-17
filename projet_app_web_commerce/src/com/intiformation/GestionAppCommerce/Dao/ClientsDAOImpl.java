@@ -124,7 +124,7 @@ public class ClientsDAOImpl implements IClientDAO{
 	}
 
 	@Override
-	public boolean validationClientCommande(Clients pClient, List<LigneCommande> listeLC) {
+	public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC) {
 		
 		try {
 			//Ajout Client
@@ -159,9 +159,8 @@ public class ClientsDAOImpl implements IClientDAO{
 				ps.setInt(3, lc.getProduitId());
 				ps.setInt(4, generatedKey);
 				verifAddLC = verifAddLC + ps.executeUpdate();
-				
 			}
-			return (verifAddClient+verifAddCommande+verifAddLC) == (2+listeLC.size());
+			return generatedKey;
 
 		} catch (Exception e) {
 			System.out.println("... Erreur lors de la validation commande add client/commande/lignecommande ");
@@ -172,7 +171,7 @@ public class ClientsDAOImpl implements IClientDAO{
 			} catch (Exception e) {
 			} 
 		} 
-		return false;
+		return 0;
 	}//end validation commande
 
 }//END CLASS

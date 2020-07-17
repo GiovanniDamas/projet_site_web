@@ -68,4 +68,12 @@ public class ProduitServiceImp implements IProduitService{
 		return produitDAO.getByKeywordsAndCategorie(motsCles, nomCategorie);
 	}
 
+	@Override
+	public boolean updateQttAndSelectionne(int quantite, boolean selectionne, int idProduit) {
+		Produit produitToEdit = produitDAO.getById(idProduit);
+		produitToEdit.setQuantite(quantite);
+		produitToEdit.setSelectionne(selectionne);
+		return produitDAO.update(produitToEdit);
+	}
+
 }

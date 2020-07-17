@@ -109,8 +109,9 @@
 
 		<div class="div-bouton-validation">
 
-			<p:commandButton value="S'Inscrire et Valider la Commande" action="#{clientBean.ajouterClient()}" >
-				<f:actionListener binding="#{panierBean.enregistrerPanier()}" />
+			<p:commandButton value="S'Inscrire et Valider la Commande" action="#{commandeBean.editerFacture()}"
+			actionListener="#{clientBean.ajouterClient()}" >
+			
 			</p:commandButton>
 				
 

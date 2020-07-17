@@ -5,6 +5,7 @@ import java.util.List;
 import com.intiformation.GestionAppCommerce.Dao.ClientsDAOImpl;
 import com.intiformation.GestionAppCommerce.Dao.IClientDAO;
 import com.intiformation.GestionAppCommerce.Modele.Clients;
+import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
 
 /**
  * Classe implémentant l'interface IClientService
@@ -44,6 +45,11 @@ public class ClientsServiceImpl implements IClientsService{
 	@Override
 	public Clients getById(Integer id) {
 		return null;
+	}
+
+	@Override
+	public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC) {
+		return clientsDAO.validationClientCommande(pClient, listeLC);
 	}
 
 }//END CLASS

@@ -12,7 +12,7 @@ import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
  */
 public interface IClientDAO extends IGenericDAO<Clients>{
 	
-	public boolean validationClientCommande(Clients pClient, List<LigneCommande> listeLC);
+	public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC);
 	
 	
 

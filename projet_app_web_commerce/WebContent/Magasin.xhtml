@@ -50,6 +50,7 @@
 			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
 			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="GestionProduit.xhtml">gestion produit</b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
 
@@ -79,6 +80,8 @@
 
 						<h:form style="float: right">
 							<p:selectOneMenu id="quantite" required="true" value="#{panierBean.quantite}">
+							<f:selectItem itemLabel="Quantité" itemValue="#{null}"
+					noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" />
@@ -132,6 +135,8 @@
 						</div>
 						<h:form >
 							<p:selectOneMenu id="quantite"  value="#{panierBean.quantite}" >
+							<f:selectItem itemLabel="Quantité" itemValue="#{null}"
+					noSelectionOption="true" />
 								<f:selectItems
 									value="#{produitBean.getListeQuantite(produit.idProduit)}"
 									var="qtt" itemLabel="#{qtt}" itemValue="#{qtt}" /> 

@@ -96,8 +96,6 @@
     NAME="output1" PATH="/MagasinFiltre.xhtml"
     TARGET="rules:#MagasinFiltre.xhtml" TITLE="magasinfiltre" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
-  <PROCESS-ITEM ID="rules:#Magasin.xhtml:1" NAME="item1"
-   PATH="/Magasin.xhtml" model-entity="JSFProcessItem"/>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#panier.xhtml" PATH="/panier.xhtml"
   SHAPE="32,1025,0,0" model-entity="JSFProcessGroup">
@@ -109,4 +107,15 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#MagasinFiltre.xhtml"
   PATH="/MagasinFiltre.xhtml" SHAPE="256,1249,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#Facture.xhtml" PATH="/Facture.xhtml"
+  SHAPE="256,1665,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#ValidationCommande.xhtml"
+  PATH="/ValidationCommande.xhtml" SHAPE="32,1841,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#ValidationCommande.xhtml:0" NAME="item"
+   PATH="/ValidationCommande.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="toFacture::#Facture.xhtml" NAME="output"
+    PATH="/Facture.xhtml" TARGET="rules:#Facture.xhtml"
+    TITLE="toFacture" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
