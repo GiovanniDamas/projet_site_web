@@ -117,30 +117,28 @@
 
 
 			<h:outputLabel class="label-image" value="Image du produit : " />
-				<h:graphicImage class="image-editer-produit"
-					value="/resources/images/#{categorieBean.categorie.photo}"
-					rendered="#{categorieBean.categorie.idCategorie gt 0}" />
-				<h:inputFile rendered="#{categorieBean.categorie.idCategorie gt 0}"
-					class="bouton-file-modif" id="file-modif"
-					value="#{categorieBean.uploadedFile}" />
-				<h:inputFile rendered="#{categorieBean.categorie.idCategorie == 0}"
-					class="bouton-file-ajout" id="file-ajout"
-					value="#{categorieBean.uploadedFile}" required="true" />
-		
+			<h:graphicImage class="image-editer-produit"
+				value="/resources/images/#{categorieBean.categorie.photo}"
+				rendered="#{categorieBean.categorie.idCategorie gt 0}" />
+			<h:inputFile rendered="#{categorieBean.categorie.idCategorie gt 0}"
+				class="bouton-file-modif" id="file-modif"
+				value="#{categorieBean.uploadedFile}" />
+			<h:inputFile rendered="#{categorieBean.categorie.idCategorie == 0}"
+				class="bouton-file-ajout" id="file-ajout"
+				value="#{categorieBean.uploadedFile}" required="true" />
+
 
 		</div>
 
 		<div class="div-bouton-validation">
 
-			<h:commandButton
-				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+			<b:commandButton
 				rendered="#{categorieBean.categorie.idCategorie == 0}"
 				value="Ajouter" action="gestionCat"
 				actionListener="#{categorieBean.ajouter()}" />
 
 
-			<h:commandButton
-				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+			<b:commandButton
 				rendered="#{categorieBean.categorie.idCategorie gt 0}"
 				value="Modifier" action="gestionCat"
 				actionListener="#{categorieBean.modifierCat()}" />
