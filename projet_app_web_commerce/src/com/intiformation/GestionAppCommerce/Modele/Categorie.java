@@ -5,7 +5,7 @@ public class Categorie {
 	//Propriete
 	
 	private int idCategorie;
-	private String nomCategorie, photo, description;// photo a voir ?
+	private String nomCategorie, photo, description;
 	
 	//Constructeur
 	

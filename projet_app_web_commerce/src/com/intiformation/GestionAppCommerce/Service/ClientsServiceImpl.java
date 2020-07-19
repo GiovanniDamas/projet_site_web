@@ -44,12 +44,17 @@ public class ClientsServiceImpl implements IClientsService{
 
 	@Override
 	public Clients getById(Integer id) {
-		return null;
+		return clientsDAO.getById(id);
 	}
 
 	@Override
 	public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC) {
 		return clientsDAO.validationClientCommande(pClient, listeLC);
+	}
+
+	@Override
+	public int validationClientCommande(int idClient, List<LigneCommande> listeLC) {
+		return clientsDAO.validationClientCommande(idClient, listeLC);
 	}
 
 }//END CLASS

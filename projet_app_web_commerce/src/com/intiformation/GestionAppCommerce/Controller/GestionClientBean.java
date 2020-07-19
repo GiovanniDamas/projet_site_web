@@ -33,17 +33,34 @@ public class GestionClientBean implements Serializable{
 	}
 	
 	public void initialiserClient() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+		
 		Clients ClientsToAdd = new Clients();
+		
+		if (session.getAttribute("client")!= null) {
+			ClientsToAdd = (Clients) session.getAttribute("client");
+		}
 		setClient(ClientsToAdd);
+		
 	}
 	
-	public void ajouterClient() {
+	public void ajouterClientCommande() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		
-		int idCommande = clientService.validationClientCommande(client, (List<LigneCommande>) session.getAttribute("listeLigneCommande"));
-		session.setAttribute("client", client);
-		session.setAttribute("idCommande", idCommande);
+		if(client.getIdClient()!=0) {
+			client =clientService.getById(client.getIdClient());
+			int idCommande = clientService.validationClientCommande(client.getIdClient(), (List<LigneCommande>) session.getAttribute("listeLigneCommande"));
+			session.setAttribute("client", client);
+			session.setAttribute("idCommande", idCommande);
+			
+		}else {
+			
+			int idCommande = clientService.validationClientCommande(client, (List<LigneCommande>) session.getAttribute("listeLigneCommande"));
+			session.setAttribute("client", client);
+			session.setAttribute("idCommande", idCommande);
+		}
 	}
 	
 	

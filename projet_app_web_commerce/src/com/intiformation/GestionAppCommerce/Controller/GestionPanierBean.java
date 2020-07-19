@@ -20,7 +20,6 @@ import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.intiformation.GestionAppCommerce.Service.IProduitService;
 import com.intiformation.GestionAppCommerce.Service.ProduitServiceImp;
 
-
 @ManagedBean(name = "panierBean")
 @SessionScoped
 public class GestionPanierBean implements Serializable {
@@ -29,7 +28,7 @@ public class GestionPanierBean implements Serializable {
 	private Double prix;
 	private List<LigneCommande> listeLigneCommande;
 	private LigneCommande ligneCommande;
-	
+
 	private IProduitService produitService;
 
 	public GestionPanierBean() {
@@ -40,34 +39,33 @@ public class GestionPanierBean implements Serializable {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
-		if (quantite!=0) {
-		
-		Map params = context.getExternalContext().getRequestParameterMap();
 
-		produitID = Integer.parseInt((String) params.get("produitID"));
-		prix = Double.parseDouble((String) params.get("prix"));
+		if (quantite != 0) {
 
-		ligneCommande = new LigneCommande(produitID, quantite, prix);
+			Map<String, String> params = context.getExternalContext().getRequestParameterMap();
 
-		listeLigneCommande = new ArrayList<>();
+			produitID = Integer.parseInt((String) params.get("produitID"));
+			prix = Double.parseDouble((String) params.get("prix"));
 
-		if (session.getAttribute("listeLigneCommande") != null) {
-			listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
-			
-		}
+			ligneCommande = new LigneCommande(produitID, quantite, prix);
 
-		if(listeLigneCommande.add(ligneCommande)) {
-			
-			FacesMessage messageAjoutPanier = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ajout produit au panier",
-					" - Le produit a bien été ajouté au panier");
-			context.addMessage(null, messageAjoutPanier);
-		}
+			listeLigneCommande = new ArrayList<>();
 
-		session.setAttribute("listeLigneCommande", listeLigneCommande);
+			if (session.getAttribute("listeLigneCommande") != null) {
+				listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
+
+			}
+
+			if (listeLigneCommande.add(ligneCommande)) {
+
+				FacesMessage messageAjoutPanier = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Ajout produit au panier", " - Le produit a bien été ajouté au panier");
+				context.addMessage(null, messageAjoutPanier);
+			}
+
+			session.setAttribute("listeLigneCommande", listeLigneCommande);
 		}
 	}
-	
 
 	public double sommePrix() {
 
@@ -127,98 +125,93 @@ public class GestionPanierBean implements Serializable {
 		}
 
 		session.setAttribute("listeLigneCommande", listeLigneCommande);
-		
-	}//END METHODE
-	
-	
+
+	}// END METHODE
+
 	public String enregistrerPanier() {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
+
 		listeLigneCommande = (List<LigneCommande>) session.getAttribute("listeLigneCommande");
-		
+
 		List<LigneCommande> listeTrie = listeLigneCommande.stream()
-														  .sorted((lc1,lc2)-> lc1.getProduitId() - lc2.getProduitId())
-														  .collect(Collectors.toList());
+				.sorted((lc1, lc2) -> lc1.getProduitId() - lc2.getProduitId()).collect(Collectors.toList());
 		int testQuantite = 0;
 		int nouvelleQuantite;
-		int chgtCommande=0;
+		int chgtCommande = 0;
 		Produit produitTest = new Produit();
 		LigneCommande ligneCommandeModif;
-		
+
 		for (LigneCommande ligneCommande : listeTrie) {
 
-			if (produitTest.getIdProduit()!=(ligneCommande.getProduitId())) {
+			if (produitTest.getIdProduit() != (ligneCommande.getProduitId())) {
 				testQuantite = 0;
 			}
-			
+
 			produitTest = produitService.findProduitById(ligneCommande.getProduitId());
 
 			testQuantite = testQuantite + ligneCommande.getQuantite();
 
 			if (testQuantite > produitTest.getQuantite()) {
-				
+
 				chgtCommande++;
 
-				
-				ligneCommandeModif = ligneCommande; 
-				nouvelleQuantite = produitTest.getQuantite()-(testQuantite-ligneCommande.getQuantite());
+				ligneCommandeModif = ligneCommande;
+				nouvelleQuantite = produitTest.getQuantite() - (testQuantite - ligneCommande.getQuantite());
 
 				if (nouvelleQuantite <= 0) {
-					
+
 					listeLigneCommande.remove(listeLigneCommande.indexOf(ligneCommande));
-					
+
 				} else {
-					
+
 					ligneCommandeModif.setQuantite(nouvelleQuantite);
-					testQuantite=produitTest.getQuantite();
+					testQuantite = produitTest.getQuantite();
 					listeLigneCommande.set(listeLigneCommande.indexOf(ligneCommande), ligneCommandeModif);
-					
-					
+
 				}
-				
+
 			}
 		}
-		
-		if (chgtCommande== 0) {
+
+		if (chgtCommande == 0) {
 			for (LigneCommande ligneCommande : listeLigneCommande) {
-				
+
 				Produit produitToEdit = produitService.findProduitById(ligneCommande.getProduitId());
-				
-				int quantiteToEdit = produitToEdit.getQuantite()-ligneCommande.getQuantite();
-				
+
+				int quantiteToEdit = produitToEdit.getQuantite() - ligneCommande.getQuantite();
+
 				produitService.updateQttAndSelectionne(quantiteToEdit, true, ligneCommande.getProduitId());
 			}
 
-			 return "ValidationCommande.xhtml";
-			
-		}else {
+			return "validation";
+
+		} else {
 			session.setAttribute("listeLigneCommande", listeLigneCommande);
+			System.out.println("test facesmessages");
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Quantité demandée indisponible",
 					" - La quantité demandée est supérieure aux stocks");
 			context.addMessage(null, message);
-			
+
 			return "panier";
-		}	
-			
+		}
+
 	}//
-	
+
 	public void detruireLigneCommande() {
-		
+
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		
-		session.removeAttribute("listeLigneCommande");
-		
-		listeLigneCommande=null;
-		ligneCommande=null;
-					
-	}//
 
-	
+		session.removeAttribute("listeLigneCommande");
+
+		listeLigneCommande = null;
+		ligneCommande = null;
+
+	}//
 
 	// __________ GETTER/SETTER ______________ //
 

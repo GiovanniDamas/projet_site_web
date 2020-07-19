@@ -60,6 +60,8 @@
 	<br />
 	<br />
 	
+	<div id="form-new-client" style="display: block;">
+	
 	<h:form enctype="multipart/form-data">
 
 		<h1 class="titre">Inscription :</h1>
@@ -110,18 +112,68 @@
 
 		<div class="div-bouton-validation">
 
-			<p:commandButton value="S'Inscrire et Valider la Commande" action="#{commandeBean.editerFacture()}"
-			actionListener="#{clientBean.ajouterClient()}" >
+			<p:commandButton  value="S'Inscrire et Valider la Commande" action="#{commandeBean.editerFacture()}"
+			actionListener="#{clientBean.ajouterClientCommande()}" >
 			
 			</p:commandButton>
 				
 
 		</div>
-		<b:navLink style="color:#FFA07A; margin-left:2rem;" value="Déjà Client ?" href="panier.xhtml"></b:navLink>
+		<div id="ancien-client">
+		<b:navLink   style="color:#FFA07A; margin-left:2rem;" value="Déjà Client ?" ></b:navLink>
 		</div>
+		</div>
+		
+			
+		
 
 	</h:form>
+	</div>
+	
+	
+	<div id="form-ancien-client" style="display: none;">
+	
+	<h:form enctype="multipart/form-data">
 
+		<h1 class="titre">Se Connecter</h1>
+		<div class="ui-fluid p-formgrid p-grid">
+
+			<div class="p-field p-col-12 p-md-2"></div>
+
+			<div class="p-field p-col-12 p-md-4">
+				<p:outputLabel for="id" value="Votre ID de Connexion" />
+				<p:inputNumber decimalPlaces="0" id="id"
+					value="#{clientBean.client.idClient}" required="true"
+					requiredMessage="ID obligatoire" />
+			</div>
+
+			<div class="p-field p-col-12 p-md-1"></div>
+
+		<div class="div-bouton-validation" style="margin-top:2.5rem">
+
+			<p:commandButton  value="Se Connecter et Valider la Commande" action="#{commandeBean.editerFacture()}"
+			actionListener="#{clientBean.ajouterClientCommande}" >
+			
+			</p:commandButton>
+			
+			
+		</div>
+		
+		</div>
+
+
+	<div id="nouveau-client" style="width: 15rem; margin: auto; margin-top : 2rem;">			
+	<b:navLink   style="color:#FFA07A; margin-left:2rem;" value="En fait non !" ></b:navLink>
+</div>
+
+
+	</h:form>
+	</div>
+
+	<h:outputScript library="scripts" name="scriptClient.js" />
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
 	
 </h:body>
 </html>

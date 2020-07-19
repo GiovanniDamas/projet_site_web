@@ -59,34 +59,31 @@
 		value="Votre panier est vide"
 		style="margin-left:20%; font-weight:bold; color:#FFA07A; font-size:22px;" />
 
-	<h:messages globalOnly="true" showDetail="true" />
-
-
 	<div id="ligneCommande">
 		<p:repeat var="lc" value="#{panierBean.listeLigneCommande}">
 
 			<div class="p-field p-col-12 p-md-12 produit-ligne-commande">
 
-				<p class="produit-grille-description">
-					ID du produit : <br /> #{lc.produitId}
+				<p class="produit-id">
+					ID du produit :  #{lc.produitId}
 				</p>
 				<h:form>
 
 					<p:repeat var="produit" value="#{produitBean.findAllProduit()}">
-						<div class="p-field p-col-12 p-md-12 produit-ligne-commande">
+						<div class="p-field p-col-12 p-md-12 produit-nom-ligne-commande">
 							<h:outputText rendered="#{produit.idProduit == lc.produitId}"
 								value="#{produit.nomProduit}" />
 						</div>
 
-						<div class="p-field p-col-12 p-md-3 produit-ligne-commande">
-							<h:graphicImage rendered="#{produit.idProduit == lc.produitId}"
-								library="images/" name="#{produit.photo}" width="250"
-								height="187.5" style="margin-top: 0.5rem;" />
+						<div class="p-field p-col-12 p-md-3 produit-image-conteneur-ligne-commande">
+							<h:graphicImage class="produit-image-ligne-commande" rendered="#{produit.idProduit == lc.produitId}"
+								library="images/" name="#{produit.photo}" 
+								  />
 						</div>
 					</p:repeat>
 				</h:form>
 
-				<div class="p-field p-col-12 p-md-9 produit-resume">
+				<div class="p-field p-col-12 p-md-6 produit-resume">
 					<p class="produit-grille-description">
 						Prix : <br />#{lc.prix}
 					</p>
@@ -94,7 +91,6 @@
 					<p class="produit-grille-description">
 						Quantité selectionnée : <br /> #{lc.quantite}
 					</p>
-					<p:repeat var="nbligne" value="#{nombreLigneC}"></p:repeat>
 					<h:form>
 
 						<p:commandButton value="Supprimer" action="panier"
@@ -122,7 +118,7 @@
 
 
 			<h:form>
-			<p:growl id="growl" severity="info" showDetail="true" life="3000" />
+			<p:growl id="growl" severity="warn" showDetail="true" life="3000" />
 				<p:commandButton style="margin-right:20px; margin-bottom: 1rem;"
 					value="Valider la commande"
 					action="#{panierBean.enregistrerPanier()}" update="@form">

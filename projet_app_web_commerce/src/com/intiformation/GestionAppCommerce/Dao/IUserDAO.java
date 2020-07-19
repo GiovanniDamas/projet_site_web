@@ -1,6 +1,5 @@
 package com.intiformation.GestionAppCommerce.Dao;
 
-import com.intiformation.GestionAppCommerce.Modele.Role;
 import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**

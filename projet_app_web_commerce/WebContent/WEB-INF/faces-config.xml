@@ -244,6 +244,15 @@
 			<!-- redirection -->
 			<redirect />
 		</navigation-case>
+		
+		<navigation-case>
+			<!-- 1.2.1 clé d'outcom -->
+			<from-outcome>validation</from-outcome>
+			<!-- 1.2.2 destination -->
+			<to-view-id>/ValidationCommande.xhtml</to-view-id>
+			<!-- redirection -->
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.intiformation.GestionAppCommerce.Dao.IUserDAO;
 import com.intiformation.GestionAppCommerce.Dao.UserDAOImpl;
-import com.intiformation.GestionAppCommerce.Modele.Role;
 import com.intiformation.GestionAppCommerce.Modele.User;
 
 /**

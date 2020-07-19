@@ -14,6 +14,8 @@ public interface IClientDAO extends IGenericDAO<Clients>{
 	
 	public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC);
 	
+	public int validationClientCommande(int idClient, List<LigneCommande> listeLC);
+	
 	
 
 }//END CLASS

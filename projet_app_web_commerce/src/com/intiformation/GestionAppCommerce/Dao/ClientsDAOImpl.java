@@ -2,10 +2,12 @@ package com.intiformation.GestionAppCommerce.Dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.intiformation.GestionAppCommerce.Modele.Clients;
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
+import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.mysql.jdbc.Statement;
 
 
@@ -120,6 +122,31 @@ public class ClientsDAOImpl implements IClientDAO{
 
 	@Override
 	public Clients getById(Integer id) {
+		try {
+			String requeteGetByIdClient = "select * from clients where idClient=?;";
+			ps = this.connection.prepareStatement(requeteGetByIdClient);
+			ps.setInt(1, id);
+			
+			rs = ps.executeQuery();
+			Clients client = null;
+
+			rs.next();
+			client = new Clients(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+					
+			return client;
+			
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la r�cuperation du client GetById");
+			e.printStackTrace();
+		}finally {
+				try {
+					if (rs!=null)rs.close();
+					if (ps!=null)ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}//end try/catch
+				
+		}//end finally
 		return null;
 	}
 
@@ -135,7 +162,7 @@ public class ClientsDAOImpl implements IClientDAO{
 			ps.setString(3, pClient.getEmail());
 			ps.setString(4, pClient.getTel());
 
-			int verifAddClient = ps.executeUpdate();
+			ps.executeUpdate();
 			
 			rs = ps.getGeneratedKeys();
 			rs.next();
@@ -144,7 +171,7 @@ public class ClientsDAOImpl implements IClientDAO{
 			//Ajout Commande
 			ps = this.connection.prepareStatement("insert into commande (dateCommande,clientID) values (curdate(),?);",Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, generatedKey);
-			int verifAddCommande = ps.executeUpdate();
+			ps.executeUpdate();
 			
 			rs = ps.getGeneratedKeys();
 			rs.next();
@@ -173,5 +200,42 @@ public class ClientsDAOImpl implements IClientDAO{
 		} 
 		return 0;
 	}//end validation commande
+
+	@Override
+	public int validationClientCommande(int idClient, List<LigneCommande> listeLC) {
+		try {
+			
+			//Ajout Commande
+			ps = this.connection.prepareStatement("insert into commande (dateCommande,clientID) values (curdate(),?);",Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, idClient);
+			ps.executeUpdate();
+			
+			rs = ps.getGeneratedKeys();
+			rs.next();
+			int generatedKey = rs.getInt(1);
+			
+			//Ajout Ligne de commande
+			int verifAddLC =0;
+			for (LigneCommande lc : listeLC) {
+				ps = this.connection.prepareStatement("insert into ligneCommande (quantite, prix, produitID, commandeID) values (?,?,?,?);");
+				ps.setInt(1, lc.getQuantite());
+				ps.setDouble(2, lc.getPrix());
+				ps.setInt(3, lc.getProduitId());
+				ps.setInt(4, generatedKey);
+				verifAddLC = verifAddLC + ps.executeUpdate();
+			}
+			return generatedKey;
+
+		} catch (Exception e) {
+			System.out.println("... Erreur lors de la validation commande add commande/lignecommande ");
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (Exception e) {
+			} 
+		} 
+		return 0;
+	}
 
 }//END CLASS

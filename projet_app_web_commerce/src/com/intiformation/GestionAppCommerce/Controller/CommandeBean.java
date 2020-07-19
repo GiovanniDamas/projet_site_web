@@ -27,7 +27,7 @@ public class CommandeBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-
+System.out.println((int) session.getAttribute("idCommande"));
 		setCommande(commandeService.findCommandeById((int) session.getAttribute("idCommande")));
 
 		return "toFacture";

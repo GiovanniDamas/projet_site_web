@@ -24,5 +24,7 @@ public interface IClientsService {
 	    public Clients getById(Integer id);
 	    
 	    public int validationClientCommande(Clients pClient, List<LigneCommande> listeLC);
+	    
+	    public int validationClientCommande(int idClient, List<LigneCommande> listeLC);
 
 }//END INTERFACE
