@@ -18,7 +18,9 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml" fluid="true"
+	<b:navBar id="header" brand="Sport Enterprise"
+		brand-style="color:#FFA07A; font-family: Gill Sans, sans-serif; font-size:22px;"
+		brandHref="Magasin.xhtml" fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
@@ -68,8 +70,8 @@
 				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
 				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
 				<h:form>
-				<b:commandButton style="text-align:center; border: none;" value="Déconnexion"
-					action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+					<b:commandButton style="text-align:center; border: none;"
+						value="Déconnexion" action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
 				</h:form>
 			</b:dropMenu>
 			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
@@ -129,9 +131,9 @@
 
 			<p:commandButton
 				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-				rendered="#{userBean.user.idUser == 0}" value="Ajouter" action="gestionUser"
-				actionListener="#{userBean.ajouterUser}" />
-			
+				rendered="#{userBean.user.idUser == 0}" value="Ajouter"
+				action="gestionUser" actionListener="#{userBean.ajouterUser}" />
+
 
 			<p:commandButton
 				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"

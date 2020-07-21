@@ -20,8 +20,9 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
-		fluid="true"
+	<b:navBar id="header" brand="Sport Enterprise"
+		brand-style="color:#FFA07A; font-family: Gill Sans, sans-serif; font-size:22px;"
+		brandHref="Magasin.xhtml" fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks>
 			<b:navLink value="    " href="#"></b:navLink>
@@ -160,29 +161,29 @@
 			<div class="p-field p-col-12 p-md-1"></div>
 
 			<h:outputLabel class="label-image" value="Image du produit : " />
-		
-				<h:graphicImage class="image-editer-produit"
-					value="/resources/images/#{produitBean.produit.photo}"
-					rendered="#{produitBean.produit.idProduit gt 0}" />
-				<h:inputFile rendered="#{produitBean.produit.idProduit gt 0}"
-					class="bouton-file-modif" id="file-modif"
-					value="#{produitBean.uploadedFile}" />
-				<h:inputFile rendered="#{produitBean.produit.idProduit == 0}"
-					class="bouton-file-ajout" id="file-ajout"
-					value="#{produitBean.uploadedFile}" />
-		
+
+			<h:graphicImage class="image-editer-produit"
+				value="/resources/images/#{produitBean.produit.photo}"
+				rendered="#{produitBean.produit.idProduit gt 0}" />
+			<h:inputFile rendered="#{produitBean.produit.idProduit gt 0}"
+				class="bouton-file-modif" id="file-modif"
+				value="#{produitBean.uploadedFile}" />
+			<h:inputFile rendered="#{produitBean.produit.idProduit == 0}"
+				class="bouton-file-ajout" id="file-ajout"
+				value="#{produitBean.uploadedFile}" />
+
 
 		</div>
 
 		<div class="div-bouton-validation">
 
 
-			<b:commandButton  rendered="#{produitBean.produit.idProduit == 0}"
+			<b:commandButton rendered="#{produitBean.produit.idProduit == 0}"
 				value="Ajouter" action="GestionProduit"
 				actionListener="#{produitBean.ajouterProduit}" />
 
 
-			<b:commandButton  rendered="#{produitBean.produit.idProduit gt 0}"
+			<b:commandButton rendered="#{produitBean.produit.idProduit gt 0}"
 				value="Modifier" action="GestionProduit"
 				actionListener="#{produitBean.modifierProduit}" />
 		</div>

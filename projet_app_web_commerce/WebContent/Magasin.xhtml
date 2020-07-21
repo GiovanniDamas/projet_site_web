@@ -21,8 +21,9 @@
 </h:head>
 <h:body style="background-color: #FFF5EB">
 
-	<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
-		fluid="true"
+	<b:navBar id="header" brand="Sport Enterprise"
+		brand-style="color:#FFA07A; font-family: Gill Sans, sans-serif; font-size:22px;"
+		brandHref="Magasin.xhtml" fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -92,11 +93,12 @@
 
 							<p:commandButton icon="pi pi-shopping-cart"
 								style="margin-right:20px;" action="Magasin.xhtml"
-								actionListener="#{panierBean.ajouterLigneCommande}" update="@form">
+								actionListener="#{panierBean.ajouterLigneCommande}"
+								update="@form">
 								<f:param name="produitID" value="#{produit.idProduit}" />
 								<f:param name="prix" value="#{produit.prix}" />
 							</p:commandButton>
-							
+
 						</h:form>
 
 						<p class="produit-grille-prix">#{produit.prix} €</p>
@@ -137,7 +139,7 @@
 							</p>
 						</div>
 						<h:form>
-						<p:growl id="growl" severity="info" showDetail="true" life="3000" />  
+							<p:growl id="growl" severity="info" showDetail="true" life="3000" />
 							<p:selectOneMenu id="quantite" value="#{panierBean.quantite}">
 								<f:selectItem itemLabel="Quantité" itemValue="#{null}"
 									noSelectionOption="true" />
@@ -150,11 +152,12 @@
 							<p:commandButton value="Ajouter au Panier"
 								icon="pi pi-shopping-cart" style="margin-right:20px;"
 								action="Magasin"
-								actionListener="#{panierBean.ajouterLigneCommande}" update="@form">
+								actionListener="#{panierBean.ajouterLigneCommande}"
+								update="@form">
 								<f:param name="produitID" value="#{produit.idProduit}" />
 								<f:param name="prix" value="#{produit.prix}" />
 							</p:commandButton>
-							
+
 						</h:form>
 					</div>
 				</div>
