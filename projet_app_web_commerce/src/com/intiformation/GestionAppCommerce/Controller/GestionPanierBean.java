@@ -17,7 +17,9 @@ import javax.servlet.http.HttpSession;
 
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
 import com.intiformation.GestionAppCommerce.Modele.Produit;
+import com.intiformation.GestionAppCommerce.Service.ILigneCommandeService;
 import com.intiformation.GestionAppCommerce.Service.IProduitService;
+import com.intiformation.GestionAppCommerce.Service.LigneCommandeServiceImpl;
 import com.intiformation.GestionAppCommerce.Service.ProduitServiceImp;
 
 @ManagedBean(name = "panierBean")
@@ -27,12 +29,20 @@ public class GestionPanierBean implements Serializable {
 	private int quantite, produitID;
 	private Double prix;
 	private List<LigneCommande> listeLigneCommande;
+	private List<LigneCommande> listeLigneCByidCommande;
 	private LigneCommande ligneCommande;
 
+	private ILigneCommandeService ligneCommandeService;
 	private IProduitService produitService;
 
 	public GestionPanierBean() {
 		produitService = new ProduitServiceImp();
+		ligneCommandeService = new LigneCommandeServiceImpl();
+	}
+	
+	public List<LigneCommande> FindByIdcommande (int idCommande){
+		listeLigneCByidCommande = ligneCommandeService.getByIdCommande(idCommande);
+		return listeLigneCByidCommande;
 	}
 
 	public void ajouterLigneCommande(ActionEvent event) {

@@ -134,4 +134,41 @@ public class LigneCommandeDAOImpl implements ILigneCommandeDAO {
 		return null;
 	}
 
+	@Override
+	public List<LigneCommande> getByIdCommande(int idCommande) {
+		try {
+
+			ps = this.connection.prepareStatement("SELECT lc.produitID, lc.quantite, lc.prix FROM ligneCommande lc where commandeID = ?");
+
+			ps.setInt(1, idCommande);
+
+			rs = ps.executeQuery();
+
+			LigneCommande ligneCommande = new LigneCommande();
+			List<LigneCommande> listeLigneC = new ArrayList<>();
+
+			while (rs.next()) {
+				ligneCommande = new LigneCommande(rs.getInt(1), rs.getInt(2), rs.getDouble(3));
+				
+				listeLigneC.add(ligneCommande);
+
+			} // end while
+
+			return listeLigneC;
+
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la récupération de la liste de ligne de commande GetById");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)rs.close();
+				if (ps != null)ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} // end try/catch
+
+		} // end finally
+		return null;
+	}
+
 }// END CLASS

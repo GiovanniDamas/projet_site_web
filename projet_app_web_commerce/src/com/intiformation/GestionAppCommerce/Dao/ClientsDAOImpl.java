@@ -7,10 +7,7 @@ import java.util.List;
 
 import com.intiformation.GestionAppCommerce.Modele.Clients;
 import com.intiformation.GestionAppCommerce.Modele.LigneCommande;
-import com.intiformation.GestionAppCommerce.Modele.Produit;
 import com.mysql.jdbc.Statement;
-
-
 
 /**
  * Class Client pour la couche DAO qui implémente l'interface IClientDAO

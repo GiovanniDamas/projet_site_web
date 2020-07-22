@@ -18,5 +18,7 @@ public interface ILigneCommandeService {
 	
 	public boolean ajoutLigneCommande(LigneCommande ligne);
 	
+	public List<LigneCommande> getByIdCommande(int idCommande);
+	
 	
 }//END CLASS
