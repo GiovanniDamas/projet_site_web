@@ -22,11 +22,8 @@
 
 	<b:navBar id="header" brand="Sport Enterprise"
 		brand-style="color:#FFA07A; font-family: Gill Sans, sans-serif; font-size:22px;"
-		brandHref="Magasin.xhtml" fluid="true"
+		brandHref="accueilAdmin.xhtml" fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
-		<b:navbarLinks>
-			<b:navLink value="    " href="#"></b:navLink>
-		</b:navbarLinks>
 		<b:navbarLinks>
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
 				value="Gestion Categories" href="gestionCategories.xhtml"
@@ -46,7 +43,8 @@
 			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
 				value="Gestion Produits" href="GestionProduit.xhtml"
 				style="color:#FFA07A;"></b:navLink>
-				<b:navLink style="color:#FFA07A;" href="ListeCommande.xhtml">Commande</b:navLink>
+			<b:navLink value="Historique Commandes" href="ListeCommande.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>

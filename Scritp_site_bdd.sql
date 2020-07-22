@@ -48,7 +48,7 @@ CREATE TABLE commande ( idCommande integer auto_increment primary key,
                      CONSTRAINT fk_clients foreign key(clientID) references clients (idClient)                  
 
 );
-                                                 
+                                           
                                         
 CREATE TABLE ligneCommande (quantite integer,
                                                         prix double,
@@ -110,7 +110,7 @@ INSERT INTO commande (dateCommande,clientID) VALUES ('2020-07-13', 1);
 
 
 INSERT INTO ligneCommande(quantite,prix,produitID,commandeID,idPanier) VALUES (1,100.00,3, 1,1);
-select * from ligneCommande;
+
 
 SELECT nomProduit, lc.quantite, p.prix
 FROM produit as p, ligneCommande as lc

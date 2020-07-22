@@ -19,11 +19,31 @@
 </h:head>
 <h:body>
 
-<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
-		fluid="true"
+	<b:navBar id="header" brand="Sport Enterprise"
+		brand-style="color:#FFA07A; font-family: Gill Sans, sans-serif; font-size:22px;"
+		brandHref="accueilAdmin.xhtml" fluid="true"
 		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
-		<b:navbarLinks pull="left">
-			<b:navLink value="    " href="#"></b:navLink>
+		<b:navbarLinks>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Categories" href="gestionCategories.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Categories"
+				href="gestionCategories.xhtml" style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				disabled="true" value="Gestion Admin" href="gestionUser.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminProd'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink rendered="#{connexionBean.user.roleName == 'AdminCat'}"
+				value="Gestion Produits" href="GestionProduit.xhtml"
+				style="color:#FFA07A;"></b:navLink>
+			<b:navLink value="Historique Commandes" href="ListeCommande.xhtml"
+				style="color:#FFA07A;"></b:navLink>
 		</b:navbarLinks>
 		<b:navbarLinks pull="left">
 			<b:navLink value="    " href="#"></b:navLink>
@@ -45,17 +65,23 @@
 				actionListener="#{rechercheBean.getListeSelonFiltre()}"
 				value="Rechercher" class="btn btn-default" />
 		</h:form>
-		<b:navbarLinks pull="right" class="text">
-			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
-			<b:navLink style="color:#FFA07A;" href="ListeCommande.xhtml">Commande</b:navLink>
+		<b:navbarLinks pull="right" styleClass="hidden-xs">
+			<b:dropMenu style="color:#FFA07A;" value="Profil">
+				<b:navLink value="#{connexionBean.user.userName}"></b:navLink>
+				<b:navLink value="#{connexionBean.user.roleName}"></b:navLink>
+				<h:form>
+					<b:commandButton style="text-align:center; border: none;"
+						value="Déconnexion" action="#{connexionBean.deconnexionAdmin()}"></b:commandButton>
+				</h:form>
+			</b:dropMenu>
+			<b:navLink style="color:#FFA07A;" value="Panier" href="panier.xhtml"></b:navLink>
 		</b:navbarLinks>
 	</b:navBar>
 
 	<h:form>
-		<p:dataTable var="commande" value="#{commandeBean.findAll()}" style="width:90%; margin:auto">
-		<f:facet name="header">
+		<p:dataTable var="commande" value="#{commandeBean.findAll()}"
+			style="width:90%; margin:auto">
+			<f:facet name="header">
             Liste des commandes
         </f:facet>
 
@@ -63,7 +89,7 @@
 				<p:rowToggler />
 			</p:column>
 			<p:column headerText="ID Commande" style="text-align:center">
-				<h:outputText  value="#{commande.idCommande}" />
+				<h:outputText value="#{commande.idCommande}" />
 			</p:column>
 			<p:column headerText="ID Client" style="text-align:center">
 				<h:outputText value="#{commande.idClient}" />
@@ -73,17 +99,19 @@
 			</p:column>
 
 			<p:rowExpansion>
-				<p:dataTable var="lc" value="#{panierBean.FindByIdcommande(commande.idCommande)}">
-				<f:facet name="header">
+				<p:dataTable var="lc"
+					value="#{panierBean.FindByIdcommande(commande.idCommande)}">
+					<f:facet name="header">
             Détails de la Commande N° #{commande.idCommande}
         </f:facet>
-        	
-					<p:column  headerText="ID - Nom Produit" style="text-align:center">
-					<ui:repeat var="produit" value="#{produitBean.findAllProduit()}">
-						<h:outputText rendered="#{produit.idProduit==lc.produitId}" value="#{lc.produitId} - #{produit.nomProduit}" />
+
+					<p:column headerText="ID - Nom Produit" style="text-align:center">
+						<ui:repeat var="produit" value="#{produitBean.findAllProduit()}">
+							<h:outputText rendered="#{produit.idProduit==lc.produitId}"
+								value="#{lc.produitId} - #{produit.nomProduit}" />
 						</ui:repeat>
 					</p:column>
-		
+
 					<p:column headerText="Quantité" style="text-align:center">
 						<h:outputText value="#{lc.quantite} pcs" />
 					</p:column>
