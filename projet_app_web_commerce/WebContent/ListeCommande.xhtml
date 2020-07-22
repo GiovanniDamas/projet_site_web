@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title>Commande</title>
+
+	<h:outputStylesheet library="style" name="primeFlex.css" />
+
+	<h:outputStylesheet library="style" name="Facture.css" />
+
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+
+</h:head>
+<h:body>
+
+<b:navBar id="header" brand="Brand" brandHref="Magasin.xhtml"
+		fluid="true"
+		style="background-color: #DAF0FF; border-bottom: solid 3px black;">
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<b:navbarLinks pull="left">
+			<b:navLink value="    " href="#"></b:navLink>
+		</b:navbarLinks>
+		<h:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs"
+			role="search">
+			<p:selectOneMenu id="categorie" value="#{rechercheBean.nomCategorie}">
+				<f:selectItem itemLabel="Choisir Catégorie" itemValue="#{null}"
+					noSelectionOption="true" />
+
+				<f:selectItems value="#{categorieBean.findAllCat()}" var="cat"
+					itemLabel="#{cat.nomCategorie}" itemValue="#{cat.nomCategorie}" />
+			</p:selectOneMenu>
+
+			<div class="form-group">
+				<p:inputText value="#{rechercheBean.keywords}" />
+			</div>
+			<h:commandButton action="MagasinFiltre.xhtml"
+				actionListener="#{rechercheBean.getListeSelonFiltre()}"
+				value="Rechercher" class="btn btn-default" />
+		</h:form>
+		<b:navbarLinks pull="right" class="text">
+			<b:navLink style="color:#FFA07A;" href="Magasin.xhtml">Magasin</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="authentification.xhtml">S'identifier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="panier.xhtml">Panier</b:navLink>
+			<b:navLink style="color:#FFA07A;" href="ListeCommande.xhtml">Commande</b:navLink>
+		</b:navbarLinks>
+	</b:navBar>
+
+	<h:form>
+		<p:dataTable var="commande" value="#{commandeBean.findAll()}" style="width:90%; margin:auto">
+		<f:facet name="header">
+            Liste des commandes
+        </f:facet>
+
+			<p:column style="width:5rem">
+				<p:rowToggler />
+			</p:column>
+			<p:column headerText="ID Commande" style="text-align:center">
+				<h:outputText  value="#{commande.idCommande}" />
+			</p:column>
+			<p:column headerText="ID Client" style="text-align:center">
+				<h:outputText value="#{commande.idClient}" />
+			</p:column>
+			<p:column headerText="Date" style="text-align:center">
+				<h:outputText value="#{commande.dateCommande}" />
+			</p:column>
+
+			<p:rowExpansion>
+				<p:dataTable var="lc" value="#{panierBean.FindByIdcommande(commande.idCommande)}">
+				<f:facet name="header">
+            Détails de la Commande N° #{commande.idCommande}
+        </f:facet>
+        	
+					<p:column  headerText="ID - Nom Produit" style="text-align:center">
+					<ui:repeat var="produit" value="#{produitBean.findAllProduit()}">
+						<h:outputText rendered="#{produit.idProduit==lc.produitId}" value="#{lc.produitId} - #{produit.nomProduit}" />
+						</ui:repeat>
+					</p:column>
+		
+					<p:column headerText="Quantité" style="text-align:center">
+						<h:outputText value="#{lc.quantite} pcs" />
+					</p:column>
+
+					<p:column headerText="Prix Unitaire" style="text-align:center">
+						<h:outputText value="#{lc.prix}€" />
+					</p:column>
+
+				</p:dataTable>
+			</p:rowExpansion>
+		</p:dataTable>
+	</h:form>
+
+
+
+</h:body>
+</html>

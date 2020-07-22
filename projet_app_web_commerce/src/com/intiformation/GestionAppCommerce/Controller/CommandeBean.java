@@ -1,5 +1,7 @@
 package com.intiformation.GestionAppCommerce.Controller;
 
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -15,11 +17,17 @@ import com.intiformation.GestionAppCommerce.Service.ICommandeService;
 public class CommandeBean {
 
 	private Commande commande;
+	private List<Commande> listecommande;
 
 	private ICommandeService commandeService;
 
 	public CommandeBean() {
 		commandeService = new CommandeServiceImp();
+	}
+	
+	public List<Commande> findAll(){
+		listecommande = commandeService.findAllCommande();
+		return listecommande;
 	}
 
 	public String editerFacture() {
@@ -27,7 +35,6 @@ public class CommandeBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-System.out.println((int) session.getAttribute("idCommande"));
 		setCommande(commandeService.findCommandeById((int) session.getAttribute("idCommande")));
 
 		return "toFacture";

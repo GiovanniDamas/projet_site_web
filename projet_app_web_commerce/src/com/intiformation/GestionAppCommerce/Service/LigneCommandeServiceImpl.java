@@ -31,5 +31,10 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService {
 		return ligneCommandeDAO.add(ligne);
 	}
 
+	@Override
+	public List<LigneCommande> getByIdCommande(int idCommande) {
+		return ligneCommandeDAO.getByIdCommande(idCommande);
+	}
+
 	
 }//END CLASS
