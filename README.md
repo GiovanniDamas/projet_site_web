@@ -8,5 +8,5 @@ C'est une petite application simple qui a été codée sur eclipse avec les lang
 
 
 ### __Auteurs__  
-ThomasMathieu - [ThomasMathieu](https://github.com/ThomasMathieu)   
-GiovanniDamas - [GiovanniDamas](https://github.com/GiovanniDamas)
+Thomas Mathieu - [ThomasMathieu](https://github.com/ThomasMathieu)   
+Giovanni Damas - [GiovanniDamas](https://github.com/GiovanniDamas)
